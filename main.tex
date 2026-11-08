@@ -37,7 +37,7 @@ Ingeniería de Requisitos (ISR-401) --- PC1 / GA-PRAC-01}
 \maketitle
 
 \begin{abstract}
-Se examina la elección del proceso de Ingeniería de Requisitos para un sistema municipal de gestión de trámites y solicitudes ciudadanas, contratado mediante un procedimiento público. Este primer avance presenta el escenario, una matriz contextualizada entre cascada, iterativo-incremental y ágil, y los riesgos del modelo iterativo-incremental seleccionado por el grupo. La caracterización detallada, el mapeo de actores y la recomendación final quedan pendientes para los siguientes avances.
+Se examina la elección del proceso de Ingeniería de Requisitos para un sistema municipal de gestión de trámites y solicitudes ciudadanas, contratado mediante un procedimiento público. Este avance presenta el escenario, la caracterización de los tres modelos de proceso, una matriz comparativa contextualizada, el mapeo de actores y actividades de Ingeniería de Requisitos y los riesgos del modelo iterativo-incremental seleccionado por el grupo. La recomendación final, las conclusiones y la revisión cruzada se completarán en la última etapa.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -46,7 +46,6 @@ Ingeniería de Requisitos, GAD municipal, contratación pública, proceso iterat
 
 \section{Escenario y rasgos clave}
 \noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
-
 
 El caso plantea la contratación pública de una empresa de software para construir un sistema de gestión de trámites y solicitudes ciudadanas de un Gobierno Autónomo Descentralizado (GAD) municipal del Ecuador. El GAD actúa como cliente y reúne a varias direcciones usuarias: Catastros, Obras Públicas, Atención Ciudadana y Financiero. El proveedor adjudicatario debe desarrollar una solución ajustada al objeto contractual, el plazo y el presupuesto referenciales definidos en los pliegos. No se han proporcionado pliegos reales, montos ni calendarios específicos.
 
@@ -64,12 +63,41 @@ Las necesidades funcionales se conocen solo parcialmente al inicio. Además, el 
 \textbf{Supuestos de análisis.} Se considera que el contrato admite hitos verificables y que el GAD puede designar responsables para revisar cada incremento; esto no significa que puedan modificarse unilateralmente los pliegos. No se asume acceso a funcionarios reales, entrevistas, actas ni inventarios técnicos. El grupo ha seleccionado el \textbf{modelo iterativo-incremental} como hipótesis de solución y lo contrasta con las otras dos alternativas en la Sección III.
 
 \section{Caracterización de los tres modelos}
-% PENDIENTE: sección aún no desarrollada en este avance.
+\noindent\textit{Redactado por: Rochina Rochina Freddy David.}\par\smallskip
 
+
+Los modelos en cascada, iterativo-incremental y ágil permiten organizar la Ingeniería de Requisitos (IR), pero no requieren el mismo grado de estabilidad inicial ni la misma relación con el cliente. Para el GAD municipal, el factor decisivo es combinar requisitos parcialmente conocidos, varias direcciones usuarias y un contrato público con entregables definidos \cite{pohl2025,washizaki2024,buhne2026}.
+
+\begin{table}[H]
+\caption{Fases, supuestos y condiciones de los tres modelos en el GAD}
+\label{tab:modelos}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.24}
+\begin{tabularx}{\linewidth}{@{}YYY@{}}
+\toprule
+\textbf{Cascada (lineal)} & \textbf{Iterativo-incremental} & \textbf{Ágil}\\
+\midrule
+\textbf{Fases.} Elicitación y análisis de los trámites del GAD; especificación y aprobación de un ERS inicial; diseño e implementación; pruebas; aceptación contractual. La secuencia tiene revisiones, pero presupone una línea base temprana. &
+\textbf{Fases.} Definición de visión y alcance contractual; priorización de trámites; ciclos de elicitación, especificación, negociación, validación y construcción por módulos; aceptación de incrementos; consolidación del ERS versionado. &
+\textbf{Fases.} Definición de visión y backlog de trámites; planificación de iteraciones breves; refinamiento colaborativo de historias; implementación y pruebas; revisión frecuente con representantes del GAD; actualización del backlog.\\
+\midrule
+\textbf{Supuestos.} Catastros, Obras Públicas, Atención Ciudadana y Financiero pueden detallar desde el comienzo sus trámites y reglas. El cliente puede aprobar un ERS relativamente estable antes de construir. &
+\textbf{Supuestos.} Las direcciones del GAD pueden revisar resultados en hitos acordados, aunque no estén disponibles a diario. El contrato permite organizar entregables parciales sin cambiar unilateralmente el alcance ni el presupuesto. &
+\textbf{Supuestos.} Representantes del GAD pueden colaborar de manera continua y decidir prioridades con rapidez. Existe margen contractual para refinar el backlog sin omitir aprobación formal de cambios que afecten lo adjudicado.\\
+\midrule
+\textbf{Aplicación al caso.} Conveniente para componentes con reglas ya establecidas en pliegos, como reportes contractuales y controles de protección de datos; menos adecuado para trámites con requisitos todavía incompletos. &
+\textbf{Aplicación al caso.} Adecuado para incorporar progresivamente atención y seguimiento de solicitudes, validar diferencias entre direcciones y probar interfaces con sistemas municipales existentes antes de entregar más módulos. &
+\textbf{Aplicación al caso.} Útil para mejorar frecuentemente las pantallas del portal ciudadano, pero exige disponibilidad continua que el GAD no ha garantizado y control adicional sobre la documentación del contrato.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent\textbf{Diferencia principal.} Un proceso \emph{iterativo} repite el análisis y la validación para disminuir incertidumbre; es \emph{incremental} cuando esos ciclos producen partes utilizables del sistema. Un proceso \emph{ágil} también puede ser iterativo e incremental, pero añade prioridad a entregas cortas, colaboración continua y adaptación frecuente del trabajo. En este GAD, la adopción del proceso iterativo-incremental no implica adoptar necesariamente Scrum ni cambiar sin autorización el contrato público.
 
 \section{Matriz comparativa contextualizada}
 \noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
-
 
 La matriz evalúa la \textbf{adecuación al GAD} de cada modelo; «alta», «media» y «baja» no indican superioridad universal. Los juicios son estimaciones razonadas para el caso, no resultados de mediciones en un municipio. Los modelos se comparan siguiendo el tratamiento de la adaptación del proceso a su contexto descrito por Pohl, SWEBOK e IREB \cite{pohl2025,washizaki2024,buhne2026}.
 
@@ -129,9 +157,88 @@ La matriz evalúa la \textbf{adecuación al GAD} de cada modelo; «alta», «med
 \noindent\textbf{Lectura de la matriz.} El iterativo-incremental obtiene la mejor adecuación en cuatro criterios; cascada destaca en documentación contractual. Esto no elimina la necesidad de una línea base, trazabilidad y aprobaciones formales durante las iteraciones. El descarte razonado de los modelos alternativos se desarrollará en la Sección V.
 
 \section{Actores del proceso y framework de IR}
-% PENDIENTE: sección aún no desarrollada en este avance.
+\noindent\textit{Redactado por: Rochina Rochina Freddy David.}\par\smallskip
 
 
+La gestión de trámites involucra al cliente municipal, a la empresa adjudicataria y a los ciudadanos que utilizarán el portal. Los roles siguientes se proponen para el caso: no equivalen a funcionarios identificados ni a nombramientos ya realizados. Se distinguen aportes para elicitación, especificación, validación y aprobación, porque una dirección usuaria puede validar una regla operativa sin tener competencia para modificar el contrato \cite{pohl2025,buhne2026}.
+
+\begin{longtable}{@{}p{0.26\linewidth}p{0.33\linewidth}p{0.35\linewidth}@{}}
+\caption{Actores del proceso de IR del GAD y responsabilidades previstas}\label{tab:actores}\\
+\toprule
+\textbf{Actor} & \textbf{Solicitud y elicitación} & \textbf{Especificación, validación o aprobación}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\textit{Tabla \thetable{} (continuación)}}\\
+\toprule
+\textbf{Actor} & \textbf{Solicitud y elicitación} & \textbf{Especificación, validación o aprobación}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{Dirección de Catastros (GAD)} & Solicita consulta y seguimiento de expedientes catastrales; aclara sus pasos y documentos de entrada. & Valida escenarios y reglas de los trámites de Catastros al cierre del incremento correspondiente; no aprueba por sí sola cambios contractuales.\\
+\midrule
+\textbf{Dirección de Obras Públicas (GAD)} & Describe solicitudes de obras, derivaciones internas y estados de atención. & Revisa flujos, responsables y criterios de aceptación del módulo de Obras Públicas.\\
+\midrule
+\textbf{Atención Ciudadana (GAD)} & Expone incidencias y dudas habituales de los ciudadanos; propone requisitos de consulta y orientación. & Valida mensajes, pasos de solicitud y prototipos de interfaz para perfiles de distinta alfabetización digital.\\
+\midrule
+\textbf{Dirección Financiera (GAD)} & Identifica información financiera pertinente a trámites y restricciones de intercambio con sistemas existentes. & Valida datos de integración y reglas del área; informa impactos de cambios sobre procedimientos municipales.\\
+\midrule
+\textbf{Administrador del contrato (GAD)} & Consolida solicitudes de las direcciones y comunica límites de los pliegos al proveedor. & Coordina revisiones y recepción de entregables; tramita cambios ante las instancias competentes, según atribuciones contractuales efectivas.\\
+\midrule
+\textbf{Área de TI del GAD} & Facilita inventario de sistemas existentes, interfaces, accesos y restricciones tecnológicas. & Revisa requisitos de integración, seguridad y factibilidad; apoya pruebas de interoperabilidad de cada incremento.\\
+\midrule
+\textbf{Delegado o responsable de protección de datos del GAD, si corresponde} & Identifica categorías de datos personales y operaciones de tratamiento previstas. & Examina minimización, accesos por rol y medidas de protección antes de aceptar funcionalidades con datos ciudadanos.\\
+\midrule
+\textbf{Ciudadanos usuarios} & Aportan necesidades de acceso y ejemplos de dificultades para presentar o consultar solicitudes. & Participan, si se autoriza su convocatoria, en pruebas de usabilidad y validación de escenarios del portal.\\
+\midrule
+\textbf{Analista de requisitos del proveedor} & Planifica sesiones y elicita reglas de las cuatro direcciones; identifica conflictos entre necesidades. & Redacta y versiona el ERS, mantiene trazabilidad, organiza revisiones y registra decisiones acordadas.\\
+\midrule
+\textbf{Arquitecto, desarrolladores y personal de pruebas del proveedor} & Aclaran dependencias técnicas, interfaces y criterios verificables con el analista. & Revisan factibilidad, construyen incrementos, ejecutan pruebas y aportan evidencia técnica para la aceptación.\\
+\midrule
+\textbf{Gerente de proyecto del proveedor} & Coordina hitos, recursos y comunicación con el administrador del contrato. & Controla el impacto de cambios en el plan y presenta entregables para revisión contractual.\\
+\end{longtable}
+
+\subsection{Framework de Ingeniería de Requisitos}
+
+El framework presentado en la Semana 2 distingue \textbf{tres actividades centrales} (elicitación, documentación y negociación) y \textbf{dos transversales} (validación y gestión). No constituye una secuencia rígida: validación y gestión acompañan las actividades centrales durante cada ciclo. Los artefactos se agrupan en \textbf{metas}, \textbf{escenarios} y \textbf{requisitos orientados a solución}; estos últimos pueden describir datos, funciones y comportamiento \cite{pohl2025,buhne2026}.
+
+Para aplicar el modelo elegido se proponen cuatro momentos: \textbf{I0}, preparación contractual y línea base inicial; \textbf{I1}, primer incremento piloto de ingreso y consulta de solicitudes; \textbf{I2}, incrementos por trámites de las direcciones y sus integraciones; \textbf{I3}, consolidación y aceptación de los entregables. Esta secuencia es ilustrativa; no constituye un cronograma adjudicado.
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{@{}p{0.195\linewidth}p{0.35\linewidth}p{0.39\linewidth}@{}}
+\caption{Actividades del framework, momentos y artefactos del GAD}\label{tab:framework}\\
+\toprule
+\textbf{Actividad} & \textbf{Aplicación al GAD y momento} & \textbf{Artefacto de IR y evidencia prevista}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\textit{Tabla \thetable{} (continuación)}}\\
+\toprule
+\textbf{Actividad} & \textbf{Aplicación al GAD y momento} & \textbf{Artefacto de IR y evidencia prevista}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{Central: elicitación} & \textbf{I0--I2.} Consultar pliegos, procesos de Catastros, Obras Públicas, Atención Ciudadana y Financiero; descubrir reglas omitidas al probar cada módulo. & Catálogo de necesidades y fuentes, mapa de interesados, \emph{metas} de seguimiento ciudadano y registro de interfaces municipales.\\
+\midrule
+\textbf{Central: documentación y especificación} & \textbf{I0--I3.} Redactar requisitos funcionales y de calidad por incremento; describir formatos de solicitud y estados del trámite. & ERS versionado, \emph{escenarios} de presentación/consulta, modelos de datos, funciones y comportamiento, más criterios de aceptación.\\
+\midrule
+\textbf{Central: negociación} & \textbf{I0--I2.} Resolver diferencias entre Catastros, Financiero y Atención Ciudadana sobre datos obligatorios, prioridades y flujo de aprobación. & Registro de conflictos y decisiones; priorización de módulos; acuerdos trazables a la línea base del contrato del GAD.\\
+\midrule
+\textbf{Transversal: validación} & \textbf{I0--I3.} Revisar cada conjunto de requisitos con las direcciones responsables y evaluar prototipos con perfiles ciudadanos diversos antes de aceptar incrementos. & Actas o registros \emph{previstos} de revisión, observaciones resueltas, escenarios contrastados y evidencias de pruebas de aceptación.\\
+\midrule
+\textbf{Transversal: gestión} & \textbf{I0--I3.} Mantener versiones y trazabilidad de requisitos; estudiar solicitudes nuevas cuando cambien autoridades o se descubran restricciones de integración. & Línea base, matriz de trazabilidad, registro de solicitudes de cambio e impacto en plazo, alcance y presupuesto; aprobaciones de autoridad competente.\\
+\end{longtable}
+}
+
+\subsection{Relación entre actividades y artefactos}
+
+Las \emph{metas} expresan qué busca el GAD (por ejemplo, que un ciudadano pueda conocer el estado de su solicitud); los \emph{escenarios} concretan cómo se presenta, deriva y consulta el trámite; y los \emph{requisitos orientados a solución} describen información, funciones y respuestas que deberá proporcionar el sistema. En I1, el proveedor puede validar un escenario sencillo de seguimiento; en I2, ampliar modelos de datos e interfaces de Catastros y Financiero. La especificación se conserva en el ERS y se controla mediante versiones y trazabilidad, incluso cuando los módulos se entregan por separado.
+
+\noindent\textbf{Punto de coherencia con la matriz.} La necesidad de registrar acuerdos y cambios explica la valoración \emph{media} del iterativo-incremental en documentación en la Sección III: no es documentación ausente, sino un esfuerzo de mantenimiento mayor que en una línea base única. Ninguna validación del área usuaria sustituye los procedimientos contractuales de aprobación aplicables al GAD.
 
 \section{Recomendación del modelo}
 % PENDIENTE: sección aún no desarrollada en este avance.
@@ -140,7 +247,6 @@ La matriz evalúa la \textbf{adecuación al GAD} de cada modelo; «alta», «med
 
 \section{Riesgos del modelo elegido}
 \noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
-
 
 El enfoque iterativo-incremental permite aclarar necesidades por ciclos, pero no suprime las restricciones de un contrato público ni la obligación de controlar el conjunto de requisitos. La Tabla \ref{tab:riesgos} presenta riesgos concretos y medidas propuestas para el escenario municipal \cite{pohl2025,buhne2026}.
 
@@ -177,6 +283,7 @@ El enfoque iterativo-incremental permite aclarar necesidades por ciclos, pero no
 
 \section{Conclusión, distribución del trabajo y declaración de uso de IA}
 % PENDIENTE: Final
+
 
 
 \printbibliography[title={Referencias}]
