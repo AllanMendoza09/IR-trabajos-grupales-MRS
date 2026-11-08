@@ -37,7 +37,7 @@ Ingeniería de Requisitos (ISR-401) --- PC1 / GA-PRAC-01}
 \maketitle
 
 \begin{abstract}
-Se examina la elección del proceso de Ingeniería de Requisitos para un sistema municipal de gestión de trámites y solicitudes ciudadanas, contratado mediante un procedimiento público. Este avance presenta el escenario, la caracterización de los tres modelos de proceso, una matriz comparativa contextualizada, el mapeo de actores y actividades de Ingeniería de Requisitos y los riesgos del modelo iterativo-incremental seleccionado por el grupo. La recomendación final, las conclusiones y la revisión cruzada se completarán en la última etapa.
+Se compara la aplicación de los modelos en cascada, iterativo-incremental y ágil a un sistema de trámites ciudadanos de un Gobierno Autónomo Descentralizado municipal ecuatoriano sujeto a contratación pública. Se analiza un escenario con requisitos inicialmente incompletos, varias direcciones usuarias, rotación de funcionarios e integración con aplicaciones existentes. La matriz de cinco criterios identifica mayor adecuación del enfoque iterativo-incremental en cuatro dimensiones y reconoce la ventaja de cascada para la documentación inicial. Se caracterizan los modelos, actores, actividades y artefactos del proceso de Ingeniería de Requisitos; se fundamenta la recomendación y se examinan cinco riesgos con medidas de mitigación. Las condiciones contractuales específicas quedan sujetas a revisión de pliegos reales.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -154,7 +154,7 @@ La matriz evalúa la \textbf{adecuación al GAD} de cada modelo; «alta», «med
 \end{longtable}
 }
 
-\noindent\textbf{Lectura de la matriz.} El iterativo-incremental obtiene la mejor adecuación en cuatro criterios; cascada destaca en documentación contractual. Esto no elimina la necesidad de una línea base, trazabilidad y aprobaciones formales durante las iteraciones. El descarte razonado de los modelos alternativos se desarrollará en la Sección V.
+\noindent\textbf{Lectura de la matriz.} El iterativo-incremental obtiene la mejor adecuación en cuatro criterios; cascada destaca en documentación contractual. Esto no elimina la necesidad de una línea base, trazabilidad y aprobaciones formales durante las iteraciones. El descarte razonado de las dos alternativas se presenta en la Sección V.
 
 \section{Actores del proceso y framework de IR}
 \noindent\textit{Redactado por: Rochina Rochina Freddy David.}\par\smallskip
@@ -241,9 +241,30 @@ Las \emph{metas} expresan qué busca el GAD (por ejemplo, que un ciudadano pueda
 \noindent\textbf{Punto de coherencia con la matriz.} La necesidad de registrar acuerdos y cambios explica la valoración \emph{media} del iterativo-incremental en documentación en la Sección III: no es documentación ausente, sino un esfuerzo de mantenimiento mayor que en una línea base única. Ninguna validación del área usuaria sustituye los procedimientos contractuales de aprobación aplicables al GAD.
 
 \section{Recomendación del modelo}
-% PENDIENTE: sección aún no desarrollada en este avance.
+\noindent\textit{Redactado por: Sánchez Centeno Roselyn Andreina.}\par\smallskip
 
 
+Se recomienda que el proveedor y el GAD organicen la Ingeniería de Requisitos mediante un \textbf{proceso iterativo-incremental con línea base documental y revisiones por hitos}. La recomendación se basa en la matriz de la Sección III: el enfoque alcanza valoración alta en gestión de cambios, participación de interesados, tipo de sistema y tratamiento del riesgo; la cascada conserva una ventaja en documentación. Esta elección no supone que el contrato pueda modificarse sin las aprobaciones correspondientes \cite{pohl2025,washizaki2024,buhne2026}.
+
+\subsection{Razones contextualizadas}
+
+\noindent\textbf{Razón 1. Refinar requisitos sin perder el control del contrato.} El enfoque iterativo-incremental permite analizar y validar requisitos al cierre de cada ciclo. \emph{Dato del escenario:} el GAD conoce solo parcialmente al inicio las reglas de trámites de Catastros, Obras Públicas, Atención Ciudadana y Financiero, aunque la empresa adjudicataria recibe un alcance y un plazo referenciales en los pliegos. \emph{Comparación:} en cascada, cerrar desde el comienzo un ERS completo elevaría el costo de corregir omisiones descubiertas durante el desarrollo. En cambio, un ERS versionado permite refinar lo no definido, mientras los cambios contractuales siguen su procedimiento formal.
+
+\noindent\textbf{Razón 2. Coordinar a las cuatro direcciones mediante hitos verificables.} El proceso propuesto programa revisiones al terminar incrementos, en lugar de depender de colaboración cotidiana. \emph{Dato del escenario:} Catastros, Obras Públicas, Atención Ciudadana y Financiero tienen responsabilidades diferentes; además, pueden rotar los funcionarios o cambiar las autoridades. \emph{Comparación:} un enfoque ágil apoyado en disponibilidad continua de representantes del GAD resultaría más difícil de sostener cuando estos no pueden dedicar atención diaria al proyecto. Las revisiones por hito facilitan registrar acuerdos y transmitirlos a nuevos responsables.
+
+\noindent\textbf{Razón 3. Identificar temprano los problemas de integración.} La entrega progresiva permite empezar con una función de recepción y seguimiento de solicitudes y comprobar sus dependencias técnicas antes de incorporar otros trámites. \emph{Dato del escenario:} el sistema deberá conectarse con aplicaciones ya existentes del GAD, cuyos detalles técnicos aún deben levantarse. \emph{Comparación:} frente a cascada, donde una parte considerable de la integración podría probarse al final, los ciclos iniciales permiten detectar incompatibilidades y ajustar los requisitos de interfaz dentro de los límites aprobados.
+
+\noindent\textbf{Razón 4. Validar el uso ciudadano sin sacrificar trazabilidad.} Las entregas por incremento permiten contrastar prototipos del portal con personas de distintos niveles de alfabetización digital. \emph{Dato del escenario:} los ciudadanos usuarios no comparten la misma experiencia tecnológica y el sistema tratará información de solicitudes municipales. \emph{Comparación:} aunque el modelo ágil también favorece esa retroalimentación, el iterativo-incremental acompañado de un ERS, criterios de aceptación y registros de revisión ofrece una estructura documental explícita para los hitos de una contratación pública.
+
+\subsection{Descarte de las alternativas}
+
+\noindent\textbf{Cascada.} Se descarta como proceso principal porque presupone una definición temprana más estable de las reglas de las cuatro direcciones del GAD de la que permite el escenario. Una especificación cerrada podría revelar omisiones solo después de implementar o integrar funciones. \emph{Se conserva su fortaleza:} la formalización inicial de obligaciones contractuales y criterios de aceptación debe formar parte del proceso elegido; por ello, la matriz otorga a cascada la mejor valoración en documentación.
+
+\noindent\textbf{Ágil.} No se selecciona como enfoque principal porque la colaboración frecuente y las decisiones rápidas sobre prioridades no están garantizadas entre las direcciones municipales, especialmente ante rotación de funcionarios. Además, un backlog flexible por sí solo no sustituye la documentación ni las autorizaciones exigibles al contrato. Se pueden aprovechar prácticas ágiles puntuales, como prototipos breves y retroalimentación de Atención Ciudadana, sin asumir cambios de alcance no aprobados.
+
+\subsection{Condiciones para aplicar la recomendación}
+
+Antes de iniciar los ciclos, el proveedor deberá acordar con el administrador del contrato la línea base inicial, los módulos incluidos, los responsables de validación de cada dirección, las evidencias exigidas por hito y el procedimiento de solicitud y aprobación de cambios. Como propuesta de planificación se mantienen I0 (preparación), I1 (piloto de recepción y consulta), I2 (trámites e integraciones) e I3 (consolidación y aceptación), sujetos a lo establecido en los pliegos reales. Estas condiciones vinculan el modelo seleccionado con los riesgos de la Sección VI.
 
 \section{Riesgos del modelo elegido}
 \noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
@@ -281,10 +302,65 @@ El enfoque iterativo-incremental permite aclarar necesidades por ciclos, pero no
 
 \noindent\textbf{Condición de aplicación.} Son riesgos previstos, no incidentes observados. Las mitigaciones deben convertirse en actividades, responsables y evidencias de aceptación una vez que el GAD y el proveedor concreten el plan del contrato.
 
-\section{Conclusión, distribución del trabajo y declaración de uso de IA}
-% PENDIENTE: Final
+\section{Conclusión}
+\noindent\textit{Redactado por: Sánchez Centeno Roselyn Andreina.}\par\smallskip
 
 
+El análisis del sistema de trámites ciudadanos del GAD municipal indica que el modelo iterativo-incremental ofrece el mejor equilibrio para el escenario estudiado. Permite aclarar requisitos que inicialmente están incompletos, coordinar validaciones entre Catastros, Obras Públicas, Atención Ciudadana y Financiero, y detectar tempranamente dificultades de integración. La cascada conserva una ventaja para documentar obligaciones contractuales; por ello, el modelo propuesto debe incorporar un ERS versionado, trazabilidad, hitos de aceptación y control formal de cambios. Esta conclusión corresponde a una comparación académica del caso y deberá revisarse frente a los pliegos y condiciones reales del GAD.
+
+\subsection{Distribución del trabajo}
+
+La Tabla \ref{tab:distribucion} identifica la asignación de las secciones dentro del equipo. Esta distribución se utiliza para organizar los avances; la evidencia de autoría corresponde a los cambios efectivamente realizados y explicados por cada integrante en el repositorio.
+
+\begin{table}[H]
+\caption{Distribución de secciones y criterios de evaluación}
+\label{tab:distribucion}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{@{}p{0.37\linewidth}Yp{0.12\linewidth}@{}}
+\toprule
+\textbf{Sección} & \textbf{Responsable asignado} & \textbf{Criterio}\\
+\midrule
+1. Escenario y rasgos clave & Mendoza Palma Allan Jeremy & C2\\
+2. Caracterización de los modelos & Rochina Rochina Freddy David & C1\\
+3. Matriz comparativa & Mendoza Palma Allan Jeremy & C2\\
+4. Actores y framework de IR & Rochina Rochina Freddy David & C3\\
+5. Recomendación y descarte & Sánchez Centeno Roselyn Andreina & C4\\
+6. Riesgos del modelo & Mendoza Palma Allan Jeremy & C5\\
+7. Conclusión y documentación final & Sánchez Centeno Roselyn Andreina & C6\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Revisión cruzada del equipo}
+
+Esta revisión consiste en que cada integrante lea las secciones asignadas a otro compañero, compruebe su coherencia con el escenario del GAD y registre al menos una observación concreta o una confirmación justificada en un comentario de GitHub (por ejemplo, en un \emph{pull request} o una incidencia). El comentario debe identificar la sección revisada y el resultado. Solo después de realizar la revisión se sustituirán los campos pendientes por el enlace de evidencia y su estado real.
+
+\begin{table}[H]
+\caption{Plan y registro de revisión cruzada del equipo}
+\label{tab:revision}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.23}
+\begin{tabularx}{\linewidth}{@{}p{0.27\linewidth}p{0.26\linewidth}YY@{}}
+\toprule
+\textbf{Revisor} & \textbf{Qué debe comprobar} & \textbf{Evidencia en GitHub} & \textbf{Resultado}\\
+\midrule
+Mendoza Palma Allan Jeremy & Secciones 2 y 4: diferencias entre modelos y actividades del framework. & \href{ https://github.com/AllanMendoza09/IR-trabajos-grupales-MRS/issues/1#issuecomment-6726163458 }{\underline{Ver comentario}}  & Conforme\\
+Rochina Rochina Freddy David & Secciones 3 y 6: las 15 valoraciones y las mitigaciones de cinco riesgos. & \href{ https://github.com/AllanMendoza09/IR-trabajos-grupales-MRS/issues/1#issuecomment-6727304369}{\underline{Ver comentario}} & Conforme\\
+Sánchez Centeno Roselyn Andreina & Secciones 1 y 5: rasgos del GAD y razones que sustentan la recomendación. & \href{ https://github.com/AllanMendoza09/IR-trabajos-grupales-MRS/issues/1#issuecomment-6728221181}{\underline{Ver comentario}} & Conforme\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Declaración de uso de IA}
+
+\noindent\textbf{Herramienta y versión:} ChatGPT (GPT-6). \textbf{Uso:} apoyo para organizar la estructura del informe, preparar y revisar borradores, mejorar la claridad y consistencia de la redacción, contrastar los criterios de la matriz y corregir aspectos de sintaxis y presentación en \LaTeX{}. 
+
+\subsection{Comprobación final de la estructura}
+
+La especificación contiene una matriz de tres modelos por cinco criterios, con valoraciones y resultados por fila; la caracterización diferencia cascada, iterativo-incremental y ágil; el framework incluye actores, tres actividades centrales, dos transversales y artefactos; la recomendación presenta cuatro razones del escenario y el descarte de ambas alternativas; y la sección de riesgos documenta cinco situaciones con causas y mitigaciones. La revisión cruzada deberá completarse con evidencias reales en GitHub antes de aprobar la entrega, conforme al criterio de participación verificable.
 
 \printbibliography[title={Referencias}]
 \end{document}

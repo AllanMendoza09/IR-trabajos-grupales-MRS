@@ -1,41 +1,51 @@
 # PC1 · GA-PRAC-01 — Comparación entre modelos de proceso de requisitos
 
-**Asignatura:** Ingeniería de Requisitos (ISR-401), UTEQ, Unidad 1, Semana 2.
-
-**Escenario:** Sistema de gestión de trámites y solicitudes ciudadanas de un GAD municipal ecuatoriano, contratado mediante contratación pública.
-
-**Modelo elegido por el equipo:** iterativo-incremental.
+**Asignatura:** Ingeniería de Requisitos (ISR-401), UTEQ, Unidad 1, Semana 2.  
+**Caso:** Sistema de gestión de trámites y solicitudes ciudadanas de un GAD municipal del Ecuador, contratado por procedimiento público.  
+**Modelo seleccionado:** iterativo-incremental.
 
 **Integrantes:** Mendoza Palma Allan Jeremy; Rochina Rochina Freddy David; Sánchez Centeno Roselyn Andreina.
 
-## Estado del commit 2
+## Contenido del informe
 
-- **Sección 1:** escenario, rasgos clave y supuestos — Mendoza.
-- **Sección 2:** caracterización de cascada, iterativo-incremental y ágil — incorporada en este avance.
-- **Sección 3:** matriz completa de tres modelos por cinco criterios, con valoración y mejor opción en cada fila — Mendoza.
-- **Sección 4:** actores y framework (actividades, momentos y artefactos) — incorporada en este avance.
-- **Sección 5:** pendiente — Sánchez.
-- **Sección 6:** riesgos del modelo iterativo-incremental y mitigaciones — Mendoza.
-- **Sección 7:** pendiente — Sánchez.
+1. Escenario y rasgos clave.
+2. Caracterización de cascada, iterativo-incremental y ágil.
+3. Matriz comparativa de tres modelos por cinco criterios, con resultado contextualizado por fila.
+4. Actores y framework: actividades, artefactos y momentos I0--I3.
+5. Recomendación del modelo iterativo-incremental con cuatro razones y descarte de alternativas.
+6. Riesgos del modelo elegido (cinco situaciones con causas y mitigaciones).
+7. Conclusión, distribución del trabajo, revisión cruzada y declaración de uso de IA **en subsecciones separadas**.
 
-Las secciones incorporadas y sus responsables se identifican en este README; no se añaden líneas de autoría debajo de los encabezados del artículo. Las secciones 5 y 7 permanecen como marcadores técnicos para el siguiente avance. El documento puede compilarse sin esperar el commit final.
+## Distribución de secciones acordada
 
-## Archivos
+| Sección | Responsable |
+|---|---|
+| 1. Escenario y rasgos clave | Mendoza Palma Allan Jeremy |
+| 2. Caracterización de los modelos | Rochina Rochina Freddy David |
+| 3. Matriz comparativa contextualizada | Mendoza Palma Allan Jeremy |
+| 4. Actores y framework de IR | Rochina Rochina Freddy David |
+| 5. Recomendación | Sánchez Centeno Roselyn Andreina |
+| 6. Riesgos | Mendoza Palma Allan Jeremy |
+| 7. Conclusión y documentación final | Sánchez Centeno Roselyn Andreina |
 
-- `main.tex`: fuente principal, clase IEEEtran, una sola columna.
-- `referencias.bib`: las tres fuentes base utilizadas en las secciones acumuladas.
-- `README.md`: instrucciones de reproducción.
-- `main.pdf`: se obtiene compilando `main.tex`. Se generará en el commit final, según el reparto acordado.
+Las aportaciones efectivas deben corresponder a los cambios y revisiones realmente realizados en GitHub. La tabla de revisión cruzada del documento contiene campos pendientes, no evidencias ya obtenidas.
 
-## Compilación
+## Archivos finales
 
-**Compilador:** pdfLaTeX.
+- `main.tex`: fuente LaTeX IEEEtran de una columna.
+- `referencias.bib`: tres referencias académicas base citadas (Pohl, SWEBOK e IREB).
+- `README.md`: estas instrucciones de reproducción.
+- `main.pdf`: PDF compilado desde `main.tex`.
+- `Mensaje_Commit_3.txt`: título y descripción del tercer commit.
+- `Cambios_Commit_2_a_3.diff`: diferencias con el documento acumulado del commit anterior.
 
-**Gestor bibliográfico:** BibTeX (la configuración de `biblatex` es `backend=bibtex`, estilo `ieee`).
+## Compilación reproducible
 
-**Dependencias:** distribución LaTeX con `IEEEtran`, `biblatex`, `biblatex-ieee`, `babel-spanish`, `longtable`, `booktabs`, `tabularx`, `float`, `microtype` y demás paquetes indicados en `main.tex`.
+**Archivo principal:** `main.tex`.  
+**Compilador:** pdfLaTeX.  
+**Bibliografía:** `biblatex`, estilo IEEE, **backend `bibtex`** (no Biber).
 
-Ejecutar en este orden desde la carpeta donde está `main.tex`:
+Dependencias: instalación TeX Live o MiKTeX con la clase `IEEEtran` y los paquetes `biblatex`, `biblatex-ieee`, `babel-spanish`, `booktabs`, `longtable`, `tabularx`, `float`, `microtype`, `lmodern`, `csquotes`, `amsmath`, `hyperref` y demás declarados en el preámbulo.
 
 ```bash
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
@@ -44,22 +54,10 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-La configuración **usa BibTeX y no Biber**. `main.pdf` debe generarse sin editar el código y con las referencias resueltas. El uso de `longtable` mantiene la matriz y la tabla de riesgos dentro de sus secciones, sin moverlas antes del título.
+El PDF generado debe coincidir con `main.pdf` a nivel de contenido. Las tablas usan `longtable` o `[H]` para permanecer en sus secciones.
 
-## Alcance de la evidencia
+## Límites del caso
 
-No se ha contado con pliegos, entrevistas, actas, registros del GAD ni datos de campo. Los juicios de la matriz y los riesgos son propuestas basadas en el escenario de la guía. El equipo debe completar con sus revisiones reales la sección final de autoría, la revisión cruzada y la declaración de uso de IA.
+No se dispone de pliegos municipales, entrevistas, actas, inventario de sistemas ni evidencias de campo. Los juicios de la matriz y los riesgos son hipótesis académicas contextualizadas y requieren contraste con las fuentes y reglas reales antes de aplicarse a una contratación pública concreta.
 
-## Distribución de secciones por integrante
-
-| Sección | Integrante asignado | Estado en este commit |
-|---|---|---|
-| 1. Escenario y rasgos | Mendoza Palma Allan Jeremy | Incluida desde el commit 1 |
-| 2. Caracterización de modelos | Rochina Rochina Freddy David | Incorporada en el commit 2 |
-| 3. Matriz comparativa | Mendoza Palma Allan Jeremy | Incluida desde el commit 1 |
-| 4. Actores y framework de IR | Rochina Rochina Freddy David | Incorporada en el commit 2 |
-| 5. Recomendación | Sánchez Centeno Roselyn Andreina | Pendiente de integrar |
-| 6. Riesgos | Mendoza Palma Allan Jeremy | Incluida desde el commit 1 |
-| 7. Conclusión, distribución y uso de IA | Sánchez Centeno Roselyn Andreina | Pendiente de integrar |
-
-Esta asignación refleja el plan del grupo. El historial de GitHub y la revisión del equipo deberán documentar quién realizó cada cambio.
+La sección de declaración de IA señala asistencia empleada en el desarrollo del borrador. El equipo debe completar y validar su propio registro de revisiones, correcciones y verificaciones, de acuerdo con el encuadre de ISR-401.
