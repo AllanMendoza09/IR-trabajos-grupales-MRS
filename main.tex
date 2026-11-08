@@ -1,0 +1,183 @@
+\documentclass[conference,onecolumn]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{csquotes}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\addbibresource{referencias.bib}
+\AtBeginDocument{\spanishplainpercent}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\si}{\ensuremath{\checkmark}}
+\newcommand{\no}{\ensuremath{\times}}
+\newcommand{\req}[1]{\par\noindent\textbf{#1}\hspace{0.5em}}
+\renewcommand{\IEEEkeywordsname}{Palabras clave}
+
+\title{Comparación de modelos de proceso de Ingeniería de Requisitos\\
+para un sistema de trámites ciudadanos de un GAD municipal ecuatoriano}
+\author{
+\IEEEauthorblockN{Mendoza Palma Allan Jeremy, Rochina Rochina Freddy David y Sánchez Centeno Roselyn Andreina}
+\IEEEauthorblockA{Carrera de Ingeniería de Software\\
+Universidad Técnica Estatal de Quevedo, Ecuador\\
+Ingeniería de Requisitos (ISR-401) --- PC1 / GA-PRAC-01}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Se examina la elección del proceso de Ingeniería de Requisitos para un sistema municipal de gestión de trámites y solicitudes ciudadanas, contratado mediante un procedimiento público. Este primer avance presenta el escenario, una matriz contextualizada entre cascada, iterativo-incremental y ágil, y los riesgos del modelo iterativo-incremental seleccionado por el grupo. La caracterización detallada, el mapeo de actores y la recomendación final quedan pendientes para los siguientes avances.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Ingeniería de Requisitos, GAD municipal, contratación pública, proceso iterativo-incremental, gestión de cambios.
+\end{IEEEkeywords}
+
+\section{Escenario y rasgos clave}
+\noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
+
+
+El caso plantea la contratación pública de una empresa de software para construir un sistema de gestión de trámites y solicitudes ciudadanas de un Gobierno Autónomo Descentralizado (GAD) municipal del Ecuador. El GAD actúa como cliente y reúne a varias direcciones usuarias: Catastros, Obras Públicas, Atención Ciudadana y Financiero. El proveedor adjudicatario debe desarrollar una solución ajustada al objeto contractual, el plazo y el presupuesto referenciales definidos en los pliegos. No se han proporcionado pliegos reales, montos ni calendarios específicos.
+
+Las necesidades funcionales se conocen solo parcialmente al inicio. Además, el GAD presenta rotación de funcionarios, eventuales cambios de autoridades, sistemas informáticos previos con los que debe integrarse la nueva solución y ciudadanos con distintas capacidades para usar servicios digitales. Las obligaciones relacionadas con contratación pública y protección de datos constituyen restricciones del escenario; su aplicación específica requeriría examinar los pliegos y la normativa vigente al comienzo de la contratación. La selección del proceso debe considerar tanto el descubrimiento progresivo de requisitos como su control documental \cite{pohl2025,washizaki2024,buhne2026}.
+
+\subsection*{Rasgos relevantes para seleccionar el proceso}
+\begin{itemize}
+    \item \textbf{Tipo de sistema:} sistema de información institucional y atención digital al ciudadano; gestiona solicitudes de varias direcciones y se integra con plataformas existentes del GAD.
+    \item \textbf{Estabilidad de requisitos:} parcial; pueden descubrirse reglas de Catastros, Obras Públicas o Financiero durante el análisis de los trámites.
+    \item \textbf{Disponibilidad del cliente:} distribuida entre varias direcciones; como supuesto de planificación, no se garantiza dedicación diaria de todos los responsables.
+    \item \textbf{Regulación y contrato:} contratación pública, tratamiento de datos personales y entregables asociados a plazo, presupuesto y alcance acordados.
+    \item \textbf{Riesgos iniciales:} cambios de funcionarios, demoras de validación, interoperabilidad con sistemas existentes, protección de datos y dificultades de uso por parte de ciertos ciudadanos.
+\end{itemize}
+
+\textbf{Supuestos de análisis.} Se considera que el contrato admite hitos verificables y que el GAD puede designar responsables para revisar cada incremento; esto no significa que puedan modificarse unilateralmente los pliegos. No se asume acceso a funcionarios reales, entrevistas, actas ni inventarios técnicos. El grupo ha seleccionado el \textbf{modelo iterativo-incremental} como hipótesis de solución y lo contrasta con las otras dos alternativas en la Sección III.
+
+\section{Caracterización de los tres modelos}
+% PENDIENTE: sección aún no desarrollada en este avance.
+
+
+\section{Matriz comparativa contextualizada}
+\noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
+
+
+La matriz evalúa la \textbf{adecuación al GAD} de cada modelo; «alta», «media» y «baja» no indican superioridad universal. Los juicios son estimaciones razonadas para el caso, no resultados de mediciones en un municipio. Los modelos se comparan siguiendo el tratamiento de la adaptación del proceso a su contexto descrito por Pohl, SWEBOK e IREB \cite{pohl2025,washizaki2024,buhne2026}.
+
+{\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.22}
+\begin{longtable}{@{}p{0.14\linewidth}p{0.265\linewidth}p{0.265\linewidth}p{0.265\linewidth}@{}}
+\caption{Matriz contextualizada: tres modelos y cinco criterios}\label{tab:matriz}\tabularnewline
+\toprule
+\textbf{Criterio} & \textbf{Cascada} & \textbf{Iterativo-incremental} & \textbf{Ágil}\\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\textit{Tabla \thetable{} (continuación)}}\\
+\toprule
+\textbf{Criterio} & \textbf{Cascada} & \textbf{Iterativo-incremental} & \textbf{Ágil}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{Gestión de cambios} &
+\textbf{Baja.} Los requisitos aún parciales de Catastros y Obras Públicas podrían descubrirse después de cerrar la especificación inicial del GAD; corregirla exigiría reelaborar acuerdos y documentos. &
+\textbf{Alta.} El GAD puede revisar las reglas de sus direcciones al cierre de cada ciclo; los cambios se documentan y se evalúan frente al alcance y plazo de los pliegos. &
+\textbf{Media.} El backlog permite reordenar necesidades de Atención Ciudadana, pero un cambio que afecte presupuesto o plazo del contrato público no puede aprobarse solo en una reunión ágil.\\
+\multicolumn{4}{@{}p{\linewidth}@{}}{\textbf{Resultado: iterativo-incremental.} Permite refinar necesidades del GAD entre ciclos sin prescindir del control contractual.}\\
+\midrule
+
+\textbf{Participación de stakeholders} &
+\textbf{Baja.} Una validación concentrada al inicio y al final perdería continuidad si rotan los responsables de Catastros, Financiero o Atención Ciudadana. &
+\textbf{Alta.} La revisión programada al terminar cada incremento permite convocar a las cuatro direcciones del GAD y dejar constancia de acuerdos pese a posibles relevos de funcionarios. &
+\textbf{Media.} La colaboración frecuente puede beneficiar a Atención Ciudadana, pero la participación continua de Catastros, Obras Públicas y Financiero no está garantizada en el GAD.\\
+\multicolumn{4}{@{}p{\linewidth}@{}}{\textbf{Resultado: iterativo-incremental.} Las validaciones por hitos se adaptan mejor a la disponibilidad distribuida de las direcciones municipales.}\\
+\midrule
+
+\textbf{Tipo de sistema} &
+\textbf{Media.} Permite describir formalmente los trámites del GAD, pero integrar sistemas municipales existentes y descubrir diferencias entre direcciones puede obligar a revisar el diseño inicial. &
+\textbf{Alta.} El GAD puede incorporar progresivamente consulta, ingreso y seguimiento de solicitudes, probando cada integración con los sistemas municipales heredados antes de ampliar el alcance. &
+\textbf{Media.} Entregas breves pueden mejorar el portal ciudadano, aunque la interoperabilidad entre áreas del GAD requiere coordinación técnica y aceptación documental por contrato.\\
+\multicolumn{4}{@{}p{\linewidth}@{}}{\textbf{Resultado: iterativo-incremental.} Facilita abordar por módulos los trámites del GAD y validar tempranamente sus interfaces.}\\
+\midrule
+
+\textbf{Tratamiento del riesgo} &
+\textbf{Baja.} Los problemas de interoperabilidad con las aplicaciones existentes del GAD pueden detectarse tarde, cuando el proveedor haya invertido gran parte del plazo contratado. &
+\textbf{Alta.} El proveedor puede probar en los primeros ciclos la integración del GAD y revisar prototipos con ciudadanos de distinta alfabetización digital antes de incorporar más trámites. &
+\textbf{Media.} Las pruebas continuas ayudarían con la usabilidad ciudadana, pero la rotación de autoridades del GAD y el régimen contractual complican la repriorización sin autorizaciones formales.\\
+\multicolumn{4}{@{}p{\linewidth}@{}}{\textbf{Resultado: iterativo-incremental.} Permite anticipar riesgos técnicos y de uso del GAD mediante incrementos verificables.}\\
+\midrule
+
+\textbf{Documentación} &
+\textbf{Alta.} Una especificación base completa, actas y criterios de aceptación facilitan demostrar frente al GAD lo contratado conforme a los pliegos de la compra pública. &
+\textbf{Media.} Un ERS versionado y actas por incremento permiten al GAD seguir cambios, pero exigen disciplina para conservar coherencia entre las cuatro direcciones y el contrato. &
+\textbf{Baja.} Historias de usuario y backlog sin documentación adicional serían insuficientes para justificar ante el GAD el alcance contratado, su trazabilidad y las aprobaciones de cambios.\\
+\multicolumn{4}{@{}p{\linewidth}@{}}{\textbf{Resultado: cascada.} Su documentación inicial resulta más directa para evidenciar obligaciones del contrato público del GAD.}\\
+\end{longtable}
+}
+
+\noindent\textbf{Lectura de la matriz.} El iterativo-incremental obtiene la mejor adecuación en cuatro criterios; cascada destaca en documentación contractual. Esto no elimina la necesidad de una línea base, trazabilidad y aprobaciones formales durante las iteraciones. El descarte razonado de los modelos alternativos se desarrollará en la Sección V.
+
+\section{Actores del proceso y framework de IR}
+% PENDIENTE: sección aún no desarrollada en este avance.
+
+
+
+\section{Recomendación del modelo}
+% PENDIENTE: sección aún no desarrollada en este avance.
+
+
+
+\section{Riesgos del modelo elegido}
+\noindent\textit{Redactado por: Mendoza Palma Allan Jeremy.}\par\smallskip
+
+
+El enfoque iterativo-incremental permite aclarar necesidades por ciclos, pero no suprime las restricciones de un contrato público ni la obligación de controlar el conjunto de requisitos. La Tabla \ref{tab:riesgos} presenta riesgos concretos y medidas propuestas para el escenario municipal \cite{pohl2025,buhne2026}.
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.22}
+\begin{longtable}{@{}p{0.22\linewidth}p{0.33\linewidth}p{0.39\linewidth}@{}}
+\caption{Riesgos del modelo iterativo-incremental para el GAD}\label{tab:riesgos}\tabularnewline
+\toprule
+\textbf{Riesgo} & \textbf{Por qué puede ocurrir en el GAD} & \textbf{Mitigación propuesta}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\textit{Tabla \thetable{} (continuación)}}\\
+\toprule
+\textbf{Riesgo} & \textbf{Por qué puede ocurrir en el GAD} & \textbf{Mitigación propuesta}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{Ampliación no autorizada del alcance.} & Los ciclos pueden revelar nuevos trámites solicitados por Catastros u Obras Públicas después de aprobados los pliegos, con impacto potencial en el plazo y presupuesto referenciales. & Fijar línea base contractual; registrar cada solicitud de cambio; analizar su efecto en costo, plazo y alcance; exigir aprobación por las instancias contractuales competentes antes de implementarla.\\
+\midrule
+\textbf{Pérdida de acuerdos por rotación de personal.} & Cambios de autoridades o funcionarios del GAD pueden dejar sin interlocutor las validaciones realizadas con Financiero o Atención Ciudadana. & Elaborar matriz de responsables y suplentes por dirección; mantener actas de decisiones y trazabilidad de requisitos; revisar el estado de la línea base con cada nuevo responsable.\\
+\midrule
+\textbf{Fallos de integración tardíos.} & El sistema debe interactuar con aplicaciones previas del GAD; no se conoce aún la calidad de sus interfaces ni la disponibilidad de documentación técnica. & Inventariar sistemas e interfaces antes de planificar incrementos; ejecutar una prueba de concepto de integración en el primer ciclo; programar pruebas de extremo a extremo en cada entrega.\\
+\midrule
+\textbf{Exposición de datos personales.} & Las solicitudes ciudadanas pueden contener datos personales, y cada nuevo módulo municipal aumenta los puntos de acceso e intercambio con sistemas del GAD. & Definir permisos por rol y dirección, minimizar los datos tratados, revisar controles de acceso y privacidad en cada incremento y registrar las observaciones del responsable competente.\\
+\midrule
+\textbf{Rechazo o dificultad de uso ciudadano.} & Las personas que presentan trámites en el GAD tienen distintos niveles de alfabetización digital; una interfaz validada solo por funcionarios podría resultar difícil para ciertos ciudadanos. & Diseñar prototipos simples, planificar evaluaciones con perfiles diversos antes de liberar cada módulo y contemplar asistencia presencial o guiada cuando la política de atención lo permita.\\
+\end{longtable}
+}
+
+\noindent\textbf{Condición de aplicación.} Son riesgos previstos, no incidentes observados. Las mitigaciones deben convertirse en actividades, responsables y evidencias de aceptación una vez que el GAD y el proveedor concreten el plan del contrato.
+
+\section{Conclusión, distribución del trabajo y declaración de uso de IA}
+% PENDIENTE: Final
+
+
+\printbibliography[title={Referencias}]
+\end{document}
