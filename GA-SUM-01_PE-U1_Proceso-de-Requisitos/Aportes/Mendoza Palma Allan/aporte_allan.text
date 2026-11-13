@@ -1,0 +1,304 @@
+\documentclass[onecolumn,12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{cite,graphicx,booktabs,longtable,array,hyperref,tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning}
+
+\begin{document}
+\nocite{iso29148,iso15288,iso12207,iso25010,pohl2025,swebok4,pmbok7,ireb2023,moore,mavin2009}
+\title{Ingeniería de Requisitos aplicada a una plataforma de ventas para establecimientos eléctricos de Quevedo}
+\author{Allan Jeremy Mendoza Palma\\Investigador A --- Ingeniería de Requerimientos (20303)\\Universidad Técnica Estatal de Quevedo}
+\maketitle
+\hypersetup{hidelinks}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\section*{0. Descripción inicial del sistema y partes interesadas}
+\textbf{Descripción del sistema.} La «Plataforma de ventas con módulo de recomendación basado en IA para el soporte de ventas en establecimientos eléctricos» se propone para locales comerciales de Quevedo, Ecuador. Su propósito es apoyar el registro de ventas, la consulta de existencias y la atención técnica al cliente. Actualmente se reportan dificultades asociadas con facturación lenta, interfaces poco prácticas, datos mal administrados y errores de digitación, especialmente durante horas de alta demanda. Además, los cajeros dependen de trabajadores experimentados para responder consultas sobre productos eléctricos. Los usuarios previstos son cajeros, administradores, propietarios, clientes y auditores; los proveedores y servicios de pago forman parte del contexto externo. Se considera una aplicación web con PostgreSQL y un servicio externo de modelos de lenguaje mediante Groq. Estas decisiones son preliminares y requieren confirmación con el establecimiento.
+
+\textbf{Matriz poder/interés.} El análisis de partes interesadas relaciona su capacidad de influir en decisiones y el nivel de atención que prestan a los resultados del proyecto \cite{pmbok7}. La Figura~\ref{fig:poderinteres} presenta una distribución inicial, mientras que la Tabla~\ref{tab:stakeholders} documenta sus criterios de gestión. Se trata de una clasificación argumentada por el equipo, no de una encuesta realizada.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[thick] (0,0) rectangle (13,7);
+\draw[thick] (6.5,0)--(6.5,7);
+\draw[thick] (0,3.5)--(13,3.5);
+\node[font=\bfseries] at (3.25,6.5) {Mantener informados};
+\node[font=\bfseries] at (9.75,6.5) {Gestionar de cerca};
+\node[font=\bfseries] at (3.25,3.05) {Monitorear};
+\node[font=\bfseries] at (9.75,3.05) {Mantener satisfechos};
+\node[draw,rounded corners,fill=white,align=center] at (9.6,5.5) {Propietario};
+\node[draw,rounded corners,fill=white,align=center] at (9.6,4.45) {Administrador};
+\node[draw,rounded corners,fill=white,align=center] at (3.15,5.5) {Cajeros};
+\node[draw,rounded corners,fill=white,align=center] at (3.15,4.45) {Clientes};
+\node[draw,rounded corners,fill=white,align=center] at (9.6,1.55) {Auditor};
+\draw[-{Stealth},thick] (0,-0.42)--(13,-0.42) node[right]{Poder};
+\node[below] at (0,-0.42) {Bajo};
+\node[below] at (13,-0.42) {Alto};
+\draw[-{Stealth},thick] (-0.42,0)--(-0.42,7) node[above]{Interés};
+\node[left] at (-0.42,0) {Bajo};
+\node[left] at (-0.42,7) {Alto};
+\end{tikzpicture}
+\caption{Matriz poder/interés propuesta para los cinco stakeholders iniciales del PFC.}
+\label{fig:poderinteres}
+\end{figure}
+
+\small
+\begin{longtable}{@{}p{2.3cm}p{1.0cm}p{1.0cm}p{2.3cm}p{3.0cm}p{4.6cm}@{}}
+\caption{Clasificación preliminar y estrategias de gestión de stakeholders.}\label{tab:stakeholders}\\
+\toprule
+\textbf{Actor} & \textbf{Poder} & \textbf{Interés} & \textbf{Cuadrante} & \textbf{Estrategia} & \textbf{Justificación provisional}\\\midrule
+\endfirsthead
+\toprule
+\textbf{Actor} & \textbf{Poder} & \textbf{Interés} & \textbf{Cuadrante} & \textbf{Estrategia} & \textbf{Justificación provisional}\\\midrule
+\endhead
+Propietario & Alto & Alto & Gestionar de cerca & Revisar alcance y prioridades & Decide sobre inversión y necesita mejorar ventas y atención.\\
+Administrador & Alto & Alto & Gestionar de cerca & Talleres y aprobación operativa & Define autorizaciones, inventario y reglas diarias.\\
+Cajeros & Bajo & Alto & Mantener informados & Entrevistas y prototipos & Operan ventas y enfrentan errores de digitación.\\
+Clientes & Bajo & Alto & Mantener informados & Pruebas de tareas y retroalimentación & Reciben asesoría y comprobantes; afectan la aceptación del servicio.\\
+Auditor & Alto & Bajo & Mantener satisfechos & Revisiones de registros y controles & Puede exigir evidencias de trazabilidad, aunque no opera cada venta.\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\textbf{Clasificación provisional del sistema.} La propuesta se clasifica como \emph{sistema software-intensivo de información transaccional con componente de IA}. Los procesos de venta, consulta de existencias y control de artículos tratan información comercial y registran transacciones que deben conservar integridad. En una perspectiva de ingeniería de sistemas, el servicio interactúa con personas, dispositivos de atención, una base de datos y proveedores externos; estas interacciones justifican analizar el ciclo de vida del sistema y sus interfaces \cite{iso15288,pohl2025}. La clasificación es funcional, no una declaración de arquitectura ya validada.
+
+Además, el componente transaccional y el módulo de recomendación son dependencias de software que deberán diseñarse, probarse y mantenerse durante la operación \cite{iso12207,iso15288}. PostgreSQL y Groq se consideran alternativas tecnológicas iniciales, sujetas a restricciones de costo, conectividad, datos personales y disponibilidad. El componente de recomendación debe apoyar al cajero sin sustituir una comprobación técnica cuando exista riesgo de uso incorrecto de material eléctrico. Roselyn desarrollará el límite del sistema y las perspectivas de contexto; esta sección solo ofrece la clasificación de partida para evitar duplicidad.
+
+\setcounter{section}{1}
+\section{Fundamento teórico}
+\subsection{Fundamentos de la Ingeniería de Requisitos}
+
+\textbf{Ingeniería de Requisitos (IR).} \emph{Definición parafraseada:} disciplina sistemática que permite descubrir, analizar, documentar, comprobar y mantener las necesidades y restricciones que debe satisfacer un sistema \cite{iso29148,pohl2025}. \emph{Explicación:} Su trabajo inicia antes de programar porque primero debe identificarse el problema correcto. Requiere dialogar con usuarios que pueden tener necesidades diferentes y registrar acuerdos comprobables. También continúa cuando el sistema evoluciona, debido a cambios operativos y normativos. \emph{Ejemplo:} antes de construir una pantalla de cobro, se investiga por qué los cajeros se equivocan al digitar códigos o precios.
+
+\textbf{Requisito.} \emph{Definición parafraseada:} condición o capacidad necesaria para satisfacer una necesidad de una parte interesada o una obligación, cuya expresión documentada sirve para especificación y verificación \cite{iso29148,pohl2025}. \emph{Explicación:} Un requisito no es simplemente el nombre de una función. Debe expresar un comportamiento o condición identificable y permitir comprobar si se cumplió. Cuando carece de precisión, dos implementadores pueden interpretar resultados distintos. \emph{Ejemplo:} «registrar una venta con detalle y un identificador único al confirmarse el cobro» es más verificable que «mejorar las ventas».
+
+\textbf{Objetivos y principios de la IR.} \emph{Definición parafraseada:} son criterios para obtener acuerdos suficientes, representar necesidades correctas y producir requisitos comprensibles, consistentes y verificables \cite{pohl2025,ireb2023,iso29148}. \emph{Explicación:} El objetivo no es maximizar la cantidad de requisitos, sino eliminar incertidumbre importante. Los acuerdos deben negociarse cuando una necesidad de rapidez entra en conflicto con controles de seguridad. La expresión «no funcional» también requiere precisión conceptual para evitar especificaciones ininterpretables \cite{glinz2007}. La trazabilidad ayuda a saber qué necesidad explica cada requisito. \emph{Ejemplo:} el propietario busca reducir tiempos de cobro, pero el auditor necesita rastrear quién anuló una venta.
+
+\textbf{Defectos y costo de las omisiones.} \emph{Definición parafraseada:} un defecto de requisito es una deficiencia como ambigüedad, omisión o contradicción que impide interpretarlo o utilizarlo con confianza \cite{iso29148,wiegers2013}. \emph{Explicación:} Detectar un error antes del desarrollo permite corregir un texto o una regla de negocio. Si se descubre después de programar, puede ser necesario modificar pantallas, operaciones y pruebas. No se asigna un multiplicador de costos, porque no se dispone de una medición específica para este PFC. \emph{Ejemplo:} omitir reglas de devolución obliga a rehacer el flujo de caja si el negocio trabaja con notas de crédito.
+
+\textbf{Relación con los ciclos de vida.} \emph{Definición parafraseada:} los marcos de ciclo de vida organizan los procesos aplicables al sistema y al software desde su concepción hasta su retiro \cite{iso15288,iso12207}. \emph{Explicación:} La IR aporta una base para el diseño y las pruebas, pero también recibe cambios desde la operación. SWEBOK v4.0 organiza la Ingeniería de Requisitos como un área del conocimiento de ingeniería de software \cite{swebok4}. Por eso, los requisitos deben mantenerse coherentes entre versiones, no quedar congelados sin revisión. \emph{Ejemplo:} cuando el establecimiento incorpore un nuevo método de pago, habrá que revisar requisitos de integración y auditoría.
+
+\subsection{Proceso de Ingeniería de Requisitos}
+
+\textbf{Proceso de IR.} \emph{Definición parafraseada:} conjunto organizado y adaptable de actividades y productos de trabajo que permite desarrollar y mantener requisitos acordados durante la vida del sistema \cite{pohl2025,swebok4,ireb2023}. \emph{Explicación:} No existe una única secuencia rígida adecuada para todos los proyectos. En esta plataforma, una entrevista puede llevar a un prototipo y luego a nuevas preguntas. El proceso deberá repetirse al descubrir excepciones comerciales. \emph{Ejemplo:} una observación de ventas con descuentos puede originar un nuevo candidato a requisito.
+
+\textbf{Elicitación.} \emph{Definición parafraseada:} actividad de identificar fuentes y obtener necesidades y conocimiento del contexto mediante interacción o análisis de evidencia \cite{pohl2025,ireb2023}. \emph{Explicación:} Las opiniones del propietario no reemplazan la observación de los cajeros. Cada técnica revela problemas distintos y requiere registrar su procedencia. La entrevista obtiene explicaciones y la observación permite detectar pasos que el usuario omite al narrarlos. \emph{Ejemplo:} registrar cómo se localiza un interruptor cuando su código no está visible.
+
+\textbf{Análisis y negociación.} \emph{Definición parafraseada:} estudio de requisitos candidatos para detectar conflictos, dependencias, defectos y alternativas que requieren acuerdo entre interesados \cite{pohl2025,ireb2023}. \emph{Explicación:} Una necesidad puede afectar a otras y debe evaluarse antes de aprobarse. Las prioridades del propietario no siempre coinciden con las del cajero o auditor. La negociación documenta una decisión en lugar de ocultar discrepancias. \emph{Ejemplo:} discutir si se permitirá vender un producto con stock negativo.
+
+\textbf{Especificación y documentación.} \emph{Definición parafraseada:} representación organizada de los requisitos mediante texto, modelos o estructuras que permitan compartir y revisar acuerdos \cite{iso29148,pohl2025}. \emph{Explicación:} Los requisitos deben usar términos consistentes como «venta», «artículo» y «comprobante». Se necesita un identificador que facilite vincularlos con evidencia y pruebas. Las plantillas de lenguaje controlado ayudan a reducir ambigüedades \cite{mavin2009}. \emph{Ejemplo:} especificar en un requisito cuándo se registra una operación de caja y qué datos persisten.
+
+\textbf{Validación.} \emph{Definición parafraseada:} evaluación de los requisitos para comprobar que expresan las necesidades y restricciones correctas de las partes interesadas \cite{pohl2025,iso29148}. \emph{Explicación:} Una revisión de texto permite encontrar defectos, pero no confirma por sí sola que el negocio está de acuerdo. Para lograr esa confirmación deben participar representantes con capacidad de aprobar reglas. En esta fase solo se realizará revisión documental de tres ejemplos; no se afirmará aceptación del local. \emph{Ejemplo:} contrastar con un cajero si el flujo de registro propuesto corresponde a una venta real.
+
+\textbf{Gestión, trazabilidad y línea base.} \emph{Definición parafraseada:} prácticas que identifican versiones de requisitos, mantienen sus relaciones y controlan modificaciones después de establecer un conjunto aprobado \cite{pohl2025,iso29148,ireb2023,hull2011}. \emph{Explicación:} La trazabilidad permite seguir un requisito desde su necesidad hasta su prueba. La línea base establece un punto de referencia sometido a control formal de cambios. Una solicitud de modificación debe analizar impacto antes de incorporarse al conjunto aprobado. \emph{Ejemplo:} cambiar la regla de descuentos obliga a revisar cálculo del total, comprobante, permisos y pruebas asociadas.
+
+\setcounter{section}{2}
+\section{Artefactos preliminares de aplicación al PFC}
+\subsection{Elicitación: instrumentos para el establecimiento}
+
+\textbf{Entrevista semiestructurada.} \emph{Definición parafraseada:} técnica de elicitación que utiliza preguntas preparadas y admite aclaraciones para descubrir necesidades, reglas y excepciones \cite{ireb2023,wiegers2013}. \emph{Explicación:} Separar las guías por rol evita que todos reciban preguntas ajenas a sus tareas. Las preguntas abiertas permiten descubrir hechos no contemplados por el analista. Las respuestas deberán registrarse con fecha, entrevistado y consentimiento cuando se ejecute el instrumento. \emph{Ejemplo:} preguntar al cajero qué ocurre cuando un artículo no tiene código de barras.
+
+Las Tablas~\ref{tab:propietario}, \ref{tab:cajeros} y \ref{tab:administrador} contienen los guiones propuestos. \textbf{Estado: guías elaboradas, entrevistas no ejecutadas.}
+
+\small
+\begin{longtable}{@{}p{1.0cm}p{14.3cm}@{}}
+\caption{Guía de entrevista propuesta al propietario: diez preguntas.}\label{tab:propietario}\\
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endfirsthead
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endhead
+P01 & ¿Qué problemas concretos del sistema de ventas actual afectan más los resultados del local?\\
+P02 & ¿Qué tareas de venta deberían mejorarse primero y por qué?\\
+P03 & ¿En qué momentos se presentan más errores y cómo se identifican?\\
+P04 & ¿Cómo se autorizan descuentos, anulaciones y devoluciones?\\
+P05 & ¿Qué información necesita consultar para decidir compras o reposición?\\
+P06 & ¿Qué indicadores utiliza actualmente para evaluar ventas y atención?\\
+P07 & ¿Qué problemas ocurren cuando el sistema de facturación deja de funcionar?\\
+P08 & ¿Qué riesgos considera inaceptables al recomendar materiales eléctricos?\\
+P09 & ¿Qué restricciones de presupuesto, conectividad o equipos existen?\\
+P10 & ¿Quién tendría autoridad para aprobar los requisitos y los cambios futuros?\\
+\bottomrule\end{longtable}
+
+\begin{longtable}{@{}p{1.0cm}p{14.3cm}@{}}
+\caption{Guía de entrevista propuesta a los cajeros: diez preguntas.}\label{tab:cajeros}\\
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endfirsthead
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endhead
+C01 & ¿Cuáles son los pasos que sigue desde que el cliente solicita un producto hasta que finaliza el cobro?\\
+C02 & ¿Cómo encuentra un artículo cuando el cliente no conoce su código o nombre exacto?\\
+C03 & ¿Qué datos debe digitar manualmente y en cuáles comete más errores?\\
+C04 & ¿Qué ocurre cuando el precio indicado por el sistema no coincide con el de la estantería?\\
+C05 & ¿Cómo verifica existencias y qué hace si el stock es insuficiente?\\
+C06 & ¿Qué cambios se producen en su trabajo durante las horas pico?\\
+C07 & ¿Cómo solicita ayuda cuando el cliente consulta compatibilidad o especificaciones eléctricas?\\
+C08 & ¿Qué información técnica le ayudaría a comparar productos sin asegurar una compatibilidad no comprobada?\\
+C09 & ¿Cómo registra devoluciones, cambios o anulaciones y quién las autoriza?\\
+C10 & ¿Qué funciones o elementos de la interfaz actual dificultan más su trabajo?\\
+\bottomrule\end{longtable}
+
+\begin{longtable}{@{}p{1.0cm}p{14.3cm}@{}}
+\caption{Guía de entrevista propuesta al administrador: diez preguntas.}\label{tab:administrador}\\
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endfirsthead
+\toprule\textbf{N.º} & \textbf{Pregunta}\\\midrule\endhead
+A01 & ¿Cómo se registran actualmente los productos, precios y especificaciones técnicas?\\
+A02 & ¿Qué procedimiento utiliza para actualizar existencias después de ventas o ingresos?\\
+A03 & ¿Qué roles necesitan autorización para modificar precios o anular ventas?\\
+A04 & ¿Qué reportes debe generar y con qué periodicidad?\\
+A05 & ¿Cómo comprueba la integridad entre movimientos de inventario y facturación?\\
+A06 & ¿Qué evidencias conserva para auditoría y durante cuánto tiempo?\\
+A07 & ¿Qué pasarelas o métodos de cobro se utilizan y qué problemas de conciliación existen?\\
+A08 & ¿Qué campos técnicos se necesitan para describir cables, interruptores, tomacorrientes y protecciones?\\
+A09 & ¿Cómo se corrigen datos incorrectos de productos y quién aprueba esas correcciones?\\
+A10 & ¿Qué procedimiento se aplica ante fallas de red, equipo o servicio de recomendación?\\
+\bottomrule\end{longtable}
+\normalsize
+
+\textbf{Observación de campo.} \emph{Definición parafraseada:} técnica que examina tareas realizadas en el contexto donde ocurren, para conocer el flujo real y sus excepciones \cite{ireb2023,wiegers2013}. \emph{Explicación:} Observar el trabajo permite contrastar lo declarado con lo que sucede. Las mediciones deben realizarse durante una sesión autorizada y sin interferir con clientes. Como todavía no se ha ejecutado la visita, todos los campos siguientes permanecen sin resultados. \emph{Ejemplo:} registrar la secuencia de búsqueda, selección, confirmación de precio y cobro de una venta.
+
+La Tabla~\ref{tab:observacion} es una ficha preparada para el local, pero no contiene evidencias de campo.
+\small
+\begin{longtable}{@{}p{5.0cm}p{10.0cm}@{}}
+\caption{Ficha de observación de campo propuesta, sin ejecutar.}\label{tab:observacion}\\
+\toprule\textbf{Campo} & \textbf{Dato que se registrará durante la visita}\\\midrule\endfirsthead
+\toprule\textbf{Campo} & \textbf{Dato por registrar}\\\midrule\endhead
+Establecimiento y área & Nombre del local y caja observada: por completar.\\
+Fecha, hora y duración & Datos de la sesión autorizada: por completar.\\
+Observador y participantes & Identificación o códigos de participantes: por completar.\\
+Proceso observado & Desde búsqueda de artículo hasta confirmación del cobro.\\
+Secuencia y pasos & Operaciones, entradas, salidas, sistemas utilizados y excepciones.\\
+Tiempos & Inicio, fin y duración de cada tarea, cuando sea posible medirlos.\\
+Incidentes observables & Errores de digitación, correcciones, consultas a expertos y caídas.\\
+Documentos de soporte & Formularios, comprobantes y pantallas autorizadas para registrar.\\
+Interpretación preliminar & Diferenciar hechos observados de inferencias del analista.\\
+Acuerdos y seguimiento & Dudas para entrevistas posteriores y responsable de confirmarlas.\\
+\bottomrule\end{longtable}
+\normalsize
+
+\textbf{Triangulación de técnicas.} \emph{Definición parafraseada:} uso combinado de fuentes y métodos para confrontar necesidades e identificar discrepancias de información \cite{pohl2025,ireb2023}. \emph{Explicación:} Una sola entrevista podría omitir acciones frecuentes pero tácitas. Revisar documentos y observar procesos aporta evidencia complementaria. Si los resultados no coinciden, se registra el desacuerdo para su posterior negociación. \emph{Ejemplo:} comparar lo que el administrador declara sobre descuentos con los comprobantes y las autorizaciones observadas.
+
+En la Tabla~\ref{tab:tecnicas} se describe el plan metodológico. Ninguna técnica se declara ejecutada.
+\small
+\begin{longtable}{@{}p{3.2cm}p{4.3cm}p{7.5cm}@{}}
+\caption{Técnicas de elicitación seleccionadas y justificación.}\label{tab:tecnicas}\\
+\toprule\textbf{Técnica} & \textbf{Fuentes previstas} & \textbf{Justificación vinculada al PFC}\\\midrule\endfirsthead
+\toprule\textbf{Técnica} & \textbf{Fuentes} & \textbf{Justificación}\\\midrule\endhead
+Entrevista semiestructurada & Propietario, cajeros y administrador & Identificar problemas, reglas de autorización, excepciones y necesidades diferenciadas.\\
+Observación directa & Área de caja y atención & Detectar errores de digitación y pasos del flujo que no se recuerdan en entrevistas.\\
+Análisis documental & Catálogo, comprobantes y políticas disponibles & Comprobar campos, reglas comerciales y datos que usan los sistemas actuales.\\
+Prototipo de baja fidelidad & Cajeros y administrador & Contrastar comprensión de búsqueda, cobro y recomendaciones antes de decidir interfaz.\\
+Taller de revisión & Propietario, administrador y auditor & Negociar conflictos entre agilidad de venta, control y trazabilidad.\\
+\bottomrule\end{longtable}
+\normalsize
+
+\subsection{Validación: revisión preliminar de tres requisitos}
+
+\textbf{Lista de revisión.} \emph{Definición parafraseada:} instrumento de inspección que contrasta cada requisito con criterios explícitos de calidad y aceptación, para detectar defectos antes de someterlo a validación con interesados \cite{iso29148,ireb2023}. \emph{Explicación:} Cada criterio requiere una evidencia observable, no una impresión del revisor. Se distingue el resultado del análisis documental del acuerdo con usuarios reales. Los tres textos EJ son ejemplos propios y serán reconciliados con la tabla final de Freddy. \emph{Ejemplo:} la frase «mostrar rápidamente» incumple precisión si no existe un criterio temporal medible o si mezcla función con calidad.
+
+La Tabla~\ref{tab:checklist} establece los criterios y el modo de revisarlos; la Tabla~\ref{tab:revision} documenta el resultado preliminar.
+\small
+\begin{longtable}{@{}p{1.3cm}p{4.5cm}p{9.0cm}@{}}
+\caption{Checklist de calidad para revisión documental de requisitos.}\label{tab:checklist}\\
+\toprule\textbf{Cód.} & \textbf{Criterio} & \textbf{Condición para marcar Cumple}\\\midrule\endfirsthead
+\toprule\textbf{Cód.} & \textbf{Criterio} & \textbf{Condición de aceptación}\\\midrule\endhead
+L01 & Necesario y pertinente & Existe necesidad identificable y relación con el objetivo del PFC.\\
+L02 & Singular & Describe una sola capacidad principal verificable.\\
+L03 & No ambiguo & No contiene vocablos subjetivos ni condiciones abiertas a varias interpretaciones.\\
+L04 & Completo & Incluye acción, objeto, condición y resultado esperado suficiente para entenderlo.\\
+L05 & Factible & No presupone capacidades técnicas imposibles; restricciones por validar se marcan.\\
+L06 & Verificable & Puede asociarse a una prueba, inspección o demostración con resultado observable.\\
+L07 & Conforme y consistente & Usa redacción controlada, término uniforme e ID único; no contradice otros textos disponibles.\\
+L08 & Correcto para el negocio & El actor autorizado confirma que refleja su necesidad; pendiente sin validación real.\\
+\bottomrule\end{longtable}
+\normalsize
+
+\textbf{EJ-01. Registro de ventas (versión inicial).} «El sistema deberá guardar la venta cuando el cajero termine el cobro, con el fin de llevar el control». \emph{Hallazgo:} el dato que se guarda no está especificado y el evento «termine el cobro» no define confirmación. \emph{Reformulación propuesta:} «El sistema deberá registrar una venta con identificador único, fecha, total y detalle de artículos cuando el cajero confirme el cobro y exista stock suficiente, con el fin de conservar la transacción para consulta y auditoría». \emph{Comprobación prevista:} crear una venta de prueba con dos líneas y revisar los datos persistidos.
+
+\textbf{EJ-02. Consulta de existencias (versión inicial).} «El sistema deberá mostrar rápidamente el inventario cuando el cajero busque un artículo, con el fin de atender al cliente». \emph{Hallazgo:} «rápidamente» carece de umbral y «inventario» no concreta el dato esperado. \emph{Reformulación propuesta:} «El sistema deberá mostrar el precio vigente y la cantidad disponible de un artículo cuando el cajero introduzca su código o nombre, con el fin de verificar su disponibilidad antes de la venta». \emph{Comprobación prevista:} consultar por código un artículo con datos conocidos y contrastar precio y cantidad. El tiempo de respuesta debería especificarse, por separado, como requisito de calidad.
+
+\textbf{EJ-03. Apoyo de recomendación (versión inicial).} «El sistema deberá recomendar productos eléctricos adecuados cuando se utilice la IA, con el fin de vender mejor». \emph{Hallazgo:} no se definen los datos de entrada, el universo de productos ni lo que significa «adecuados». \emph{Reformulación propuesta:} «El sistema deberá presentar hasta tres artículos existentes en el catálogo con sus especificaciones registradas cuando el cajero introduzca la tensión requerida, la potencia de la carga y el tipo de instalación, con el fin de apoyar una comparación técnica previa a la venta». \emph{Comprobación prevista:} enviar un caso de prueba con atributos registrados y verificar que los artículos existan, que se presenten sus especificaciones de catálogo y que el módulo no confirme por sí mismo una compatibilidad eléctrica certificada. La validez técnica de los criterios debe revisarse con un especialista.
+
+\noindent\textbf{Evaluación de las versiones iniciales y reformuladas.} En el Cuadro~\ref{tab:revision} se utiliza \textbf{C} (cumple el criterio de redacción), \textbf{I} (incumple) y \textbf{P} (pendiente de confirmar con información del negocio o factibilidad técnica). La clasificación corresponde a una \emph{inspección documental}, no a pruebas de software ni a aprobación del cliente.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{1.05cm}p{2.1cm}*{8}{>{\centering\arraybackslash}p{0.8cm}}p{5.0cm}@{}}
+\caption{Evaluación de EJ-01, EJ-02 y EJ-03 antes y después de la reformulación.}\label{tab:revision}\\
+\toprule
+\textbf{ID} & \textbf{Versión} & \textbf{L01} & \textbf{L02} & \textbf{L03} & \textbf{L04} & \textbf{L05} & \textbf{L06} & \textbf{L07} & \textbf{L08} & \textbf{Resultado y siguiente acción}\\
+\midrule\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Versión} & \textbf{L01} & \textbf{L02} & \textbf{L03} & \textbf{L04} & \textbf{L05} & \textbf{L06} & \textbf{L07} & \textbf{L08} & \textbf{Resultado y siguiente acción}\\
+\midrule\endhead
+EJ-01 & Inicial & C & C & I & I & C & I & C & P & No precisa datos de la venta ni confirmación del cobro.\\
+ & Reformulada & C & C & C & C & C & C & C & P & Redacción comprobable; confirmar política de stock y autorización con cajeros y administrador.\\
+\midrule
+EJ-02 & Inicial & C & C & I & I & C & I & C & P & «Rápidamente» no establece un umbral; «inventario» no identifica la salida.\\
+ & Reformulada & C & C & C & C & C & C & C & P & Salidas precio y cantidad observables; el tiempo se especificará como RNF separado.\\
+\midrule
+EJ-03 & Inicial & C & C & I & I & P & I & C & P & «Adecuados» no define criterios; factibilidad sin evidencia.\\
+ & Reformulada & C & C & P & P & P & C & C & P & Revisar criterios de selección, atributos disponibles, restricciones de Groq y seguridad con especialista eléctrico.\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\noindent\textbf{Criterios de aceptación propuestos para las reformulaciones.}
+\begin{itemize}
+  \item \textbf{EJ-01:} dada una venta con dos artículos y stock suficiente, al confirmar el cobro se registra una transacción con identificador, fecha, total y detalle; los valores pueden inspeccionarse en la base de datos.
+  \item \textbf{EJ-02:} dado un artículo registrado con precio y cantidad conocidos, al buscarlo por código se muestran ambos valores y se contrastan con el catálogo. El desempeño temporal se evaluará por un RNF independiente.
+  \item \textbf{EJ-03:} dados atributos técnicos registrados en el catálogo, el módulo devuelve como máximo tres artículos existentes con las especificaciones disponibles. No se certifica compatibilidad eléctrica; la pertinencia de los criterios de selección queda sujeta a revisión especializada.
+\end{itemize}
+
+\textbf{Resultado de la revisión documental.} La redacción de EJ-01 y EJ-02 mejora respecto de sus versiones iniciales, pero el criterio L08 (corrección respecto de las necesidades del negocio) continúa con estado \textbf{P: pendiente}. En EJ-03, además de L08, permanecen pendientes los criterios L03, L04 y L05 debido a la necesidad de acordar reglas técnicas de selección, verificar atributos disponibles en el catálogo y analizar la factibilidad del servicio de recomendación. Las marcas C del Cuadro~\ref{tab:revision} representan únicamente una evaluación de la redacción; no certifican el funcionamiento de la plataforma ni la aprobación del establecimiento \cite{iso29148,pohl2025}.
+
+\noindent\textbf{Estado de validación con los interesados: PENDIENTE.} La presente práctica concluye con tres requisitos candidatos reformulados y revisados documentalmente. No se han ejecutado entrevistas de confirmación, pruebas con usuarios, revisión técnica especializada ni aprobación de los requisitos por representantes del establecimiento. En consecuencia, los tres ejemplos se mantienen como \emph{propuestas no validadas}:
+\begin{itemize}
+  \item \textbf{EJ-01 (pendiente):} contrastar con cajeros y administrador los datos obligatorios de una venta, el momento de confirmación del cobro y la política de control de existencias. Mantener L08 en P hasta contar con evidencia de aceptación.
+  \item \textbf{EJ-02 (pendiente):} confirmar con cajeros y administrador los criterios de búsqueda y los datos que deben mostrarse sobre precio y existencias. Mantener L08 en P; el tiempo de respuesta deberá tratarse mediante un RNF independiente.
+  \item \textbf{EJ-03 (pendiente):} solicitar al propietario y a un especialista en productos eléctricos que revisen las entradas técnicas, los criterios de selección, los límites de seguridad y las reglas para casos sin recomendación confiable. Mantener L03, L04, L05 y L08 en P hasta resolver estas cuestiones con evidencia.
+\end{itemize}
+\noindent\textbf{Seguimiento para la integración grupal.} Los identificadores EJ-01, EJ-02 y EJ-03 son provisionales; Freddy los contrastará con la tabla de requisitos del equipo y Roselyn revisará su coherencia con el contexto y el límite del sistema. Estas actividades también permanecen pendientes y no constituyen una línea base aprobada. Si posteriormente se realiza la validación, deberán registrarse fecha, rol del interesado, observaciones, decisiones y evidencia autorizada antes de actualizar el estado de los requisitos.
+
+\section*{Conclusión del aporte}
+La Ingeniería de Requisitos proporciona un medio ordenado para transformar los problemas de facturación, digitación, inventario y asesoría técnica del comercio eléctrico en necesidades documentadas y comprobables. En este aporte se formularon instrumentos de elicitación diferenciados por actor, una matriz poder/interés y una revisión documental de tres requisitos candidatos. El enfoque coincide con la necesidad de obtener, especificar y mantener requisitos durante el ciclo de vida del software, así como validar que expresen las necesidades correctas de los interesados \cite{iso29148,pohl2025,swebok4}. Para el PFC, la implicación es concreta: antes de cerrar reglas de venta o confiar en recomendaciones de un servicio externo, deberán obtenerse evidencias del establecimiento, resolver conflictos entre rapidez y control, y someter los requisitos a la aprobación de sus responsables. Por ahora, EJ-01, EJ-02 y EJ-03 se mantienen con \textbf{validación de interesados pendiente}; el trabajo presentado corresponde a preparación metodológica y revisión documental, no a entrevistas, pruebas de campo ni aceptación formal realizadas.
+
+\bibliographystyle{IEEEtran}
+\bibliography{aporte_allan}
+
+\clearpage
+\section*{Anexo A. Referencias bibliográficas organizadas en Zotero}
+Este anexo documenta la salida bibliográfica de las diez fuentes principales del aporte, exportada desde Zotero con el estilo IEEE. El registro bibliográfico respalda la organización documental, pero no reemplaza la revisión directa de las publicaciones originales. La Figura~\ref{fig:anexo_a_zotero} presenta la evidencia correspondiente.
+
+\begin{figure}[!ht]
+\centering
+\IfFileExists{figura/anexo_a_bibliografia_ieee.png}{%
+    \includegraphics[width=\linewidth,height=0.74\textheight,keepaspectratio]{figura/anexo_a_bibliografia_ieee.png}%
+}{%
+    \fbox{\parbox[c][6cm][c]{0.85\linewidth}{\centering
+    \textbf{Espacio reservado para la captura del Anexo A.}\\[6pt]
+    Colocar la salida bibliográfica IEEE de Zotero en la carpeta
+    \texttt{figura/} con el nombre indicado en el README.}}%
+}
+\caption{Salida bibliográfica de las diez fuentes principales, generada en Zotero con estilo IEEE.}
+\label{fig:anexo_a_zotero}
+\end{figure}
+
+\clearpage
+\section*{Anexo B. Evidencia de la colección bibliográfica en Zotero}
+La colección «PE1 - Fuentes obligatorias» permite identificar los registros consultados para la preparación bibliográfica del aporte. La Figura~\ref{fig:anexo_b_zotero} muestra la vista de la biblioteca con las fuentes principales y complementarias. Esta captura acredita su organización en Zotero, sin implicar por sí misma la verificación del contenido de cada obra.
+
+\begin{figure}[!ht]
+\centering
+\IfFileExists{figura/anexo_b_coleccion_zotero.png}{%
+    \includegraphics[width=\linewidth,height=0.74\textheight,keepaspectratio]{figura/anexo_b_coleccion_zotero.png}%
+}{%
+    \fbox{\parbox[c][6cm][c]{0.85\linewidth}{\centering
+    \textbf{Espacio reservado para la captura del Anexo B.}\\[6pt]
+    Colocar la vista de la colección de Zotero en la carpeta
+    \texttt{figura/} con el nombre indicado en el README.}}%
+}
+\caption{Colección de Zotero utilizada para organizar las referencias principales y complementarias de la PE1.}
+\label{fig:anexo_b_zotero}
+\end{figure}
+
+\end{document}
