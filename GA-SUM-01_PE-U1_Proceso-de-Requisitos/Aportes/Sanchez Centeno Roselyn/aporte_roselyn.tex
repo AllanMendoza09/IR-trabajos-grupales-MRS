@@ -242,19 +242,40 @@ Hardware POS o impresora & Env\'io de la venta para impresi\'on del comprobante.
 \centering
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[font=\small,
-  s/.style={rectangle,draw,very thick,rounded corners,align=center,minimum width=3.8cm,minimum height=1.5cm,fill=orange!15},
-  e/.style={rectangle,draw,rounded corners,align=center,minimum width=2.9cm,minimum height=0.9cm,fill=blue!5}]
-\node[s] (sys) at (0,0) {Plataforma de ventas\\ con m\'odulo de IA\\ (sistema)};
-\node[e] (cli) at (-5.4,3) {Clientes};
-\node[e] (pro) at (0,4.2) {Proveedores};
-\node[e] (pas) at (5.4,3) {Pasarela de pago};
-\node[e] (sri) at (6,-1) {SRI};
-\node[e] (aud) at (3.2,-3.6) {Auditor};
-\node[e] (groq) at (-3.2,-3.6) {Servicio de IA (Groq)};
-\node[e] (pos) at (-6,-1) {Hardware POS / impresora};
-\foreach \x in {cli,pro,pas,sri,aud,groq,pos} \draw[{Latex}-{Latex}] (sys) -- (\x);
+  sys/.style={rectangle,rounded corners,draw,very thick,align=center,minimum width=4.6cm,minimum height=2.4cm,fill=orange!20},
+  ext/.style={rectangle,rounded corners,draw,align=center,minimum width=2.9cm,minimum height=1.0cm},
+  per/.style={ext,fill=blue!10},
+  org/.style={ext,fill=green!14},
+  sis/.style={ext,fill=violet!14},
+  lbl/.style={font=\scriptsize,align=center,fill=white,inner sep=1.5pt}]
+
+\node[sys] (s) at (0,0) {\textbf{Plataforma de ventas}\\[3pt] con m\'odulo de recomendaci\'on\\ basado en IA\\[1pt] \scriptsize (sistema)};
+
+\node[per] (cli) at (-7.4,2.9) {Clientes};
+\node[org] (pro) at (-7.4,0) {Proveedores};
+\node[org] (pas) at (-7.4,-2.9) {Pasarela de pago};
+
+\node[sis] (groq) at (7.4,4.3) {Servicio de IA (Groq)};
+\node[sis] (sri)  at (7.4,1.5) {SRI};
+\node[sis] (pos)  at (7.4,-1.5) {Hardware POS / impresora};
+\node[per] (aud)  at (7.4,-4.3) {Auditor};
+
+\draw[{Latex}-{Latex}] (cli) -- node[lbl,above]{consulta de productos\\ y compra} (s);
+\draw[-{Latex}] (pro) -- node[lbl,above]{cat\'alogo, precios\\ y stock} (s);
+\draw[{Latex}-{Latex}] (pas) -- node[lbl,above]{solicitud y confirmaci\'on\\ de cobro} (s);
+\draw[{Latex}-{Latex}] (s) -- node[lbl,above]{consulta y\\ recomendaci\'on} (groq);
+\draw[-{Latex}] (s) -- node[lbl,above]{comprobante\\ electr\'onico} (sri);
+\draw[-{Latex}] (s) -- node[lbl,above]{datos de venta\\ para impresi\'on} (pos);
+\draw[-{Latex}] (s) -- node[lbl,above]{registros de\\ auditor\'ia} (aud);
+
+\node[per,minimum width=2.2cm,minimum height=0.6cm] (l1) at (-5.0,-6.6) {};
+\node[anchor=west,font=\scriptsize] at (l1.east) {personas};
+\node[org,minimum width=2.2cm,minimum height=0.6cm] (l2) at (-0.6,-6.6) {};
+\node[anchor=west,font=\scriptsize] at (l2.east) {organizaciones};
+\node[sis,minimum width=2.2cm,minimum height=0.6cm] (l3) at (3.8,-6.6) {};
+\node[anchor=west,font=\scriptsize] at (l3.east) {sistemas y servicios};
 \end{tikzpicture}}
-\caption{Diagrama de contexto del sistema del PFC y sus entidades externas.}
+\caption{Diagrama de contexto del sistema del PFC: entidades externas, su tipo y los datos intercambiados.}
 \label{fig:contexto}
 \end{figure}
 
