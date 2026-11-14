@@ -1,0 +1,386 @@
+\documentclass[onecolumn,12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{cite,graphicx,booktabs,longtable,array,hyperref,tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning}
+
+\begin{document}
+	% Se quita "moore" porque no esta en aporte_freddy.bib (generaba advertencia)
+	\nocite{iso29148,iso15288,iso12207,iso25010,pohl2025,swebok4,pmbok7,ireb2023,mavin2009}
+	
+	\title{Aporte de Investigaci\'on B: Tipos, Propiedades de Calidad y Especificaci\'on de Requisitos para Plataforma de Ventas en Establecimientos El\'ectricos}
+	\author{Freddy David Rochina Rochina --- Investigador B\\
+		Ingenier\'ia de Requerimientos (20303) --- Universidad T\'ecnica Estatal de Quevedo (UTEQ)}
+	\maketitle
+	
+	%%% [FUNDAMENTO]
+	\section{Fundamento Te\'orico}
+	
+	\subsection{2.3 Tipos de requisitos}
+	
+	La clasificaci\'on sistem\'atica de los requisitos permite estructurar las necesidades del negocio y traducirlas en especificaciones t\'ecnicas verificables a lo largo del ciclo de vida del sistema \cite{iso29148,iso15288,iso12207}. De acuerdo con Pohl \cite{pohl2025} y Glinz \cite{glinz2007}, la clasificaci\'on fundamental distingue tres categor\'ias principales: los requisitos funcionales, los requisitos de calidad y las restricciones. Esta distinci\'on evita mezclar comportamientos operativos con atributos de desempe\~no o limitaciones arquitect\'onicas \cite{pohl2025,glinz2007}. Por su parte, la norma ISO/IEC/IEEE 29148:2018 establece una jerarqu\'ia desde el nivel organizacional hasta el detalle t\'ecnico del sistema \cite{iso29148}.
+	
+	\textbf{Requisitos de negocio.} Definici\'on formal: declaraciones de alto nivel que expresan las metas, objetivos estrat\'egicos y beneficios esperados por la organizaci\'on que patrocina el sistema \cite{iso29148,wiegers2013}. Explicaci\'on propia: Estos requisitos justifican la inversi\'on econ\'omica y orientan el alcance general del proyecto sin detallar mecanismos t\'ecnicos de implementaci\'on. Su cumplimiento se mide mediante indicadores comerciales como reducci\'on de costos, incremento de ventas o disminuci\'on de tiempos operativos. Si un requisito funcional no contribuye a un objetivo de negocio, su inclusi\'on en el alcance debe cuestionarse. Ejemplo en el PFC: reducir los errores de digitaci\'on en el mostrador durante las horas pico para evitar p\'erdidas econ\'omicas y retrasos en la atenci\'on del local el\'ectrico en Quevedo.
+	
+	\textbf{Requisitos de partes interesadas (stakeholder).} Definici\'on formal: necesidades, expectativas y condiciones expresadas por los individuos u organizaciones que tienen un inter\'es leg\'itimo o se ven afectados por el sistema \cite{iso29148,pmbok7}. Explicaci\'on propia: Cada actor observa el problema desde su propia responsabilidad operativa, por lo que sus expectativas suelen entrar en conflicto y requieren negociaci\'on. Documentarlos permite mantener la trazabilidad entre qui\'en solicita una capacidad y c\'omo se resuelve en el software. Ignorar a un actor clave provoca rechazo durante la implantaci\'on o incumplimientos de control interno. Ejemplo en el PFC: el auditor exige conservar registros inalterables de cada anulaci\'on de venta, mientras el propietario demanda agilidad en el cierre diario de caja.
+	
+	\textbf{Requisitos de usuario.} Definici\'on formal: descripci\'on de las tareas, objetivos operativos y resultados que los usuarios finales deben poder ejecutar mediante el sistema en su entorno de trabajo \cite{iso29148,ireb2023}. Explicaci\'on propia: Se redactan desde la perspectiva del operador directo utilizando vocabulario del dominio comercial y evitando jerga de programaci\'on. Sirven como puente entre las expectativas generales de los interesados y las especificaciones detalladas del software. Su correcta formulaci\'on facilita la validaci\'on temprana mediante prototipos de interfaz. Ejemplo en el PFC: un cajero debe poder localizar un interruptor termomagn\'etico por descripci\'on parcial o amperaje cuando el cliente desconoce el c\'odigo exacto del fabricante.
+	
+	\textbf{Requisitos de sistema.} Definici\'on formal: especificaciones t\'ecnicas que definen las capacidades, caracter\'isticas y condiciones que el sistema completo (software, hardware y procedimientos) debe satisfacer para cumplir los requisitos de usuario \cite{iso29148,iso15288}. Explicaci\'on propia: Representan la vista externa e interna del producto que el equipo de ingenier\'ia dise\~nar\'a, construir\'a y verificar\'a. A diferencia de los requisitos de usuario, incorporan condiciones de frontera, manejo de excepciones y estados operativos precisos. Constituyen la base contractual y t\'ecnica para las pruebas de integraci\'on y aceptaci\'on. Ejemplo en el PFC: el sistema deber\'a procesar el registro de una venta, descontar el inventario en la base de datos y enviar el comando de impresi\'on t\'ermica en una misma transacci\'on at\'omica.
+	
+	\textbf{Requisitos funcionales (RF).} Definici\'on formal: especificaciones que definen las acciones, transformaciones de datos y comportamientos observables que el sistema debe ejecutar ante entradas o eventos determinados \cite{iso29148,pohl2025,swebok4}. Explicaci\'on propia: Responden a la pregunta de qu\'e debe hacer el software para aportar valor operativo a sus usuarios. Para evitar ambig\"uedades en su redacci\'on, la literatura recomienda emplear plantillas de sintaxis controlada como el enfoque EARS \cite{mavin2009}. Cada funci\'on especificada debe ser comprobable mediante casos de prueba de caja negra. Ejemplo en el PFC: cuando el cajero ingresa la tensi\'on nominal y la potencia de carga solicitada por un cliente, el m\'odulo de recomendaci\'on debe desplegar hasta tres productos compatibles del cat\'alogo.
+	
+	\textbf{Requisitos no funcionales (RNF) o de calidad.} Definici\'on formal: atributos y propiedades que califican el grado en que el sistema ejecuta sus funciones, abarcando caracter\'isticas definidas en el modelo de calidad del producto software ISO/IEC 25010:2023 \cite{iso25010,pohl2025,glinz2007}. Explicaci\'on propia: Mientras los requisitos funcionales establecen la conducta del sistema, los de calidad determinan qu\'e tan bien, seguro, usable o fiable resulta dicho comportamiento. Seg\'un ISO/IEC 25010:2023, la calidad del producto se eval\'ua mediante caracter\'isticas como adecuaci\'on funcional, eficiencia de desempe\~no, compatibilidad, capacidad de interacci\'on (usabilidad), fiabilidad, seguridad, mantenibilidad y flexibilidad (portabilidad) \cite{iso25010}. 
+	Para ser verificables, todo RNF debe expresarse con una m\'etrica cuantificable y un umbral objetivo. Ejemplo en el PFC: un cajero nuevo debe completar una factura de cinco art\'iculos sin asistencia externa tras una capacitaci\'on m\'axima de treinta minutos.
+	
+	\textbf{Requisitos de rendimiento.} Definici\'on formal: subcategor\'ia de los requisitos de calidad que especifica las restricciones cuantitativas sobre velocidad de respuesta, capacidad de procesamiento, uso de recursos y concurrencia del sistema \cite{iso29148,iso25010,wiegers2013}. Explicaci\'on propia: Son cr\'iticos en entornos transaccionales donde la lentitud de respuesta deteriora directamente la experiencia de atenci\'on al p\'ublico. Su especificaci\'on exige definir tanto el tiempo m\'aximo permitido como las condiciones de carga bajo las cuales se mide. Permiten dimensionar adecuadamente la infraestructura del servidor y la optimizaci\'on de consultas SQL. Ejemplo en el PFC: la b\'usqueda de art\'iculos por nombre o c\'odigo en el cat\'alogo debe devolver resultados en menos de 1,5 segundos con hasta cinco cajas operando simult\'aneamente.
+	
+	\textbf{Requisitos de interfaz.} Definici\'on formal: especificaciones que definen las interacciones externas e internas del sistema con usuarios humanos, dispositivos f\'isicos, otros componentes de software y redes de comunicaci\'on \cite{iso29148,hull2011}. Explicaci\'on propia: La norma ISO/IEC/IEEE 29148:2018 clasifica estas fronteras en cuatro tipos espec\'ificos: interfaz de usuario (ergonom\'ia y formatos de pantalla), interfaz de hardware (perif\'ericos conectados), interfaz de software (APIs y bibliotecas externas) e interfaz de comunicaciones (protocolos de red y transporte) \cite{iso29148}.
+	Documentar con precisi\'on estas fronteras previene fallos de integraci\'on entre m\'odulos desarrollados por distintos proveedores. Ejemplo en el PFC: el sistema debe comunicarse con el servicio externo de inteligencia artificial Groq mediante peticiones HTTPS en formato JSON (interfaz de software y comunicaciones) y recibir lecturas de c\'odigos mediante esc\'aner USB HID (interfaz de hardware).
+	
+	\textbf{Restricciones.} Definici\'on formal: limitaciones organizacionales, tecnol\'ogicas, presupuestarias o regulatorias que acotan las opciones disponibles para el dise\~no y la implementaci\'on del sistema \cite{pohl2025,glinz2007,ireb2023}. Explicaci\'on propia: A diferencia de los requisitos funcionales o de calidad, las restricciones no son negociables dentro del alcance t\'ecnico del proyecto, sino condiciones impuestas previamente por el cliente o el entorno. Confundir una restricci\'on tecnol\'ogica con un requisito funcional distorsiona la especificaci\'on al mezclar el problema con una decisi\'on de dise\~no. Su documentaci\'on expl\'icita aclara por qu\'e se descartan ciertas alternativas arquitect\'onicas. Ejemplo en el PFC: la persistencia de datos debe implementarse obligatoriamente sobre el gestor relacional PostgreSQL y desplegarse en una arquitectura web.
+	
+	\textbf{Requisitos de conformidad.} Definici\'on formal: obligaciones que exigen que el sistema y su desarrollo se ajusten a leyes vigentes, normativas tributarias, est\'andares t\'ecnicos o pol\'iticas institucionales aplicables \cite{iso29148,swebok4}. Explicaci\'on propia: El incumplimiento de estas disposiciones puede invalidar legalmente la operaci\'on comercial del software o generar sanciones econ\'omicas para el propietario. Abarcan tanto aspectos fiscales y de protecci\'on de datos como est\'andares de seguridad el\'ectrica o documental. Deben verificarse mediante inspecciones normativas antes de la puesta en producci\'on. Ejemplo en el PFC: los comprobantes de venta generados por la plataforma deben cumplir la estructura de datos exigida por la normativa tributaria ecuatoriana vigente para facturaci\'on comercial.
+	
+	La Figura~\ref{fig:taxonomia} resume visualmente la organizaci\'on jer\'arquica de los tipos de requisitos aplicados al sistema del PFC, mientras que la Tabla~\ref{tab:tipos_req} sintetiza su definici\'on normativa, ejemplo y respaldo bibliogr\'afico.
+	
+	%%% [FIGURA 1: Taxonomia de requisitos (TikZ)]
+	\begin{figure}[!t]
+		\centering
+		\begin{tikzpicture}[
+			node distance=0.9cm and 0.5cm,
+			every node/.style={font=\footnotesize, align=center,
+				execute at begin node={\hyphenpenalty=10000\relax}},
+			raiz/.style={draw=blue!60!black, thick, rounded corners=2pt, fill=blue!12,
+				font=\footnotesize\bfseries, inner sep=5pt},
+			nivel/.style={draw=black!70, thick, rounded corners=2pt, fill=gray!15,
+				font=\footnotesize\bfseries, text width=4.2cm, minimum height=0.8cm},
+			hoja/.style={draw=green!50!black, rounded corners=2pt, fill=green!8,
+				text width=4.2cm, minimum height=1.4cm},
+			flecha/.style={-{Stealth[length=2.2mm]}, thick}
+			]
+			% Nodo raiz
+			\node[raiz] (raiz) {Taxonom\'ia de Requisitos del PFC (ISO/IEC/IEEE 29148)};
+			% Nivel intermedio
+			\node[nivel, below=of raiz] (n2) {Nivel Sistema y Calidad};
+			\node[nivel, left=of n2]    (n1) {Nivel Negocio y Actores};
+			\node[nivel, right=of n2]   (n3) {Fronteras y Marco Legal};
+			% Hojas
+			\node[hoja, below=of n1] (h1) {Negocio (RN), Stakeholder (RS) y Usuario (RU)};
+			\node[hoja, below=of n2] (h2) {Funcionales (RF-EARS), Calidad (RNF-25010) y Rendimiento (RR)};
+			\node[hoja, below=of n3] (h3) {Interfaz (RI), Restricciones y Conformidad (RC)};
+			% Flechas
+			\draw[flecha] (raiz.south) -- ++(0,-0.35) -| (n1.north);
+			\draw[flecha] (raiz.south) -- (n2.north);
+			\draw[flecha] (raiz.south) -- ++(0,-0.35) -| (n3.north);
+			\draw[flecha] (n1.south) -- (h1.north);
+			\draw[flecha] (n2.south) -- (h2.north);
+			\draw[flecha] (n3.south) -- (h3.north);
+		\end{tikzpicture}
+		\caption{Esquema jer\'arquico de clasificaci\'on de requisitos aplicado al PFC.}
+		\label{fig:taxonomia}
+	\end{figure}
+	
+	\begin{longtable}{>{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}p{5.2cm} >{\raggedright\arraybackslash}p{5.2cm} >{\raggedright\arraybackslash}p{2.0cm}}
+		\caption{Taxonom\'ia de tipos de requisitos aplicada al PFC.}
+		\label{tab:tipos_req}\\
+		\toprule
+		\textbf{Tipo de requisito} & \textbf{Definici\'on sint\'etica} & \textbf{Ejemplo vinculado al PFC} & \textbf{Fuente} \\
+		\midrule
+		\endfirsthead
+		\toprule
+		\textbf{Tipo de requisito} & \textbf{Definici\'on sint\'etica} & \textbf{Ejemplo vinculado al PFC} & \textbf{Fuente} \\
+		\midrule
+		\endhead
+		\bottomrule
+		\endfoot
+		Negocio & Metas estrat\'egicas y beneficios comerciales esperados por la organizaci\'on. & Reducir los errores de digitaci\'on en caja durante horas pico en el local de Quevedo. & \cite{iso29148,wiegers2013} \\
+		\midrule
+		Stakeholder & Necesidades y expectativas espec\'ificas de cada actor interesado en el sistema. & El auditor requiere registros inalterables de anulaciones y descuentos aplicados. & \cite{iso29148,pmbok7} \\
+		\midrule
+		Usuario & Tareas operativas que los usuarios finales ejecutan para lograr un objetivo laboral. & El cajero busca productos el\'ectricos por amperaje o descripci\'on cuando no hay c\'odigo. & \cite{iso29148,ireb2023} \\
+		\midrule
+		Sistema & Capacidades t\'ecnicas integrales que el producto completo debe satisfacer. & Procesar venta, actualizar stock en PostgreSQL y emitir recibo en una transacci\'on. & \cite{iso29148,iso15288} \\
+		\midrule
+		Funcional (RF) & Acciones y comportamientos observables ejecutados ante eventos o entradas. & Generar hasta tres recomendaciones de materiales el\'ectricos seg\'un tensi\'on y potencia. & \cite{iso29148,pohl2025,mavin2009} \\
+		\midrule
+		No funcional (RNF) & Atributos de calidad que califican la ejecuci\'on del sistema (ISO/IEC 25010). & Capacitaci\'on de un cajero nuevo en menos de 30 minutos para operar sin asistencia. & \cite{iso25010,pohl2025,glinz2007} \\
+		\midrule
+		Rendimiento & M\'etricas cuantitativas de tiempo de respuesta, capacidad y concurrencia. & Devolver b\'usquedas del cat\'alogo en menos de 1,5 segundos bajo carga concurrente. & \cite{iso29148,iso25010} \\
+		\midrule
+		Interfaz & Fronteras de interacci\'on con usuarios, hardware, software y comunicaciones. & Consumo de API REST de Groq sobre HTTPS/JSON y lectura por esc\'aner USB. & \cite{iso29148,hull2011} \\
+		\midrule
+		Restricci\'on & Limitaciones tecnol\'ogicas, arquitect\'onicas o presupuestarias no negociables. & Implementaci\'on obligatoria como aplicaci\'on web con base de datos PostgreSQL. & \cite{pohl2025,glinz2007,ireb2023} \\
+		\midrule
+		Conformidad & Ajuste obligatorio a leyes, regulaciones tributarias o est\'andares vigentes. & Emisi\'on de comprobantes conforme a la normativa fiscal vigente en Ecuador. & \cite{iso29148,swebok4} \\
+	\end{longtable}
+	
+	\subsection{2.4 Propiedades de calidad de los requisitos}
+	
+	La calidad de una especificaci\'on depende tanto de la redacci\'on individual de cada enunciado como de la coherencia global del conjunto completo \cite{iso29148,pohl2025,ireb2023}. La norma ISO/IEC/IEEE 29148:2018 define nueve caracter\'isticas para un requisito individual bien formado y cinco caracter\'isticas para un conjunto de requisitos \cite{iso29148}. 
+	
+	\subsubsection*{Caracter\'isticas de un requisito individual}
+	
+	\textbf{Necesario (Necessary).} Definici\'on formal: propiedad por la cual un requisito expresa una capacidad o condici\'on esencial cuya omisi\'on impedir\'ia satisfacer una necesidad de negocio o de parte interesada \cite{iso29148,ireb2023}. Explicaci\'on propia: Todo requisito debe poseer trazabilidad directa hacia un objetivo aprobado o una restricci\'on regulatoria. Incluir funciones ornamentales sin respaldo incrementa el costo de desarrollo y la complejidad de mantenimiento. Si un requisito se elimina sin afectar el valor del producto, entonces no es necesario. Ejemplo en el PFC: registrar la cantidad exacta de cada art\'iculo vendido es necesario para evitar desabastecimiento imprevisto en el local.
+	
+	\textbf{Apropiado (Appropriate).} Definici\'on formal: cualidad que indica que el nivel de abstracci\'on y detalle del requisito corresponde adecuadamente al nivel arquitect\'onico o de especificaci\'on en el que se documenta \cite{iso29148}. Explicaci\'on propia: Un requisito de usuario no debe prescribir estructuras internas de tablas SQL, ni una especificaci\'on de sistema debe quedarse en deseos comerciales vagos. Mantener el nivel apropiado evita imponer decisiones prematuras de dise\~no durante el an\'alisis del problema. Adem\'as, facilita que cada audiencia comprenda el documento seg\'un su rol. Ejemplo en el PFC: especificar qu\'e datos debe mostrar la pantalla de cobro pertenece al nivel de interfaz de usuario, mientras que el tipo de \'indice en PostgreSQL corresponde al dise\~no f\'isico.
+	
+	\textbf{No ambiguo (Unambiguous).} Definici\'on formal: propiedad por la cual un requisito admite una \'unica interpretaci\'on objetiva por parte de todos los lectores y desarrolladores \cite{iso29148,pohl2025,ireb2023}. Explicaci\'on propia: El uso de adjetivos subjetivos como ``r\'apido'', ``intuitivo'' o ``eficiente'' genera discrepancias graves entre lo que espera el cliente y lo que programa el desarrollador. Para eliminar la ambig\"uedad se emplean glosarios de dominio, sintaxis estructurada y umbrales num\'ericos precisos. Una redacci\'on sin ambig\"uedad reduce retrabajos costosos en etapas posteriores. Ejemplo en el PFC: reemplazar ``mostrar r\'apidamente el inventario'' por ``mostrar el stock disponible en un tiempo menor o igual a 1,5 segundos''.
+	
+	\textbf{Completo (Complete).} Definici\'on formal: caracter\'istica de un requisito individual que contiene toda la informaci\'on necesaria (condici\'on disparadora, acci\'on, objeto y resultado esperado) para ser comprendido e implementado sin suposiciones \cite{iso29148,pohl2025}. Explicaci\'on propia: Un enunciado incompleto obliga al programador a adivinar reglas de negocio o comportamientos ante errores. Debe precisar tanto el flujo normal como las condiciones l\'imite relevantes para esa funci\'on. La completitud individual evita vac\'ios l\'ogicos durante la codificaci\'on. Ejemplo en el PFC: indicar no solo que el sistema descuenta stock al vender, sino tambi\'en que bloquea la operaci\'on si la cantidad solicitada supera la existencia registrada.
+	
+	\textbf{Singular (Singular).} Definici\'on formal: propiedad que exige que cada requisito declare una \'unica capacidad, restricci\'on o atributo de calidad, sin combinar m\'ultiples obligaciones independientes en un mismo p\'arrafo \cite{iso29148,mavin2009}. Explicaci\'on propia: Cuando un enunciado agrupa varias funciones conectadas por conjunciones, resulta dif\'icil priorizarlas, asignarles trazabilidad o evaluar su cumplimiento parcial. Separar cada capacidad en un identificador \'unico simplifica la gesti\'on de cambios y el dise\~no de casos de prueba. Si una parte falla en pruebas, se identifica exactamente qu\'e requisito no se cumpli\'o. Ejemplo en el PFC: separar en dos requisitos distintos el registro de la venta (\texttt{RF-01}) y la actualizaci\'on autom\'atica del inventario (\texttt{RF-04}).
+	
+	\textbf{Factible (Feasible).} Definici\'on formal: cualidad que asegura que el requisito puede implementarse t\'ecnica, operativa y econ\'omicamente dentro de las restricciones del proyecto \cite{iso29148,ireb2023}. Explicaci\'on propia: Un requisito inviable t\'ecnicamente o fuera del presupuesto disponible condena el proyecto al fracaso antes de iniciar su construcci\'on. Evaluar la factibilidad requiere considerar las capacidades reales de las tecnolog\'ias elegidas y el entorno f\'isico del local. Cuando existe incertidumbre t\'ecnica, debe marcarse para validaci\'on mediante prototipos o pruebas de concepto. Ejemplo en el PFC: consultar la API de Groq es factible si el local dispone de conexi\'on estable a internet, pero requiere un modo de respaldo si la red cae.
+	
+	\textbf{Verificable (Verifiable).} Definici\'on formal: propiedad por la cual existe un m\'etodo objetivo y finito (prueba, inspecci\'on, an\'alisis o demostraci\'on) para comprobar si el sistema cumple con el requisito \cite{iso29148,pohl2025,swebok4}. Explicaci\'on propia: Si no es posible dise\~nar un criterio de aceptaci\'on observable para un requisito, este carece de utilidad contractual y t\'ecnica. La verificabilidad depende directamente de la ausencia de ambig\"uedad y de la cuantificaci\'on de m\'etricas. Todo requisito aprobado debe poder enlazarse con al menos un caso de prueba. Ejemplo en el PFC: verificar que el sistema impide la anulaci\'on de una factura cuando inicia sesi\'on un usuario con rol de cajero.
+	
+	\textbf{Correcto (Correct).} Definici\'on formal: caracter\'istica que confirma que el requisito representa con exactitud una necesidad real y aprobada de las partes interesadas o del marco normativo \cite{iso29148,pohl2025}. Explicaci\'on propia: Un requisito puede estar perfectamente redactado sin ambig\"uedades, pero ser incorrecto si refleja una regla comercial equivocada. La correcci\'on solo puede confirmarse mediante la validaci\'on activa con los actores del dominio. Mientras no exista revisi\'on con el cliente real, la correcci\'on permanece como hip\'otesis de trabajo. Ejemplo en el PFC: confirmar con el propietario del establecimiento el porcentaje m\'aximo de descuento que un administrador puede autorizar sin aprobaci\'on gerencial.
+	
+	\textbf{Conforme (Conforming).} Definici\'on formal: propiedad que garantiza que el requisito sigue las plantillas, est\'andares de redacci\'on, convenciones de identificaci\'on y reglas estructurales definidas para el proyecto \cite{iso29148}. Explicaci\'on propia: La conformidad documental asegura uniformidad estil\'istica cuando varios analistas redactan distintas secciones de la especificaci\'on. Incluye el uso obligatorio de identificadores \'unicos, verbos imperativos estandarizados y clasificaci\'on expl\'icita. Facilita las auditor\'ias de calidad documental y el procesamiento automatizado de matrices. Ejemplo en el PFC: redactar todos los requisitos funcionales bajo la estructura sint\'actica EARS utilizando el prefijo \texttt{RF-} y la escala de priorizaci\'on MoSCoW.
+	
+	\subsubsection*{Caracter\'isticas de un conjunto de requisitos}
+	
+	\textbf{Completo (Complete).} Definici\'on formal: propiedad del conjunto que asegura que est\'an incluidas todas las necesidades relevantes, escenarios operativos, condiciones de error e interfaces sin omisiones significativas \cite{iso29148,pohl2025}. Explicaci\'on propia: Mientras la completitud individual eval\'ua una frase aislada, la completitud del conjunto examina la cobertura integral del problema. Las omisiones en el conjunto suelen detectarse mediante matrices de trazabilidad y perspectivas de contexto. Un conjunto incompleto genera vac\'ios funcionales que emergen tard\'iamente durante las pruebas de aceptaci\'on. Ejemplo en el PFC: cubrir no solo la venta normal en efectivo, sino tambi\'en cobros con pasarela, devoluciones, consulta de stock y fallos de conectividad con la IA.
+	
+	\textbf{Consistente (Consistent).} Definici\'on formal: cualidad que garantiza que ning\'un requisito del conjunto contradice a otro en t\'erminos de comportamiento, reglas de negocio, terminolog\'ia o restricciones \cite{iso29148,ireb2023}. Explicaci\'on propia: Las inconsistencias surgen frecuentemente cuando distintos interesados expresan prioridades opuestas sin negociaci\'on previa. Tambi\'en ocurren cuando dos analistas emplean t\'erminos diferentes para referirse al mismo concepto comercial. Resolver conflictos requiere sesiones de negociaci\'on y un glosario unificado. Ejemplo en el PFC: evitar que un requisito permita vender productos con stock cero mientras otro proh\'ibe estrictamente cualquier saldo negativo en inventario.
+	
+	\textbf{Factible / Asequible (Feasible / Affordable).} Definici\'on formal: propiedad por la cual la totalidad de los requisitos especificados puede realizarse de manera conjunta dentro de las restricciones globales de presupuesto, tiempo, tecnolog\'ia y recursos humanos \cite{iso29148}. Explicaci\'on propia: Aunque cada requisito parezca viable de forma aislada, su integraci\'on simult\'anea puede exceder la capacidad financiera o t\'ecnica del proyecto. Esta propiedad obliga a priorizar el alcance mediante esquemas como MoSCoW para asegurar entregas realistas. Permite equilibrar ambici\'on funcional con sostenibilidad operativa. Ejemplo en el PFC: garantizar que el despliegue web con PostgreSQL y el consumo de la API de Groq se mantengan dentro de los costos operativos asumibles por un local comercial en Quevedo.
+	
+	\textbf{Comprensible (Comprehensible).} Definici\'on formal: caracter\'istica que asegura que el conjunto de requisitos est\'a organizado y redactado de modo que tanto los interesados no t\'ecnicos como los desarrolladores puedan entenderlo claramente \cite{iso29148,pohl2025}. Explicaci\'on propia: Una especificaci\'on comprensible utiliza estructura jer\'arquica, tablas claras, definiciones expl\'icitas y lenguaje libre de jerga innecesaria. Si el cliente no comprende el documento, no puede validar genuinamente si refleja sus necesidades. La comprensibilidad reduce la brecha de comunicaci\'on entre el negocio y el equipo de ingenier\'ia. Ejemplo en el PFC: agrupar los requisitos por prefijos tem\'aticos (\texttt{RN}, \texttt{RF}, \texttt{RNF}, \texttt{RI}, \texttt{RC}) y acompa\~narlos de su fuente de origen para facilitar su lectura por el propietario y los cajeros.
+	
+	\textbf{Verificable / Validable (Able to be validated).} Definici\'on formal: propiedad del conjunto que permite demostrar objetivamente que la especificaci\'on global satisface las necesidades previstas del negocio y puede someterse a procesos formales de validaci\'on y verificaci\'on \cite{iso29148,swebok4}. Explicaci\'on propia: Un conjunto validable posibilita trazar cada requisito de negocio hacia sus requisitos funcionales y de calidad correspondientes. Adem\'as, permite planificar la estrategia completa de pruebas de aceptaci\'on del sistema antes de escribir c\'odigo. Si el conjunto carece de criterios de aceptaci\'on globales, resulta imposible certificar la entrega final. Ejemplo en el PFC: vincular los indicadores de reducci\'on de errores en caja con los requisitos funcionales de b\'usqueda y los requisitos no funcionales de usabilidad y tiempo de respuesta.
+	%%% [/FUNDAMENTO]
+	
+	%%% [ARTEFACTOS]
+	\section{Artefactos de Especificaci\'on y Evaluaci\'on Aplicados al PFC}
+	
+	\subsection{3.3 Tabla de requisitos del PFC}
+	
+	La Tabla~\ref{tab:requisitos_pfc} presenta los 19 requisitos \'unicos formulados para la plataforma de ventas con m\'odulo de recomendaci\'on basado en IA para establecimientos el\'ectricos en Quevedo. Todos los requisitos funcionales (RF) emplean la sintaxis controlada EARS \cite{mavin2009}, identificando su patr\'on estructural. Los requisitos no funcionales (RNF) y de rendimiento (RR) se vinculan con las caracter\'isticas de calidad de ISO/IEC 25010:2023 \cite{iso25010} y establecen m\'etricas cuantificables marcadas expl\'icitamente como supuestos pendientes de validaci\'on con el propietario del establecimiento.
+	
+	\begin{longtable}{>{\raggedright\arraybackslash}p{1.4cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}p{7.6cm} >{\raggedright\arraybackslash}p{1.6cm} >{\raggedright\arraybackslash}p{2.3cm}}
+		\caption{Especificaci\'on de 19 requisitos \'unicos del PFC con trazabilidad, sintaxis EARS y m\'etricas ISO/IEC 25010:2023.}
+		\label{tab:requisitos_pfc}\\
+		\toprule
+		\textbf{ID} & \textbf{Tipo} & \textbf{Descripci\'on} & \textbf{MoSCoW} & \textbf{Fuente} \\
+		\midrule
+		\endfirsthead
+		\toprule
+		\textbf{ID} & \textbf{Tipo} & \textbf{Descripci\'on} & \textbf{MoSCoW} & \textbf{Fuente} \\
+		\midrule
+		\endhead
+		\bottomrule
+		\endfoot
+		RN-01 & Negocio & Reducir en al menos un 60\,\% la incidencia de errores de digitaci\'on durante el registro de ventas en horas pico respecto al proceso manual actual (supuesto a validar con el propietario del local). & Must & Propietario / Problema: errores en horas pico \\
+		\midrule
+		RN-02 & Negocio & Incrementar la autonom\'ia operativa de los cajeros sin formaci\'on el\'ectrica especializada para resolver al menos el 70\,\% de consultas b\'asicas de selecci\'on de materiales sin intervenci\'on de personal experto (supuesto a validar con el propietario del local). & Should & Propietario / Problema: dependencia de experto \\
+		\midrule
+		RS-01 & Stakeholder & Disponer de registros cronol\'ogicos e inalterables de todas las ventas, descuentos, devoluciones y anulaciones ejecutadas en el establecimiento para respaldar inspecciones contables y operativas. & Must & Auditor \\
+		\midrule
+		RU-01 & Usuario & Localizar productos el\'ectricos en el mostrador mediante c\'odigo de barras, nombre parcial o atributos t\'ecnicos b\'asicos (amperaje, voltaje, calibre) para agilizar la atenci\'on al cliente en caja. & Must & Cajeros y Clientes \\
+		\midrule
+		RF-01 & Funcional & [EARS: Dirigido por eventos] Cuando el cajero confirme el cobro de una venta y exista stock suficiente para todos los \'items seleccionados, el sistema deber\'a registrar la transacci\'on con identificador \'unico, fecha, hora, detalle de art\'iculos, impuestos y total, generando el comprobante correspondiente. & Must & Cajeros y Administrador (reconcilia EJ-01) \\
+		\midrule
+		RF-02 & Funcional & [EARS: Dirigido por eventos] Cuando el cajero ingrese un c\'odigo de art\'iculo, descripci\'on parcial o par\'ametro t\'ecnico en el buscador, el sistema deber\'a mostrar el precio unitario vigente, la ubicaci\'on en estanter\'ia y la cantidad exacta disponible en inventario. & Must & Cajeros (reconcilia EJ-02) \\
+		\midrule
+		RF-03 & Funcional & [EARS: Dirigido por eventos] Cuando el cajero introduzca la tensi\'on nominal, la potencia de la carga y el tipo de instalaci\'on solicitados por el cliente, el sistema deber\'a consultar el m\'odulo de recomendaci\'on y presentar hasta tres art\'iculos existentes en el cat\'alogo con sus especificaciones registradas y una advertencia de verificaci\'on t\'ecnica. & Should & Cajeros y Clientes (reconcilia EJ-03) \\
+		\midrule
+		RF-04 & Funcional & [EARS: Dirigido por eventos] Cuando se confirme una venta, una devoluci\'on autorizada o un ingreso de mercader\'ia de proveedores, el sistema deber\'a actualizar autom\'aticamente las existencias del art\'iculo en la base de datos y registrar el movimiento de inventario asociado. & Must & Administrador y Proveedores \\
+		\midrule
+		RF-05 & Funcional & [EARS: Ubicuo] El sistema deber\'a restringir el acceso a sus m\'odulos operativos mediante autenticaci\'on por usuario y contrase\~na aplicando permisos diferenciados seg\'un los roles de cajero, administrador, propietario y auditor. & Must & Administrador y Auditor \\
+		\midrule
+		RF-06 & Funcional & [EARS: Comportamiento no deseado] Si la conexi\'on con el servicio externo de recomendaci\'on basado en IA (Groq) no responde dentro del tiempo l\'imite o presenta indisponibilidad, el sistema deber\'a notificar al cajero que la sugerencia asistida no est\'a disponible y permitir continuar la b\'usqueda manual y facturaci\'on sin interrupciones. & Must & Cajeros y Administrador \\
+		\midrule
+		RNF-01 & No Funcional (Usabilidad) & [ISO/IEC 25010:2023 --- Capacidad de interacci\'on] El flujo principal de b\'usqueda y facturaci\'on deber\'a permitir que un cajero sin experiencia previa en la plataforma complete una venta de cinco art\'iculos sin asistencia externa tras una inducci\'on m\'axima de 30 minutos, manteniendo una tasa de error de captura inferior al 2\,\% por turno (supuesto a validar con el propietario del local). & Should & Cajeros / Problema: interfaz confusa \\
+		\midrule
+		RNF-02 & No Funcional (Fiabilidad) & [ISO/IEC 25010:2023 --- Fiabilidad] El m\'odulo transaccional de ventas e inventario deber\'a mantener una disponibilidad operativa m\'inima del 99,0\,\% durante el horario comercial del local (08:00 a 19:00) y garantizar cero p\'erdida de transacciones confirmadas ante fallos de sesi\'on (supuesto a validar con el propietario del local). & Must & Propietario y Administrador \\
+		\midrule
+		RNF-03 & No Funcional (Seguridad) & [ISO/IEC 25010:2023 --- Seguridad] El sistema deber\'a almacenar todas las contrase\~nas mediante algoritmos de resumen criptogr\'afico (hash con sal), cifrar las comunicaciones de red mediante TLS 1.2 o superior y bloquear cualquier modificaci\'on o eliminaci\'on directa de registros en la bit\'acora de auditor\'ia (supuesto a validar con el propietario del local). & Must & Auditor y Administrador \\
+		\midrule
+		RR-01 & Rendimiento & [ISO/IEC 25010:2023 --- Eficiencia de desempe\~no] El sistema deber\'a devolver los resultados de b\'usqueda de productos en un tiempo m\'aximo de 1,5 segundos y completar el registro de una venta de hasta 15 l\'ineas en menos de 2,5 segundos bajo una carga concurrente de hasta 5 terminales de caja activos (supuesto a validar con el propietario del local). & Must & Cajeros / Problema: facturaci\'on lenta \\
+		\midrule
+		RI-01 & Interfaz (Usuario) & La interfaz gr\'afica del punto de venta deber\'a operar en navegadores web modernos con resoluci\'on m\'inima de 1366$\times$768 p\'ixeles, permitiendo completar el ciclo de b\'usqueda, selecci\'on y cobro mediante atajos de teclado sin requerir uso obligatorio del rat\'on. & Should & Cajeros / Problema: interfaz anticuada \\
+		\midrule
+		RI-02 & Interfaz (Hardware) & El sistema deber\'a recibir cadenas de c\'odigos de barras EAN-13/UPC desde lectores \'opticos conectados por puerto USB en modo emulaci\'on de teclado (HID) y enviar comprobantes de venta a impresoras t\'ermicas locales de 80\,mm. & Must & Cajeros y Administrador \\
+		\midrule
+		RI-03 & Interfaz (Software / Comunicaciones) & El sistema deber\'a intercambiar solicitudes y respuestas con el servicio de modelos de lenguaje de Groq y con pasarelas de pago electr\'onico externas mediante API REST sobre protocolo HTTPS utilizando cargas \'utiles en formato JSON con tiempo de espera m\'aximo de 5 segundos. & Should & Pasarelas de pago y M\'odulo IA \\
+		\midrule
+		RC-01 & Restricci\'on & La plataforma deber\'a desarrollarse como una aplicaci\'on web utilizando el sistema gestor de bases de datos relacional PostgreSQL para la persistencia transaccional y la API de Groq como motor externo de inferencia para recomendaciones. & Must & Equipo de desarrollo y Propietario \\
+		\midrule
+		RC-02 & Conformidad & Los comprobantes de venta generados y los datos personales de clientes almacenados deber\'an cumplir con las disposiciones vigentes de facturaci\'on comercial y protecci\'on de datos personales aplicables en la Rep\'ublica del Ecuador. & Must & Propietario y Auditor \\
+	\end{longtable}
+	
+
+	
+	\subsection{3.4 Evaluaci\'on de propiedades de calidad}
+	
+	En cumplimiento del criterio C2 de la r\'ubrica, la Tabla~\ref{tab:eval_propiedades} eval\'ua cada uno de los 19 requisitos frente a las nueve propiedades de calidad de un requisito individual definidas en ISO/IEC/IEEE 29148:2018 \cite{iso29148}: Necesario (P1), Apropiado (P2), No ambiguo (P3), Completo (P4), Singular (P5), Factible (P6), Verificable (P7), Correcto (P8) y Conforme (P9).
+	
+	Cabe se\~nalar que, dado que a\'un no se han ejecutado las entrevistas ni las sesiones de aprobaci\'on formal con el establecimiento en Quevedo (tal como se documenta en la Secci\'on 3.2), la propiedad P8 (\textit{Correcto}) se marca como \textbf{No cumple} en todos los requisitos hasta contar con evidencia de validaci\'on real con los interesados. Adicionalmente, \texttt{RF-03} y \texttt{RI-03} presentan observaciones t\'ecnicas espec\'ificas en P3, P4 o P6 que requieren refinamiento.
+	
+	\begin{longtable}{>{\raggedright\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{1.2cm}}
+		\caption{Evaluaci\'on de propiedades de calidad seg\'un ISO/IEC/IEEE 29148:2018 para los 19 requisitos.}
+		\label{tab:eval_propiedades}\\
+		\toprule
+		\textbf{ID} & \textbf{P1 Nec.} & \textbf{P2 Apr.} & \textbf{P3 No amb.} & \textbf{P4 Comp.} & \textbf{P5 Sing.} & \textbf{P6 Fact.} & \textbf{P7 Verif.} & \textbf{P8 Corr.} & \textbf{P9 Conf.} \\
+		\midrule
+		\endfirsthead
+		\toprule
+		\textbf{ID} & \textbf{P1 Nec.} & \textbf{P2 Apr.} & \textbf{P3 No amb.} & \textbf{P4 Comp.} & \textbf{P5 Sing.} & \textbf{P6 Fact.} & \textbf{P7 Verif.} & \textbf{P8 Corr.} & \textbf{P9 Conf.} \\
+		\midrule
+		\endhead
+		\bottomrule
+		\endfoot
+		RN-01 & Cumple (trazable a error) & Cumple (nivel negocio) & Cumple (meta 60\,\%) & Cumple (alcance claro) & Cumple (una meta) & Cumple (viable) & Cumple (medible) & No cumple (sin validar) & Cumple (ID y formato) \\
+		\midrule
+		RN-02 & Cumple (trazable a experto) & Cumple (nivel negocio) & Cumple (meta 70\,\%) & Cumple (alcance claro) & Cumple (una meta) & Cumple (viable) & Cumple (medible) & No cumple (sin validar) & Cumple (ID y formato) \\
+		\midrule
+		RS-01 & Cumple (exigencia auditor) & Cumple (nivel actor) & Cumple (eventos claros) & Cumple (cubre 4 acciones) & Cumple (trazabilidad) & Cumple (est\'andar) & Cumple (inspecci\'on) & No cumple (sin validar) & Cumple (ID y formato) \\
+		\midrule
+		RU-01 & Cumple (tarea cajero) & Cumple (nivel usuario) & Cumple (criterios claros) & Cumple (entradas y fin) & Cumple (una tarea) & Cumple (viable) & Cumple (prueba uso) & No cumple (sin validar) & Cumple (ID y formato) \\
+		\midrule
+		RF-01 & Cumple (core venta) & Cumple (nivel sistema) & Cumple (datos precisos) & Cumple (condici\'on y fin) & Cumple (registro venta) & Cumple (est\'andar) & Cumple (caso prueba) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RF-02 & Cumple (consulta stock) & Cumple (nivel sistema) & Cumple (salidas exactas) & Cumple (entrada y salida) & Cumple (consulta stock) & Cumple (est\'andar) & Cumple (caso prueba) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RF-03 & Cumple (apoyo IA) & Cumple (nivel sistema) & No cumple (``tipo instalaci\'on'' vago) & No cumple (falta caso sin match) & Cumple (sugerencia) & No cumple (falta aval el\'ectrico) & Cumple (m\'ax. 3 \'items) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RF-04 & Cumple (control stock) & Cumple (nivel sistema) & Cumple (3 eventos claros) & Cumple (actualiza y registra) & Cumple (gesti\'on stock) & Cumple (est\'andar) & Cumple (prueba BD) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RF-05 & Cumple (control acceso) & Cumple (nivel sistema) & Cumple (4 roles definidos) & Cumple (acceso y roles) & Cumple (seguridad acceso) & Cumple (est\'andar) & Cumple (prueba roles) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RF-06 & Cumple (continuidad) & Cumple (nivel sistema) & Cumple (evento fallo claro) & Cumple (aviso y flujo) & Cumple (manejo fallo) & Cumple (viable) & Cumple (prueba corte) & No cumple (sin validar) & Cumple (EARS v\'alido) \\
+		\midrule
+		RNF-01 & Cumple (reduce estr\'es) & Cumple (nivel calidad) & Cumple (30 min y $<2\,\%$) & Cumple (condici\'on y m\'etrica) & Cumple (usabilidad) & Cumple (viable) & Cumple (prueba usuario) & No cumple (sin validar) & Cumple (ISO 25010) \\
+		\midrule
+		RNF-02 & Cumple (operaci\'on caja) & Cumple (nivel calidad) & Cumple (99,0\,\% y horario) & Cumple (horario e integridad) & Cumple (fiabilidad) & Cumple (viable) & Cumple (monitoreo) & No cumple (sin validar) & Cumple (ISO 25010) \\
+		\midrule
+		RNF-03 & Cumple (protege datos) & Cumple (nivel calidad) & Cumple (hash, TLS 1.2) & Cumple (datos y bit\'acora) & Cumple (seguridad) & Cumple (est\'andar) & Cumple (auditor\'ia) & No cumple (sin validar) & Cumple (ISO 25010) \\
+		\midrule
+		RR-01 & Cumple (elimina lentitud) & Cumple (nivel desempe\~no) & Cumple (1,5\,s y 2,5\,s) & Cumple (5 cajas carga) & Cumple (velocidad) & Cumple (viable) & Cumple (prueba carga) & No cumple (sin validar) & Cumple (ISO 25010) \\
+		\midrule
+		RI-01 & Cumple (ergonom\'ia) & Cumple (nivel interfaz) & Cumple (1366$\times$768, atajos) & Cumple (ciclo completo) & Cumple (UI web) & Cumple (est\'andar) & Cumple (inspecci\'on UI) & No cumple (sin validar) & Cumple (tipo UI) \\
+		\midrule
+		RI-02 & Cumple (perif\'ericos) & Cumple (nivel interfaz) & Cumple (EAN-13, USB, 80\,mm) & Cumple (entrada y salida) & Cumple (hardware) & Cumple (est\'andar) & Cumple (prueba f\'isica) & No cumple (sin validar) & Cumple (tipo HW) \\
+		\midrule
+		RI-03 & Cumple (conectividad) & Cumple (nivel interfaz) & Cumple (REST, JSON, 5\,s) & No cumple (sin especificar pasarela local) & No cumple (mezcla IA y pagos) & Cumple (est\'andar) & Cumple (prueba API) & No cumple (sin validar) & Cumple (tipo SW/Com) \\
+		\midrule
+		RC-01 & Cumple (stack definido) & Cumple (restricci\'on) & Cumple (web, PostgreSQL, Groq) & Cumple (3 componentes) & Cumple (arquitectura) & Cumple (viable) & Cumple (inspecci\'on) & No cumple (sin validar) & Cumple (restricci\'on) \\
+		\midrule
+		RC-02 & Cumple (marco legal) & Cumple (conformidad) & Cumple (norma Ecuador) & Cumple (fiscal y datos) & Cumple (legalidad) & Cumple (obligatorio) & Cumple (revisi\'on legal) & No cumple (sin validar) & Cumple (conformidad) \\
+	\end{longtable}
+	
+	\subsubsection*{Propuestas de correcci\'on para requisitos con defectos detectados}
+	
+	Tras la evaluaci\'on de la Tabla~\ref{tab:eval_propiedades}, se documentan las acciones correctivas para los requisitos que incumplieron criterios t\'ecnicos de redacci\'on o estructura (m\'as all\'a de P8, cuya resoluci\'on depende de la aprobaci\'on formal del establecimiento):
+	
+	\begin{enumerate}
+		\item \textbf{Correcci\'on de \texttt{RF-03} (incumple P3 No ambiguo, P4 Completo y P6 Factible):}
+		\begin{itemize}
+			\item \textit{Hallazgo:} La expresi\'on ``tipo de instalaci\'on'' admite interpretaciones abiertas, no se define la respuesta cuando ning\'un producto del cat\'alogo cumple los par\'ametros y la factibilidad t\'ecnica carece de criterios avalados por un especialista el\'ectrico.
+			\item \textit{Versi\'on corregida propuesta:} ``[EARS: Dirigido por eventos] Cuando el cajero seleccione el tipo de instalaci\'on (residencial monof\'asica o comercial bif\'asica) e introduzca la tensi\'on nominal (en voltios) y la corriente o potencia de carga (en amperios o vatios), el sistema deber\'a consultar el m\'odulo de recomendaci\'on y presentar hasta tres art\'iculos existentes en el cat\'alogo con sus especificaciones t\'ecnicas registradas y un aviso obligatorio de verificaci\'on profesional, o informar expl\'icitamente si no existen coincidencias compatibles en inventario.''
+		\end{itemize}
+		\item \textbf{Correcci\'on de \texttt{RI-03} (incumple P4 Completo y P5 Singular):}
+		\begin{itemize}
+			\item \textit{Hallazgo:} Agrupa en un mismo enunciado dos interfaces externas de naturaleza y criticidad distintas (servicio de inferencia IA de Groq y pasarelas de pago electr\'onico), violando la singularidad (P5), y omite especificar qu\'e pasarela local de Ecuador se integrar\'a (P4).
+			\item \textit{Versi\'on corregida propuesta (dividida en dos requisitos singulares):}
+			\begin{itemize}
+				\item \textbf{RI-03A (Interfaz Software/Comunicaciones --- M\'odulo IA):} ``El sistema deber\'a intercambiar solicitudes y respuestas de recomendaci\'on t\'ecnica con la API REST de Groq mediante protocolo HTTPS (TLS 1.2+) y formato JSON, aplicando un tiempo m\'aximo de espera (timeout) de 5 segundos por petici\'on.''
+				\item \textbf{RI-03B (Interfaz Software/Comunicaciones --- Pasarela de Pagos):} ``El sistema deber\'a procesar autorizaciones de cobro electr\'onico con la pasarela de pagos definida por el establecimiento (a confirmar en validaci\'on) mediante API REST sobre HTTPS/JSON, registrando el c\'odigo de autorizaci\'on devuelto por la entidad financiera.''
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Acci\'on transversal para P8 (\textit{Correcto}) en los 19 requisitos:} Programar una sesi\'on de validaci\'on con el propietario, administrador, cajeros y auditor del local en Quevedo utilizando las gu\'ias de entrevista de la Secci\'on 3.1 para confirmar umbrales num\'ericos, reglas de negocio y aprobar la l\'inea base.
+	\end{enumerate}
+	
+	\subsection{3.5 Justificaci\'on de clasificaci\'on y an\'alisis de casos frontera}
+	
+	Con el fin de evitar errores conceptuales entre comportamiento funcional, atributos de calidad y decisiones de dise\~no \cite{pohl2025,glinz2007}, la Tabla~\ref{tab:justif_clasif} fundamenta la categor\'ia asignada a cada requisito y analiza expl\'icitamente los casos frontera del proyecto.
+	
+	\begin{longtable}{>{\raggedright\arraybackslash}p{1.4cm} >{\raggedright\arraybackslash}p{2.4cm} >{\raggedright\arraybackslash}p{11.2cm}}
+		\caption{Justificaci\'on de clasificaci\'on de requisitos y an\'alisis de casos frontera.}
+		\label{tab:justif_clasif}\\
+		\toprule
+		\textbf{ID} & \textbf{Categor\'ia} & \textbf{Justificaci\'on t\'ecnica y an\'alisis de frontera} \\
+		\midrule
+		\endfirsthead
+		\toprule
+		\textbf{ID} & \textbf{Categor\'ia} & \textbf{Justificaci\'on t\'ecnica y an\'alisis de frontera} \\
+		\midrule
+		\endhead
+		\bottomrule
+		\endfoot
+		RN-01, RN-02 & Negocio & Expresan metas estrat\'egicas del propietario (reducci\'on de errores y autonom\'ia del personal) sin prescribir funciones espec\'ificas de software; justifican el proyecto \cite{iso29148,wiegers2013}. \\
+		\midrule
+		RS-01 & Stakeholder & Refleja una expectativa espec\'ifica del rol de auditor (trazabilidad inalterable) previa a su descomposici\'on en controles t\'ecnicos \cite{iso29148,pmbok7}. \\
+		\midrule
+		RU-01 & Usuario & Describe la tarea operativa del cajero en su lenguaje laboral (buscar por amperaje o nombre) sin imponer estructuras internas \cite{iso29148,ireb2023}. \\
+		\midrule
+		RF-01 a RF-06 & Funcional (RF) & Definen transformaciones de datos y acciones observables (registrar venta, consultar stock, generar recomendaci\'on, actualizar inventario, autenticar roles y manejar fallo de IA) ante eventos definidos \cite{iso29148,pohl2025}. \\
+		\midrule
+		RNF-01 a RNF-03 & No Funcional (Calidad) & Califican c\'omo opera el sistema (facilidad de aprendizaje, disponibilidad del 99,0\,\%, cifrado y protecci\'on de bit\'acora) conforme a las caracter\'isticas de ISO/IEC 25010:2023 \cite{iso25010,glinz2007}. \\
+		\midrule
+		RR-01 & Rendimiento & Establece l\'imites temporales cuantitativos (1,5\,s y 2,5\,s bajo 5 cajas concurrentes) asociados a la eficiencia de desempe\~no; no es una funci\'on sino una cota temporal sobre \texttt{RF-01} y \texttt{RF-02} \cite{iso29148,iso25010}. \\
+		\midrule
+		RI-01 a RI-03 & Interfaz & Delimitan fronteras de interacci\'on con actores y sistemas externos (pantalla/teclado en \texttt{RI-01}, lector USB/impresora en \texttt{RI-02}, APIs REST/JSON en \texttt{RI-03}) \cite{iso29148}. \\
+		\midrule
+		RC-01 & Restricci\'on \textit{(Caso frontera)} & \textbf{An\'alisis de frontera:} Aunque menciona tecnolog\'ias concretas (arquitectura web, PostgreSQL y API de Groq), no constituye un requisito funcional porque no describe una tarea del negocio, sino una limitaci\'on arquitect\'onica previa impuesta por el equipo y el entorno del proyecto \cite{pohl2025,glinz2007}. \\
+		\midrule
+		RC-02 & Conformidad \textit{(Caso frontera)} & \textbf{An\'alisis de frontera:} Podr\'ia confundirse con un requisito funcional de emisi\'on de facturas (\texttt{RF-01}), pero se clasifica como conformidad porque impone el acatamiento obligatorio a un marco legal externo (normativa tributaria y de protecci\'on de datos de Ecuador) \cite{iso29148,swebok4}. \\
+	\end{longtable}
+	%%% [/ARTEFACTOS]
+	
+	%%% [CONCLUSION]
+	\section{Conclusi\'on}
+	
+	La aplicaci\'on rigurosa de una taxonom\'ia estandarizada y de criterios formales de calidad permite transformar problemas operativos cotidianos en especificaciones verificables antes de iniciar la construcci\'on del software. En este aporte se clasificaron 19 requisitos \'unicos mediante los prefijos definidos por el equipo y se evaluaron frente a las nueve propiedades individuales de ISO/IEC/IEEE 29148:2018, identificando defectos de singularidad, completitud y ambig\"uedad en requisitos cr\'iticos como la recomendaci\'on t\'ecnica asistida por IA y la integraci\'on de interfaces externas, adem\'as de cuantificar los atributos de calidad bajo ISO/IEC 25010:2023 \cite{iso29148,iso25010,pohl2025}. Para el Proyecto Fin de Curso en el establecimiento el\'ectrico de Quevedo, la implicaci\'on directa es que ning\'un umbral de rendimiento ni regla de recomendaci\'on el\'ectrica puede asumirse como definitivo sin ejecutar las entrevistas de validaci\'on con el propietario, los cajeros y un especialista t\'ecnico que certifique la seguridad de las sugerencias.
+	%%% [/CONCLUSION]
+	
+	\bibliographystyle{IEEEtran}
+	\bibliography{aporte_freddy}
+	
+	% ============================================================
+	% anexos_referencias.tex  --  Anexos A y B (formato solicitado)
+	% Se agrega al FINAL del documento, justo despues de \bibliography{...}:
+	%     \input{anexos_referencias}
+	% Capturas en la carpeta "figura/" (junto al .tex principal):
+	%     figura/Anexo_A_IEEE     (Anexo A: salida IEEE de Zotero)
+	%     figura/Anexo_B_ZOTERO   (Anexo B: vista de la coleccion)
+	% Si falta una imagen, el documento compila y muestra un recuadro.
+	% IMPORTANTE: si las imagenes NO son .png (por ejemplo .jpg), cambiar la
+	% extension en las dos lineas de abajo.
+	\newcommand{\imgAnexoA}{figura/Anexo_A_IEEE.PNG}
+	\newcommand{\imgAnexoB}{figura/Anexo_B_ZOTERO.PNG}
+	% ============================================================
+	
+	% Figura con marco fino gris (como en el modelo). Uso: \anexofig{archivo}{leyenda}{etiqueta}
+	\newcommand{\anexofig}[3]{%
+		\begin{figure}[!htb]
+			\centering
+			\IfFileExists{#1}{%
+				\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}%
+				\fcolorbox{gray!60}{white}{\includegraphics[width=\linewidth]{#1}}}{%
+				\fbox{\parbox{0.9\linewidth}{\centering\vspace{3cm}\textbf{[Insertar captura: \texttt{\detokenize\expandafter{#1}}]}\vspace{3cm}}}}
+			\caption{#2}
+			\label{#3}
+	\end{figure}}
+	
+	% ------------------------- ANEXO A -------------------------
+	\clearpage
+	\section*{Anexo A. Referencias bibliogr\'aficas organizadas en Zotero}
+	
+	Este anexo documenta la salida bibliogr\'afica de las doce fuentes del aporte, exportada desde Zotero con el estilo IEEE. El registro bibliogr\'afico respalda la organizaci\'on documental, pero no reemplaza la revisi\'on directa de las publicaciones originales. La Figura~\ref{fig:anexoA} presenta la evidencia correspondiente.
+	
+	\anexofig{\imgAnexoA}{Salida bibliogr\'afica de las doce fuentes del aporte, generada en Zotero con estilo IEEE.}{fig:anexoA}
+	
+	% ------------------------- ANEXO B -------------------------
+	\clearpage
+	\section*{Anexo B. Evidencia de la colecci\'on bibliogr\'afica en Zotero}
+	
+	La colecci\'on <<PE1 - Fuentes obligatorias>> permite identificar los registros consultados para la preparaci\'on bibliogr\'afica del aporte. La Figura~\ref{fig:anexoB} muestra la vista de la biblioteca con las fuentes utilizadas. Esta captura acredita su organizaci\'on en Zotero, sin implicar por s\'i misma la verificaci\'on del contenido de cada obra.
+	
+	\anexofig{\imgAnexoB}{Colecci\'on de Zotero utilizada para organizar las referencias del aporte.}{fig:anexoB}
+	
+	
+\end{document}
