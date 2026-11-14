@@ -1,0 +1,421 @@
+\documentclass[onecolumn,12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{cite,graphicx,booktabs,longtable,array,hyperref,tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\figurename}{Figura}
+\nocite{iso29148,iso15288,iso12207,iso25010,pohl2025,swebok4,pmbok7,ireb2023,moore,mavin2009}
+
+\title{Contexto, actores y aplicaci\'on del proceso de requisitos para una plataforma de ventas con recomendaci\'on basada en IA en establecimientos el\'ectricos}
+
+\author{
+\IEEEauthorblockN{Roselyn Andreina S\'anchez Centeno}
+\IEEEauthorblockA{Investigadora C\\
+Carrera de Ingenier\'ia de Software\\
+Universidad T\'ecnica Estatal de Quevedo, Ecuador\\
+Ingenier\'ia de Requerimientos (ISR-401) --- PE1, Unidad 1}
+}
+
+\maketitle
+
+\begin{abstract}
+Este documento desarrolla el aporte de la Investigadora C a la Pr\'actica Experimental 1 de la Unidad 1. Se caracterizan el contexto y el tipo de sistema del Proyecto Fin de Curso (PFC), se definen los actores del proceso de requisitos y el framework de ingenier\'ia de requisitos, y se aplican dichos conceptos a una plataforma de ventas con m\'odulo de recomendaci\'on basado en inteligencia artificial para establecimientos el\'ectricos de Quevedo, Ecuador. Se documentan el l\'imite del sistema con sus entidades externas, la declaraci\'on de visi\'on en formato Moore y las ocho perspectivas de contexto de Pohl, de las cuales emergen diecis\'eis requisitos y restricciones con identificador \texttt{CTX-}. Cada afirmaci\'on te\'orica se respalda en las fuentes primarias de la asignatura y los requisitos se eval\'uan contra las propiedades de la norma ISO/IEC/IEEE 29148:2018.
+\end{abstract}
+
+\begin{IEEEkeywords}
+ingenier\'ia de requisitos, contexto del sistema, actores del proceso, framework de requisitos, recomendaci\'on con inteligencia artificial.
+\end{IEEEkeywords}
+
+%%% [FUNDAMENTO]
+\section{Fundamento te\'orico}
+
+\subsection{Contexto y tipo de sistema (secci\'on 2.5)}
+
+\subsubsection{Concepto de sistema}
+En el marco de la ingenier\'ia de sistemas, un sistema se entiende como una combinaci\'on de elementos que interact\'uan entre s\'i y que se organizan para alcanzar uno o varios prop\'ositos declarados \cite{iso15288}. Esta definici\'on resalta tres ideas complementarias: que el sistema est\'a compuesto por partes, que dichas partes mantienen relaciones mutuas y que el conjunto persigue un objetivo que ninguna parte lograr\'ia por separado. La norma ISO/IEC/IEEE 12207:2017 emplea una noci\'on equivalente al referirse a los sistemas y al software como entidades con un ciclo de vida propio \cite{iso12207}. Por su parte, Pohl se\~nala que la delimitaci\'on de lo que pertenece al sistema no es un dato natural, sino una decisi\'on que el ingeniero de requisitos debe tomar y justificar \cite{pohl2025}. En consecuencia, antes de especificar requisitos conviene acordar qu\'e se considera dentro del sistema y qu\'e queda fuera de \'el.
+
+\textbf{Ejemplo en el PFC.} La \emph{Plataforma de ventas con m\'odulo de recomendaci\'on basado en IA para el soporte de ventas en establecimientos el\'ectricos} se concibe como un sistema cuyos elementos son el m\'odulo de ventas, el m\'odulo de inventario, el m\'odulo de recomendaci\'on con inteligencia artificial, la base de datos PostgreSQL y la interfaz web. Estos elementos interact\'uan para cumplir un prop\'osito concreto: agilizar el registro de la venta y asistir al cajero con recomendaciones t\'ecnicas sobre los productos el\'ectricos.
+
+\subsubsection{Contexto del sistema, l\'imite del sistema y entidades externas}
+Pohl define el contexto del sistema como la parte del entorno del sistema que resulta relevante para definir, comprender e interpretar sus requisitos \cite{pohl2025}. El autor distingue dos fronteras: el \emph{l\'imite del sistema} (\emph{system boundary}), que separa los aspectos que pertenecen al sistema de los que pertenecen a su contexto, y el \emph{l\'imite del contexto} (\emph{context boundary}), que separa los aspectos relevantes del entorno de aquellos que no influyen en los requisitos \cite{pohl2025}. Los elementos del contexto que interact\'uan con el sistema a trav\'es de esa frontera reciben el nombre de objetos de contexto o entidades externas, y pueden ser personas, organizaciones, otros sistemas, procesos, eventos o documentos \cite{pohl2025,iso15288}. Delimitar correctamente ambas fronteras evita dos errores frecuentes: incluir como requisito aquello que es responsabilidad del entorno, o excluir dependencias externas que condicionan el comportamiento del sistema.
+
+\textbf{Ejemplo en el PFC.} El sistema es la plataforma de ventas; forman parte de su contexto, entre otros, la pasarela de pago, los proveedores de productos el\'ectricos, los clientes, el Servicio de Rentas Internas (SRI) para la facturaci\'on electr\'onica y el servicio de inteligencia artificial Groq. La base de datos PostgreSQL, en cambio, se ubica dentro del l\'imite del sistema porque es un componente que el equipo desarrolla y administra, mientras que la pasarela de pago queda fuera porque es un servicio de terceros con el que solo se intercambian datos.
+
+\subsubsection{Tipos de sistema}
+Pohl propone una clasificaci\'on \'util para orientar la ingenier\'ia de requisitos que distingue los sistemas de informaci\'on, los sistemas embebidos, los sistemas software-intensivos y los sistemas adaptativos \cite{pohl2025}. Los sistemas de informaci\'on administran informaci\'on y procesos de negocio y suelen interactuar con muchas personas; los sistemas embebidos integran el software en un hardware con funciones de control; los sistemas software-intensivos son aquellos cuya funcionalidad y valor dependen de forma cr\'itica del software, que pasa a ser su componente principal; y los sistemas adaptativos modifican su comportamiento conforme cambia su entorno o conforme aprenden de la experiencia \cite{pohl2025}. Esta clasificaci\'on no es excluyente, pues un mismo producto puede combinar rasgos de varias categor\'ias. La Tabla \ref{tab:tipos} contrasta los cuatro tipos con el encuadre del PFC.
+
+\begin{table}[htbp]
+\caption{Tipos de sistema seg\'un Pohl y su relaci\'on con el PFC}
+\label{tab:tipos}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.22\linewidth}p{0.34\linewidth}p{0.38\linewidth}@{}}
+\toprule
+\textbf{Tipo de sistema} & \textbf{Rasgo principal} & \textbf{Relaci\'on con el PFC}\\
+\midrule
+De informaci\'on & Administra informaci\'on y procesos de negocio; muchos usuarios. & Presente: gestiona ventas, inventario, clientes y reportes del establecimiento.\\
+Embebido & Software integrado en hardware con funciones de control. & Marginal: solo en la interacci\'on con el hardware POS o impresora fiscal.\\
+Software-intensivo & La funcionalidad y el valor dependen de forma cr\'itica del software. & Presente: toda la operaci\'on depende de la plataforma web y su base de datos.\\
+Adaptativo & Modifica su comportamiento seg\'un el entorno o el aprendizaje. & Parcial: el m\'odulo de recomendaci\'on ajusta sugerencias con base en datos de ventas.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Sistemas con componentes de inteligencia artificial}
+Un sistema software-intensivo puede incorporar componentes de inteligencia artificial que a\~naden un comportamiento dependiente de los datos y, en muchos casos, no determinista \cite{pohl2025,swebok4}. Este tipo de componentes no sustituye la ingenier\'ia de requisitos: por el contrario, obliga a especificar con precisi\'on las entradas, las salidas esperadas, los l\'imites de confianza y el comportamiento de reserva cuando el servicio no est\'a disponible. Adem\'as, la presencia de un componente de IA introduce requisitos de explicabilidad y de control que el usuario debe poder ejercer sobre las sugerencias autom\'aticas \cite{swebok4}. Por ello, el m\'odulo de recomendaci\'on del PFC se trata como un componente acotado y verificable, y no como una caja negra que decide por el vendedor.
+
+\textbf{Ejemplo en el PFC.} El m\'odulo de recomendaci\'on basado en Groq recibe los productos del carrito y sugiere complementos compatibles (por ejemplo, un disyuntor para una instalaci\'on). El requisito exige que la sugerencia sea comprensible para el cajero y que exista un modo degradado cuando el servicio de IA falle, de modo que la venta nunca se detenga por una dependencia externa.
+
+\subsubsection{Las ocho perspectivas de contexto de Pohl}
+Para hacer manejable la complejidad del contexto, Pohl propone analizarlo desde ocho perspectivas de contexto: uso, sujeto, sistema de TI, desarrollo, negocio, innovaci\'on, sociedad y t\'ecnica \cite{pohl2025}. Una perspectiva de contexto es un punto de vista parcial desde el cual se identifican y clasifican los objetos de contexto relevantes para el sistema; aplicar varias perspectivas reduce el riesgo de omitir fuentes de requisitos importantes \cite{pohl2025}. La Tabla \ref{tab:perspectivas} resume las ocho perspectivas con su foco y una pregunta gu\'ia, y la Figura \ref{fig:perspectivas} las representa alrededor del sistema del PFC.
+
+\begin{table}[htbp]
+\caption{Las ocho perspectivas de contexto de Pohl (2025)}
+\label{tab:perspectivas}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.06\linewidth}p{0.24\linewidth}p{0.34\linewidth}p{0.30\linewidth}@{}}
+\toprule
+\textbf{\#} & \textbf{Perspectiva} & \textbf{Foco} & \textbf{Pregunta gu\'ia}\\
+\midrule
+1 & Uso (\emph{usage}) & Tareas, usuarios y forma de empleo del sistema. & ¿Qui\'en usa el sistema y para qu\'e?\\
+2 & Sujeto (\emph{subject}) & Dominio del problema y su terminolog\'ia. & ¿Qu\'e productos y reglas del dominio se manejan?\\
+3 & Sistema de TI (\emph{IT system}) & Sistemas, datos e infraestructura existentes. & ¿Con qu\'e sistemas y datos debe integrarse?\\
+4 & Desarrollo (\emph{development}) & Equipo, tecnolog\'ias, plazos y calidad. & ¿Qui\'en lo construye y con qu\'e restricciones?\\
+5 & Negocio (\emph{business}) & Modelo de negocio, precios y metas. & ¿Qu\'e valor econ\'omico debe generar?\\
+6 & Innovaci\'on (\emph{innovation}) & Novedad y diferenciaci\'on del producto. & ¿Qu\'e aporta la IA frente al proceso actual?\\
+7 & Sociedad (\emph{society}) & Impacto social, \'etico y legal. & ¿Qu\'e normativa y efectos sociales aplican?\\
+8 & T\'ecnica (\emph{technical}) & Rendimiento, seguridad y disponibilidad. & ¿Qu\'e l\'imites t\'ecnicos debe respetar?\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small,
+  p/.style={rectangle,rounded corners,draw,align=center,minimum width=2.5cm,minimum height=0.8cm,fill=blue!5},
+  c/.style={rectangle,rounded corners,draw,very thick,align=center,minimum width=3.4cm,minimum height=1.2cm,fill=orange!15}]
+\node[c] (sys) at (0,0) {Sistema del PFC\\ (plataforma de ventas)};
+\node[p] (p1) at (0,3.4) {1. Uso};
+\node[p] (p2) at (3.4,2.4) {2. Sujeto};
+\node[p] (p3) at (4.8,0) {3. Sistema de TI};
+\node[p] (p4) at (3.4,-2.4) {4. Desarrollo};
+\node[p] (p5) at (0,-3.4) {5. Negocio};
+\node[p] (p6) at (-3.4,-2.4) {6. Innovaci\'on};
+\node[p] (p7) at (-4.8,0) {7. Sociedad};
+\node[p] (p8) at (-3.4,2.4) {8. T\'ecnica};
+\foreach \x in {p1,p2,p3,p4,p5,p6,p7,p8} \draw[{Latex}-{Latex}] (sys) -- (\x);
+\end{tikzpicture}}
+\caption{Las ocho perspectivas de contexto de Pohl aplicadas al sistema del PFC.}
+\label{fig:perspectivas}
+\end{figure}
+
+\subsubsection{Conclusi\'on sobre el tipo de sistema del PFC}
+A partir de la clasificaci\'on de Pohl y de las normas de ciclo de vida, se concluye que el PFC es un \textbf{sistema software-intensivo de informaci\'on transaccional con un componente de inteligencia artificial} \cite{pohl2025,iso15288,iso12207}. Es de informaci\'on porque su funci\'on central es registrar y consultar datos de ventas, inventario y clientes; es transaccional porque cada venta debe registrarse de forma \'integra y consistente; es software-intensivo porque su valor depende de forma cr\'itica del software y no de un hardware especializado; e incorpora un componente de IA porque el m\'odulo de recomendaci\'on genera sugerencias a partir de los datos de la venta \cite{pohl2025,swebok4}. Esta conclusi\'on es coherente con el tipo de sistema que el equipo declar\'o de forma provisional y no la contradice; en consecuencia, no se requiere un aviso de cambio al equipo.
+
+\subsection{Actores y framework de ingenier\'ia de requisitos (secci\'on 2.6)}
+
+\subsubsection{Actores del proceso de requisitos}
+La norma ISO/IEC/IEEE 29148:2018 define un \emph{stakeholder} como un individuo u organizaci\'on que tiene un derecho, una participaci\'on, una reclamaci\'on o un inter\'es en un sistema o en sus caracter\'isticas \cite{iso29148}. La misma norma se\~nala que el conjunto m\'inimo de interesados incluye a los usuarios y a los adquirentes, que no siempre coinciden, y que los proyectos complejos pueden afectar a muchos usuarios y adquirentes con intereses distintos \cite{iso29148}. Pohl complementa esta visi\'on al distinguir el rol activo del ingeniero de requisitos, responsable de conducir el proceso, de los dem\'as interesados que act\'uan como fuentes de requisitos \cite{pohl2025}. El marco de certificaci\'on IREB refuerza que el ingeniero de requisitos es un rol de comunicaci\'on y de acuerdo entre las partes, y no solo un redactor de documentos \cite{ireb2023}. La Tabla \ref{tab:actores} presenta los actores del proceso con su definici\'on y su rol esperado.
+
+\begin{table}[htbp]
+\caption{Actores del proceso de requisitos y sus roles}
+\label{tab:actores}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.20\linewidth}p{0.38\linewidth}p{0.36\linewidth}@{}}
+\toprule
+\textbf{Actor} & \textbf{Definici\'on} & \textbf{Rol en el proceso}\\
+\midrule
+Ingeniero de requisitos & Profesional que planifica y conduce la ingenier\'ia de requisitos \cite{pohl2025,ireb2023}. & Elicita, documenta, negocia, valida y gestiona los requisitos y el contexto.\\
+Cliente (\emph{acquirer}) & Organizaci\'on que adquiere o procura un producto o servicio \cite{iso29148}. & Define necesidades, aprueba visi\'on, alcance y criterios de aceptaci\'on.\\
+Usuario (\emph{end user}) & Persona que utiliza el sistema para su trabajo u objetivo \cite{iso29148}. & Aporta necesidades de uso y valida escenarios y prototipos.\\
+Desarrollador & Rol que transforma los requisitos en dise\~no e implementaci\'on \cite{iso29148,pohl2025}. & Revisa factibilidad y construye la soluci\'on conforme a los requisitos.\\
+Otros interesados & Reguladores, auditores, proveedores y organizaciones externas \cite{iso29148,pmbok7}. & Imponen restricciones legales, t\'ecnicas y de control.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Framework de ingenier\'ia de requisitos}
+Pohl organiza la ingenier\'ia de requisitos en tres actividades \emph{core} ---elicitaci\'on, documentaci\'on y negociaci\'on--- y dos actividades \emph{transversales} ---validaci\'on y gesti\'on--- que acompa\~nan a las anteriores durante todo el ciclo de vida \cite{pohl2025}. La elicitaci\'on obtiene los requisitos y la informaci\'on de contexto de las fuentes adecuadas; la documentaci\'on los representa en formatos comprensibles; y la negociaci\'on resuelve los conflictos entre interesados hasta lograr acuerdos \cite{pohl2025}. La validaci\'on comprueba que los requisitos documentados satisfacen las necesidades reales, y la gesti\'on controla versiones, trazabilidad y cambios \cite{pohl2025,swebok4}. Los artefactos que producen estas actividades se agrupan en metas, escenarios y requisitos orientados a soluci\'on \cite{pohl2025}. La Figura \ref{fig:framework} representa este framework.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small,
+  core/.style={rectangle,draw,rounded corners,align=center,minimum width=2.8cm,minimum height=1cm,fill=green!8},
+  cross/.style={rectangle,draw,align=center,minimum width=4.2cm,minimum height=0.9cm,fill=purple!8},
+  art/.style={rectangle,draw,align=center,minimum width=5.4cm,minimum height=1cm,fill=yellow!15}]
+\node[core] (e) at (0,3) {Elicitaci\'on};
+\node[core] (d) at (4,3) {Documentaci\'on};
+\node[core] (n) at (8,3) {Negociaci\'on};
+\draw[-{Latex}] (e) -- (d);
+\draw[-{Latex}] (d) -- (n);
+\node[cross] (v) at (2,1.1) {Validaci\'on (transversal)};
+\node[cross] (g) at (6,1.1) {Gesti\'on (transversal)};
+\node[art] (a) at (4,-0.9) {Artefactos: metas, escenarios y requisitos orientados a soluci\'on};
+\draw[-{Latex}] (v) -- (a);
+\draw[-{Latex}] (g) -- (a);
+\end{tikzpicture}}
+\caption{Framework de ingenier\'ia de requisitos: actividades core, transversales y artefactos.}
+\label{fig:framework}
+\end{figure}
+
+\subsubsection{Interrelaci\'on entre las actividades}
+Las cinco actividades del framework no forman una secuencia r\'igida, sino que se interrelacionan y se repiten a medida que el conocimiento del sistema aumenta \cite{pohl2025}. La validaci\'on y la gesti\'on act\'uan de forma transversal: la primera revisa lo producido por las actividades core, y la segunda conserva la coherencia y la trazabilidad de los artefactos a lo largo del tiempo \cite{pohl2025,iso29148}. Esta organizaci\'on explica por qu\'e en proyectos con requisitos inicialmente incompletos ---como el PFC--- conviene documentar y validar por incrementos en lugar de esperar una especificaci\'on \'unica y cerrada. En el PFC, por ejemplo, los requisitos de la perspectiva de uso pueden documentarse y validarse en un primer incremento, mientras que los de la perspectiva de sociedad se refinan cuando se precisa el tratamiento de datos personales.
+
+%%% [/FUNDAMENTO]
+
+%%% [ARTEFACTOS]
+\section{Artefactos del proceso aplicados al PFC}
+
+\subsection{Actores y framework aplicados al PFC (secci\'on 3.6)}
+En esta secci\'on se asignan personas y roles reales del PFC a los actores del proceso descritos en la secci\'on 2.6, y se mapea cada actividad del framework a una aplicaci\'on concreta en la plataforma. La asignaci\'on se apoya en la idea de que el ingeniero de requisitos es un rol, no necesariamente una persona \'unica, y de que el mismo equipo puede actuar como analista y como desarrollador en un proyecto acad\'emico \cite{pohl2025,ireb2023}. La Tabla \ref{tab:actores-pfc} identifica qui\'en cumple cada actor en el PFC, con su responsabilidad concreta y la justificaci\'on de la asignaci\'on.
+
+\begin{table}[htbp]
+\caption{Personas y roles reales del PFC asignados a los actores del proceso}
+\label{tab:actores-pfc}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.17\linewidth}p{0.25\linewidth}p{0.30\linewidth}p{0.22\linewidth}@{}}
+\toprule
+\textbf{Actor del proceso} & \textbf{Qui\'en en el PFC} & \textbf{Responsabilidad concreta} & \textbf{Justificaci\'on}\\
+\midrule
+Cliente (\emph{acquirer}) & Propietario del establecimiento el\'ectrico & Financia el proyecto, aprueba la visi\'on, el alcance y los criterios de aceptaci\'on. & Es quien adquiere la soluci\'on y asume el retorno de la inversi\'on \cite{iso29148}.\\
+Usuario & Cajeros, administrador y cliente activo & Operan la venta, el inventario y reciben las recomendaciones. & Usan el sistema en su trabajo diario y validan escenarios \cite{iso29148,pohl2025}.\\
+Ingeniero de requisitos & S\'anchez Centeno, Rochina Rochina y Mendoza Palma (analistas) & Elicitan, documentan, negocian, validan y gestionan los requisitos. & El equipo conduce el proceso de IR del PFC \cite{pohl2025,ireb2023}.\\
+Desarrollador & El mismo equipo del PFC & Revisa factibilidad, construye la plataforma y ejecuta pruebas. & En un proyecto acad\'emico los analistas tambi\'en implementan \cite{iso12207}.\\
+Otros interesados & Auditor, proveedores, pasarela de pago y proveedor de IA (Groq) & Imponen restricciones de control, abastecimiento, pago y servicio de IA. & Afectan al sistema aunque no lo operen \cite{iso29148,pmbok7}.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La Tabla \ref{tab:framework-pfc} mapea cada actividad core y transversal del framework a una aplicaci\'on concreta en el PFC, con un ejemplo y el artefacto que produce. Este mapeo evidencia que el proceso no se describe en abstracto, sino que se instancia en la plataforma.
+
+\begin{table}[htbp]
+\caption{Matriz de actividades del framework aplicadas al PFC}
+\label{tab:framework-pfc}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.17\linewidth}p{0.10\linewidth}p{0.38\linewidth}p{0.27\linewidth}@{}}
+\toprule
+\textbf{Actividad} & \textbf{Tipo} & \textbf{Aplicaci\'on concreta en el PFC} & \textbf{Ejemplo y artefacto}\\
+\midrule
+Elicitaci\'on & Core & Entrevistar al propietario y a los cajeros; observar la atenci\'on en horas pico; revisar el sistema de facturaci\'on actual. & Dolor por errores de digitaci\'on; cat\'alogo de necesidades y fuentes.\\
+Documentaci\'on & Core & Redactar requisitos funcionales y de calidad de ventas, inventario y recomendaci\'on. & Requisitos \texttt{CTX-} y especificaci\'on del m\'odulo de venta.\\
+Negociaci\'on & Core & Acordar con el propietario el alcance del m\'odulo de IA y las prioridades del primer incremento. & Registro de acuerdos sobre alcance y prioridad de funciones.\\
+Validaci\'on & Transversal & Revisar prototipos de la pantalla de venta con cajeros antes de aceptar cada incremento. & Observaciones de usabilidad resueltas; escenarios contrastados.\\
+Gesti\'on & Transversal & Mantener versiones y trazabilidad de los requisitos ante cambios de precios, productos o normativa. & Matriz de trazabilidad y registro de solicitudes de cambio.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{L\'imite del sistema (secci\'on 3.7)}
+El l\'imite del sistema separa la plataforma de las entidades externas con las que intercambia datos \cite{pohl2025}. La Tabla \ref{tab:limite} identifica siete entidades externas con el tipo de datos intercambiados, el protocolo propuesto y la frecuencia de la interfaz; la Figura \ref{fig:contexto} representa el diagrama de contexto correspondiente. Los protocolos indicados son \textbf{supuestos de dise\~no} que deber\'an validarse durante el an\'alisis, y no decisiones ya confirmadas.
+
+\begin{table}[htbp]
+\caption{Entidades externas del l\'imite del sistema y sus interfaces}
+\label{tab:limite}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.16\linewidth}p{0.30\linewidth}p{0.28\linewidth}p{0.20\linewidth}@{}}
+\toprule
+\textbf{Entidad externa} & \textbf{Datos intercambiados} & \textbf{Protocolo (supuesto)} & \textbf{Frecuencia}\\
+\midrule
+Pasarela de pago & Solicitud y confirmaci\'on de cobro con tarjeta. & REST sobre HTTPS (JSON). & Por transacci\'on.\\
+Proveedores & Cat\'alogo, precios y disponibilidad de stock. & REST sobre HTTPS o carga CSV. & Diaria o semanal.\\
+Clientes (activos y potenciales) & Consulta de productos y datos de compra. & HTTPS (interfaz web). & Continua.\\
+Auditor & Registros de auditor\'ia y reportes de operaci\'on. & Exportaci\'on CSV o PDF. & Peri\'odica.\\
+Servicio de IA (Groq) & Consulta de productos y respuesta con recomendaci\'on. & REST sobre HTTPS (JSON). & Por consulta de venta.\\
+SRI (facturaci\'on electr\'onica) & Emisi\'on y autorizaci\'on de comprobantes. & Servicio web SOAP o REST. & Por venta facturada.\\
+Hardware POS o impresora & Env\'io de la venta para impresi\'on del comprobante. & USB o red local. & Por venta.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small,
+  s/.style={rectangle,draw,very thick,rounded corners,align=center,minimum width=3.8cm,minimum height=1.5cm,fill=orange!15},
+  e/.style={rectangle,draw,rounded corners,align=center,minimum width=2.9cm,minimum height=0.9cm,fill=blue!5}]
+\node[s] (sys) at (0,0) {Plataforma de ventas\\ con m\'odulo de IA\\ (sistema)};
+\node[e] (cli) at (-5.4,3) {Clientes};
+\node[e] (pro) at (0,4.2) {Proveedores};
+\node[e] (pas) at (5.4,3) {Pasarela de pago};
+\node[e] (sri) at (6,-1) {SRI};
+\node[e] (aud) at (3.2,-3.6) {Auditor};
+\node[e] (groq) at (-3.2,-3.6) {Servicio de IA (Groq)};
+\node[e] (pos) at (-6,-1) {Hardware POS / impresora};
+\foreach \x in {cli,pro,pas,sri,aud,groq,pos} \draw[{Latex}-{Latex}] (sys) -- (\x);
+\end{tikzpicture}}
+\caption{Diagrama de contexto del sistema del PFC y sus entidades externas.}
+\label{fig:contexto}
+\end{figure}
+
+\textbf{Supuestos de dise\~no de las interfaces.} Se asume que las interfaces de software se implementar\'an como servicios REST sobre HTTPS con cargas en formato JSON, porque este estilo es ampliamente soportado, facilita la integraci\'on con servicios de terceros y permite cifrar el tr\'ansito de datos sensibles como los de pago \cite{iso29148,iso15288}. Este supuesto deber\'a confirmarse con el propietario y con cada proveedor externo antes de cerrar la especificaci\'on, y en particular con el SRI, cuyas interfaces oficiales est\'an sujetas a su propia normativa t\'ecnica.
+
+\subsection{Declaraci\'on de visi\'on en formato Moore (secci\'on 3.8)}
+La declaraci\'on de visi\'on en formato Moore permite resumir en una sola frase el usuario, la necesidad, el sistema, su categor\'ia, el beneficio y el diferenciador del producto \cite{moore}. Se presentan dos versiones: una operativa, centrada en el cajero, y otra estrat\'egica, centrada en el propietario del establecimiento. La Tabla \ref{tab:moore} identifica cada componente de la plantilla en cada versi\'on.
+
+\noindent\textbf{Versi\'on 1 (operativa).} Para los \emph{cajeros de establecimientos el\'ectricos} que \emph{cometen errores de digitaci\'on y pierden tiempo con una interfaz lenta en horas pico}, la \emph{Plataforma de ventas con m\'odulo de recomendaci\'on basado en IA} es un \emph{sistema web de punto de venta} que \emph{agiliza el registro de la venta y sugiere productos compatibles}. A diferencia de \emph{los sistemas de facturaci\'on lentos y confusos que se usan hoy}, nuestro producto \emph{prioriza la velocidad de registro y ofrece recomendaciones t\'ecnicas autom\'aticas}.
+
+\noindent\textbf{Versi\'on 2 (estrat\'egica).} Para el \emph{propietario de un establecimiento el\'ectrico} que \emph{pierde ventas por la falta de personal capacitado y por errores en caja}, la \emph{Plataforma de ventas con m\'odulo de recomendaci\'on basado en IA} es una \emph{soluci\'on web de ventas e inventario} que \emph{aumenta la conversi\'on y reduce la dependencia de personal experto}. A diferencia de \emph{los sistemas de facturaci\'on tradicionales}, nuestro producto \emph{integra un m\'odulo de IA que asiste la venta t\'ecnica y centraliza inventario y reportes}.
+
+\begin{table}[htbp]
+\caption{Componentes de la declaraci\'on de visi\'on de Moore en cada versi\'on}
+\label{tab:moore}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.20\linewidth}p{0.39\linewidth}p{0.36\linewidth}@{}}
+\toprule
+\textbf{Componente} & \textbf{Versi\'on 1 (operativa)} & \textbf{Versi\'on 2 (estrat\'egica)}\\
+\midrule
+Usuario & Los cajeros del establecimiento. & El propietario del establecimiento.\\
+Necesidad & Errores de digitaci\'on y atenci\'on lenta en horas pico. & P\'erdida de ventas por falta de personal experto.\\
+Sistema & Plataforma de ventas con m\'odulo de IA. & Plataforma de ventas con m\'odulo de IA.\\
+Categor\'ia & Sistema web de punto de venta. & Soluci\'on web de ventas e inventario.\\
+Beneficio & Registro m\'as r\'apido y recomendaciones compatibles. & Mayor conversi\'on y menor dependencia de expertos.\\
+Alternativa & Sistemas de facturaci\'on lentos y confusos. & Sistemas de facturaci\'on tradicionales.\\
+Diferenciador & Velocidad de registro y recomendaci\'on autom\'atica. & M\'odulo de IA que asiste la venta t\'ecnica y centraliza datos.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ocho perspectivas de contexto aplicadas al PFC (secci\'on 3.9)}
+A continuaci\'on se aplican al PFC las ocho perspectivas de contexto de Pohl \cite{pohl2025}. Para cada perspectiva se formulan tres preguntas clave y se derivan dos requisitos o restricciones, identificados de \texttt{CTX-01} a \texttt{CTX-16}. Los requisitos se redactan con la sintaxis EARS, en la forma «el sistema deber\'a» \cite{mavin2009}, y se apoyan en las propiedades de la norma ISO/IEC/IEEE 29148:2018 \cite{iso29148}. La Tabla \ref{tab:ctx} eval\'ua cada \texttt{CTX-} contra cuatro propiedades de la norma: necesario, no ambiguo, verificable y trazable.
+
+\subsubsection{Perspectiva de uso}
+\begin{enumerate}
+  \item ¿Qui\'en opera la plataforma y con qu\'e objetivo principal?
+  \item ¿Qu\'e tareas realiza el cajero durante las horas pico?
+  \item ¿Qu\'e nivel de destreza t\'ecnica posee el personal de atenci\'on?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-01] (Requisito).} El sistema deber\'a permitir registrar una venta completa en no m\'as de cinco interacciones desde la pantalla principal de venta, para reducir el tiempo de atenci\'on en horas pico \cite{mavin2009,pohl2025}.
+  \item \textbf{[CTX-02] (Requisito).} La pantalla de venta deber\'a ser operable con teclado y lector de c\'odigo de barras, de modo que el cajero no dependa del rat\'on durante la atenci\'on.
+\end{itemize}
+
+\subsubsection{Perspectiva del sujeto (dominio)}
+\begin{enumerate}
+  \item ¿Qu\'e categor\'ias de productos el\'ectricos comercializa el establecimiento?
+  \item ¿Qu\'e atributos t\'ecnicos determinan la compatibilidad entre productos (voltaje, amperaje, calibre, n\'umero de polos)?
+  \item ¿Qu\'e reglas del dominio debe respetar una recomendaci\'on para ser v\'alida?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-03] (Requisito).} El sistema deber\'a almacenar, para cada producto, atributos t\'ecnicos normalizados como voltaje, corriente, calibre y categor\'ia, para sustentar la recomendaci\'on \cite{pohl2025}.
+  \item \textbf{[CTX-04] (Restricci\'on).} El sistema no deber\'a recomendar productos que violen reglas de compatibilidad el\'ectrica definidas en el cat\'alogo.
+\end{itemize}
+
+\subsubsection{Perspectiva del sistema de TI}
+\begin{enumerate}
+  \item ¿Qu\'e sistema de facturaci\'on y qu\'e base de datos se utilizan actualmente?
+  \item ¿Con qu\'e sistemas o dispositivos debe integrarse la nueva plataforma?
+  \item ¿Qu\'e infraestructura y conectividad existen en el establecimiento?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-05] (Requisito).} El sistema deber\'a gestionar la informaci\'on transaccional sobre PostgreSQL y permitir la migraci\'on de los datos existentes del sistema anterior \cite{iso12207}.
+  \item \textbf{[CTX-06] (Requisito).} El sistema deber\'a enviar la venta al hardware POS o impresora fiscal para la impresi\'on del comprobante.
+\end{itemize}
+
+\subsubsection{Perspectiva de desarrollo}
+\begin{enumerate}
+  \item ¿Qui\'en construye la plataforma y con qu\'e tecnolog\'ias?
+  \item ¿Qu\'e plazos y qu\'e tama\~no de equipo est\'an disponibles?
+  \item ¿Qu\'e pr\'acticas de calidad y de control de versiones se aplican?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-07] (Restricci\'on).} La plataforma deber\'a implementarse como aplicaci\'on web, dado que el equipo domina ese entorno y el establecimiento dispone de navegador.
+  \item \textbf{[CTX-08] (Requisito).} El c\'odigo y los artefactos de requisitos deber\'an mantenerse en un repositorio con control de versiones.
+\end{itemize}
+
+\subsubsection{Perspectiva de negocio}
+\begin{enumerate}
+  \item ¿C\'omo se fijan los precios y los m\'argenes de los productos?
+  \item ¿Qu\'e metas de venta y de rotaci\'on de inventario persigue el propietario?
+  \item ¿Qu\'e informaci\'on de negocio necesita el propietario para decidir?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-09] (Requisito).} El sistema deber\'a generar reportes de ventas e inventario por per\'iodo, para apoyar las decisiones del propietario \cite{iso25010}.
+  \item \textbf{[CTX-10] (Requisito).} El m\'odulo de recomendaci\'on deber\'a priorizar, entre productos compatibles, aquellos con mayor margen o rotaci\'on.
+\end{itemize}
+
+\subsubsection{Perspectiva de innovaci\'on}
+\begin{enumerate}
+  \item ¿Qu\'e valor a\~nade el m\'odulo de IA frente al proceso de venta actual?
+  \item ¿C\'omo se diferencia la plataforma de los sistemas de facturaci\'on existentes?
+  \item ¿Qu\'e riesgos introduce la innovaci\'on en la operaci\'on diaria?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-11] (Requisito).} El sistema deber\'a ofrecer, durante la venta, al menos una recomendaci\'on de producto complementario generada por el m\'odulo de IA cuando exista una sugerencia con confianza suficiente.
+  \item \textbf{[CTX-12] (Requisito).} Cada recomendaci\'on deber\'a mostrar una justificaci\'on breve y comprensible, para que el cajero pueda explicarla al cliente \cite{swebok4}.
+\end{itemize}
+
+\subsubsection{Perspectiva de sociedad}
+\begin{enumerate}
+  \item ¿Qu\'e datos personales de clientes y empleados se tratan en el sistema?
+  \item ¿Qu\'e normativa de protecci\'on de datos y de facturaci\'on aplica en Ecuador?
+  \item ¿Qu\'e efectos sociales podr\'ia tener la automatizaci\'on de la recomendaci\'on?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-13] (Restricci\'on).} El sistema deber\'a tratar los datos personales conforme a la Ley Org\'anica de Protecci\'on de Datos Personales del Ecuador y a la normativa del SRI.
+  \item \textbf{[CTX-14] (Requisito).} Las recomendaciones deber\'an basarse en atributos t\'ecnicos del producto y no en caracter\'isticas personales del cliente, para evitar sesgos.
+\end{itemize}
+
+\subsubsection{Perspectiva t\'ecnica}
+\begin{enumerate}
+  \item ¿Qu\'e rendimiento se exige durante las horas pico?
+  \item ¿Qu\'e restricciones de seguridad y de disponibilidad deben cumplirse?
+  \item ¿Qu\'e debe ocurrir si fallan la red o el servicio de IA?
+\end{enumerate}
+\begin{itemize}
+  \item \textbf{[CTX-15] (Requisito de calidad).} El sistema deber\'a responder a las operaciones de venta en un tiempo menor o igual a dos segundos en el percentil 95 durante las horas pico \cite{iso25010}.
+  \item \textbf{[CTX-16] (Requisito).} El sistema deber\'a permitir registrar ventas en modo local y sincronizarlas al restablecerse la conexi\'on, ante una ca\'ida de la red o del servicio de IA.
+\end{itemize}
+
+\begin{table}[htbp]
+\caption{Evaluaci\'on de los requisitos \texttt{CTX-} contra las propiedades de ISO/IEC/IEEE 29148:2018}
+\label{tab:ctx}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.09\linewidth}p{0.12\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.11\linewidth}p{0.34\linewidth}@{}}
+\toprule
+\textbf{ID} & \textbf{Necesario} & \textbf{No ambiguo} & \textbf{Verificable} & \textbf{Trazable} & \textbf{C\'omo se comprueba}\\
+\midrule
+CTX-01 & Cumple & Cumple & Cumple & Cumple & Conteo de interacciones en prueba de usabilidad.\\
+CTX-02 & Cumple & Cumple & Cumple & Cumple & Prueba de operaci\'on sin rat\'on.\\
+CTX-03 & Cumple & Cumple & Cumple & Cumple & Inspecci\'on del modelo de datos del cat\'alogo.\\
+CTX-04 & Cumple & Cumple & Cumple & Cumple & Prueba con casos de incompatibilidad conocidos.\\
+CTX-05 & Cumple & Cumple & Cumple & Cumple & Verificaci\'on de la base PostgreSQL y migraci\'on.\\
+CTX-06 & Cumple & Cumple & Cumple & Cumple & Prueba de impresi\'on en el hardware POS.\\
+CTX-07 & Cumple & Cumple & Cumple & Cumple & Inspecci\'on del despliegue web.\\
+CTX-08 & Cumple & Cumple & Cumple & Cumple & Revisi\'on del repositorio y su historial.\\
+CTX-09 & Cumple & Cumple & Cumple & Cumple & Contraste de los reportes con los datos de venta.\\
+CTX-10 & Cumple & Cumple & Cumple & Cumple & Revisi\'on del orden de las recomendaciones.\\
+CTX-11 & Cumple & Cumple & Cumple & Cumple & Prueba de recomendaci\'on con un carrito de ejemplo.\\
+CTX-12 & Cumple & Cumple & Cumple & Cumple & Revisi\'on de la justificaci\'on mostrada al cajero.\\
+CTX-13 & Cumple & Cumple & Cumple & Cumple & Lista de verificaci\'on de protecci\'on de datos.\\
+CTX-14 & Cumple & Cumple & Cumple & Cumple & Auditor\'ia de las variables usadas por el modelo.\\
+CTX-15 & Cumple & Cumple & Cumple & Cumple & Medici\'on del percentil 95 en prueba de carga.\\
+CTX-16 & Cumple & Cumple & Cumple & Cumple & Prueba de desconexi\'on y sincronizaci\'on posterior.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Las propiedades evaluadas en la Tabla \ref{tab:ctx} corresponden a las caracter\'isticas de un requisito individual de la cl\'ausula 5.2.5 de la norma ---necesario, no ambiguo y verificable--- y a la trazabilidad gestionada seg\'un la cl\'ausula 6.6 \cite{iso29148}. Durante la redacci\'on, dos borradores iniciales fueron reformulados: el de \texttt{CTX-08} se concret\'o al indicar el control de versiones, y el de \texttt{CTX-14} se precis\'o al sustituir una expresi\'on subjetiva por la referencia a los atributos t\'ecnicos del producto. Ambos casos ejemplifican la aplicaci\'on de los criterios de lenguaje de la cl\'ausula 5.2.7, que recomienda evitar superlativos, lenguaje subjetivo y t\'erminos abiertos \cite{iso29148}.
+
+%%% [/ARTEFACTOS]
+
+%%% [CONCLUSION]
+\section{Conclusi\'on}
+El an\'alisis del contexto, de los actores y de las ocho perspectivas confirma que la calidad de los requisitos depende de delimitar con precisi\'on el sistema y de reconocer qui\'en participa en su definici\'on. La evidencia te\'orica sostiene que el contexto del sistema es la parte del entorno relevante para definir e interpretar los requisitos, y que las actividades de elicitaci\'on, documentaci\'on y negociaci\'on, acompa\~nadas por la validaci\'on y la gesti\'on, estructuran todo el proceso \cite{pohl2025,iso29148}. Aplicado al PFC, este marco permiti\'o concluir que la plataforma es un sistema software-intensivo de informaci\'on transaccional con un componente de IA, asignar personas reales a los actores del proceso, delimitar siete entidades externas y derivar diecis\'eis requisitos \texttt{CTX-} evaluados contra las propiedades de la norma \cite{iso29148,iso25010}. La implicaci\'on para el PFC es que el equipo debe tratar los requisitos de contexto como insumos trazables de la especificaci\'on, y no como supuestos impl\'icitos, para reducir el riesgo de construir una plataforma que agilice la venta pero falle en la integraci\'on, en la protecci\'on de datos o en la disponibilidad durante las horas pico.
+%%% [/CONCLUSION]
+
+\bibliographystyle{IEEEtran}
+\bibliography{aporte_roselyn}
+\end{document}
