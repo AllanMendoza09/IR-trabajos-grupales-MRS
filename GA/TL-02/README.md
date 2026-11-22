@@ -1,27 +1,38 @@
 # GA-TL-02 — Taller de entrevista estructurada y design thinking aplicado al PFC
 
-La carpeta `GA/TL-02/` contiene las fuentes y el PDF de la actividad formativa grupal GA-TL-02 -- FORM de Ingeniería de Requerimientos (ISR-401), Unidad 2, SPA 2026–2027. El caso corresponde al proyecto de plataforma de ventas con recomendaciones basadas en IA para establecimientos eléctricos de Quevedo.
+Actividad formativa GA-TL-02 -- FORM, de Ingeniería de Requerimientos (ISR-401), Unidad 2, SPA 2026–2027, de la Universidad Técnica Estatal de Quevedo. El proyecto de fin de curso estudia una plataforma de ventas con un módulo de recomendación basado en inteligencia artificial para establecimientos eléctricos de Quevedo, Ecuador.
 
-## Documento principal y herramientas
+## Organización del documento
 
-El archivo principal es `main.tex`. Utiliza la clase `IEEEtran` con las opciones `onecolumn` y `12pt` y los paquetes `inputenc` (UTF-8), `fontenc` (T1), `babel` (español), `booktabs`, `longtable`, `array`, `graphicx`, `tikz` y `hyperref` (`hidelinks`). El estilo bibliográfico es `IEEEtran`, con BibTeX.
+Archivo principal: `main.tex`. Documento generado: `main.pdf`. Bibliografía: `referencias.bib`, procesada con BibTeX y el estilo `IEEEtran`.
 
-Se requiere TeX Live 2023 o posterior, u Overleaf con compilador pdfLaTeX y procesamiento de bibliografía mediante BibTeX.
+Las secciones se incorporan mediante `\input` y se presentan en este orden:
 
-## Compilación
+1. `secciones/01_guion.tex`: guion de trece preguntas de entrevista estructurada (incluye consentimiento verbal).
+2. `secciones/02_consentimiento.tex`: protocolo de consentimiento informado y modelo sin completar.
+3. `secciones/03_ensayo.tex`: condiciones y análisis del ensayo de entrevista.
+4. `secciones/04_empatia.tex`: mapa de empatía con TikZ, hallazgos, trazabilidad y definición del problema.
+5. `secciones/05_ajustes.tex`: revisión y ajustes del guion.
+6. `secciones/06_uso_ia.tex`: declaración de asistencia de IA correspondiente a Allan y Roselyn.
 
-Desde `GA/TL-02/`, ejecutar en este orden:
+El ejercicio fue una simulación académica efectuada el 21 de noviembre de 2026 mediante Microsoft Teams. Mendoza Palma Allan Jeremy realizó las preguntas y Sánchez Centeno Roselyn Andreina interpretó el rol de cajera y se encargó de la grabación. Las respuestas no representan testimonios de personal real de un establecimiento.
+
+## Compilación reproducible
+
+Requiere TeX Live 2023 o posterior, o Overleaf. Clase `IEEEtran` (una columna, 12 puntos), compilador `pdfLaTeX` y procesador bibliográfico `BibTeX`. Paquetes utilizados en `main.tex`: `inputenc` (utf8), `fontenc` (T1), `babel` (spanish), `booktabs`, `longtable`, `array`, `graphicx`, `tikz` y `hyperref` (`hidelinks`).
+
+Desde `GA/TL-02/` ejecutar, en este orden:
 
 ```bash
-pdflatex main
+pdflatex main.tex
 bibtex main
-pdflatex main
-pdflatex main
+pdflatex main.tex
+pdflatex main.tex
 ```
 
-El documento principal incorpora los archivos de `secciones/` mediante `\IfFileExists` y `\input`. Si un archivo de sección no existe, la compilación conserva la portada, el propósito y las referencias sin producir contenido para esa sección.
+La compilación genera `main.pdf`. Los archivos `.tex`, `.bib` y el PDF se mantienen en el repositorio. Los archivos auxiliares de compilación se excluyen mediante `.gitignore`.
 
-## Estructura
+## Estructura del proyecto
 
 ```text
 GA/TL-02/
@@ -31,23 +42,28 @@ GA/TL-02/
 ├── README.md
 ├── .gitignore
 ├── secciones/
-│   └── .gitkeep
+│   ├── 01_guion.tex
+│   ├── 02_consentimiento.tex
+│   ├── 03_ensayo.tex
+│   ├── 04_empatia.tex
+│   ├── 05_ajustes.tex
+│   └── 06_uso_ia.tex
 └── evidencias/
     └── manifiesto.csv
 ```
 
-La carpeta `secciones/` se conserva con `.gitkeep`; no contiene textos de las sesiones en esta versión estructural. Los archivos de sección previstos son `01_guion.tex`, `02_consentimiento.tex`, `03_ensayo.tex`, `04_empatia.tex`, `05_ajustes.tex` y `06_uso_ia.tex`.
+## Responsabilidades de las secciones
 
-## Distribución de responsabilidades
-
-| Integrante | Secciones asignadas |
+| Integrante | Contribución registrada para esta versión |
 |---|---|
-| Rochina Rochina Freddy David | `01_guion` (entrevista estructurada) |
-| Sánchez Centeno Roselyn Andreina | `02_consentimiento`, `05_ajustes` |
-| Mendoza Palma Allan Jeremy | `03_ensayo`, `04_empatia`, `06_uso_ia`, integración, compilación y README |
+| Mendoza Palma Allan Jeremy | Elaboración de `01_guion.tex` tras la redistribución de tareas, `03_ensayo.tex`, `04_empatia.tex`, integración, README, compilación y preparación del registro de uso de IA. |
+| Sánchez Centeno Roselyn Andreina | `02_consentimiento.tex`, `05_ajustes.tex` y participación en el ensayo de entrevista como cajera simulada y responsable de la grabación. |
+| Rochina Rochina Freddy David | Integrante del equipo originalmente asignado al guion; no se registró una contribución ni un commit suyo para esta actividad, según informó la coordinación del equipo. |
 
-## Protección y registro de evidencias
+Debido a una situación personal comunicada por el equipo, la responsabilidad del guion inicialmente asignada a Freddy fue asumida por Allan. Este registro describe la distribución informada para la versión entregada y no sustituye el historial verificable de GitHub. No se incluyen detalles familiares privados.
 
-No se publican audios, videos, teléfonos, cédulas, correos personales de terceros ni consentimientos firmados. Los registros originales se conservan en una carpeta institucional privada accesible mediante cuenta `@uteq.edu.ec` y compartida con el docente, según la guía de la actividad.
+## Protección de evidencias
 
-El archivo `evidencias/manifiesto.csv` dispone de las columnas `nombre_archivo`, `fecha`, `duracion` y `sha256`, sin registros de entrevistas en esta versión. Las huellas SHA-256 se obtienen sobre los archivos originales, después de su producción, y se incorporan al manifiesto únicamente cuando existe evidencia real verificable.
+La grabación de audio `ENV-ENSAYO.m4a` y cualquier consentimiento firmado se mantienen fuera del repositorio público, en almacenamiento institucional privado. El archivo público `evidencias/manifiesto.csv` registra nombre, fecha del ensayo, duración comunicada y huella SHA-256 calculada por el equipo. El repositorio no contiene audio, video, transcripciones completas ni consentimientos firmados.
+
+La grabación se informó como audio de 5 minutos y 10 segundos. La huella SHA-256 del manifiesto corresponde al valor comunicado tras el cálculo local con PowerShell; la comparación con el archivo de audio original requiere acceso al almacenamiento privado.
