@@ -1,0 +1,9 @@
+caracteristica_id,requisito_id,caracteristica
+K01,RF-04,Matrícula en línea
+K02,RF-06,Comprobante digital de matrícula
+K03,RF-08,Registro de calificaciones
+K04,RF-10,Consulta personal de calificaciones
+K05,RF-11,Boletín académico digital
+K06,RNF-01,Rapidez de matrícula
+K07,RNF-04,Facilidad de uso
+K08,RNF-05,Compatibilidad con móvil

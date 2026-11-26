@@ -1,0 +1,17 @@
+caracteristica_id,tipo_pregunta,pregunta,opciones
+K01,funcional,¿Cómo se sentiría si el sistema ofreciera matrícula en línea?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K01,disfuncional,¿Cómo se sentiría si el sistema no ofreciera matrícula en línea?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K02,funcional,¿Cómo se sentiría si el sistema ofreciera comprobante digital de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K02,disfuncional,¿Cómo se sentiría si el sistema no ofreciera comprobante digital de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K03,funcional,¿Cómo se sentiría si el sistema ofreciera registro de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K03,disfuncional,¿Cómo se sentiría si el sistema no ofreciera registro de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K04,funcional,¿Cómo se sentiría si el sistema ofreciera consulta personal de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K04,disfuncional,¿Cómo se sentiría si el sistema no ofreciera consulta personal de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K05,funcional,¿Cómo se sentiría si el sistema ofreciera boletín académico digital?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K05,disfuncional,¿Cómo se sentiría si el sistema no ofreciera boletín académico digital?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K06,funcional,¿Cómo se sentiría si el sistema ofreciera rapidez de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K06,disfuncional,¿Cómo se sentiría si el sistema no ofreciera rapidez de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K07,funcional,¿Cómo se sentiría si el sistema ofreciera facilidad de uso?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K07,disfuncional,¿Cómo se sentiría si el sistema no ofreciera facilidad de uso?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K08,funcional,¿Cómo se sentiría si el sistema ofreciera compatibilidad con móvil?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K08,disfuncional,¿Cómo se sentiría si el sistema no ofreciera compatibilidad con móvil?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta

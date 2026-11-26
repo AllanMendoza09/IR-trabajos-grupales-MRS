@@ -1,0 +1,28 @@
+\section{Fundamento y delimitación metodológica}
+La Ingeniería de Requisitos transforma necesidades de los involucrados en declaraciones evaluables y negociables. La especificación individual requiere condiciones explícitas y criterios que permitan determinar su aceptación, mientras que la priorización selecciona qué capacidades aportan valor dentro de restricciones de esfuerzo y alcance \cite{iso29148,pohl2025,wiegers2013}.
+
+\subsection{Sistema de estudio y unidad de análisis}
+El dominio es una unidad educativa con procesos de matrícula, asignación de estudiantes a cursos, registro de calificaciones, consulta del historial y supervisión académica. La unidad de priorización es cada requisito identificado con un código único. Se diferencian requisitos funcionales (RF) de requisitos de calidad (RNF). El conjunto de trabajo comprende veinte requisitos: doce RF y ocho RNF con criterios cuantificados. Los umbrales de los RNF representan objetivos propuestos de diseño y no resultados de mediciones de una institución concreta.
+
+\subsection{Técnicas de priorización y actores}
+\textbf{MoSCoW} clasifica cada requisito como Must, Should, Could o Won't en la iteración considerada. La categoría Must se contrasta con el esfuerzo total estimado por el equipo. Su límite es
+\begin{equation}
+\frac{\sum_{i\in M}e_i}{\sum_{i=1}^{20}e_i}\leq 0{,}60,\qquad e_i>0.
+\label{eq:must}
+\end{equation}
+La clasificación se justifica mediante una frase verificable sobre el valor, la dependencia o el riesgo que resuelve cada requisito; no sustituye el análisis de factibilidad.
+
+\textbf{Kano} contrasta la reacción del participante ante la presencia y la ausencia de cada una de ocho características. Para cada característica se registran dos respuestas en una escala uniforme de cinco opciones. La matriz de evaluación produce clases A (atractiva), O (unidimensional), M (básica), I (indiferente), R (inversa) y Q (contradictoria). Las ocho características seleccionadas forman un subconjunto del catálogo; por tanto, Kano no origina por sí solo un orden total para los veinte requisitos.
+
+\textbf{Votación ponderada} permite que cada una de tres personas distribuya exactamente cien puntos sobre los veinte requisitos. Se conserva cada distribución individual para revisar la legitimidad de la suma de puntos; no se imputan puntos ni preferencias a participantes no consultados.
+
+\subsection{Rangos, empates y correlación}
+Los rangos de MoSCoW agrupan requisitos por categoría y asignan el promedio de las posiciones ocupadas en caso de empate. La votación ordena los requisitos por puntos totales y utiliza el mismo procedimiento de rangos medios. En lugar de la fórmula abreviada que presupone ausencia de empates, se calcula Spearman como correlación de Pearson entre los vectores de rangos \(r_i\) y \(s_i\):
+\begin{equation}
+\rho=\frac{\sum_i(r_i-\bar r)(s_i-\bar s)}{\sqrt{\sum_i(r_i-\bar r)^2\sum_i(s_i-\bar s)^2}}.
+\label{eq:spearman}
+\end{equation}
+Si alguno de los órdenes carece de variación, no se informa coeficiente porque el denominador sería cero. La coincidencia estadística no sustituye la deliberación, ni permite afirmar causalidad.
+
+\subsection{Protección y reproducibilidad}
+Se prevé la participación de cinco adultos en Kano y tres adultos distintos en votación. Sus respuestas se vincularán exclusivamente a los códigos P01--P08. Las evidencias originales y consentimientos se conservarán fuera del repositorio público; el manifiesto documentará únicamente códigos, técnicas, fechas, nombres de evidencia privada y huellas SHA-256. La publicación se limitará a resultados anonimizados y artefactos reproducibles, en concordancia con la protección de datos y la ética profesional \cite{lopdp2021,acm2018}.

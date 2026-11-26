@@ -1,0 +1,67 @@
+\documentclass[onecolumn,12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+\AtBeginDocument{\spanishplainpercent}
+\renewcommand{\IEEEkeywordsname}{Palabras clave}
+
+\title{FORM-SIM-01: Simulación de priorización y negociación de requisitos\\
+para matrícula y calificaciones en una unidad educativa}
+\author{\IEEEauthorblockN{Mendoza Palma Allan Jeremy, Rochina Rochina Freddy David, Sánchez Centeno Roselyn Andreina}
+\IEEEauthorblockA{Facultad de Ciencias de la Computación, Carrera de Ingeniería de Software\\
+Universidad Técnica Estatal de Quevedo\\
+Ingeniería de Requerimientos (ISR-401)}}
+
+\begin{document}
+\maketitle
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.27\textwidth}p{0.59\textwidth}@{}}
+\toprule
+\textbf{Dato informativo} & \textbf{Descripción}\\
+\midrule
+Actividad & FORM-SIM-01, simulación de priorización y negociación entre roles\\
+Modalidad & Formativa, trabajo grupal\\
+Asignatura y paralelo & Ingeniería de Requerimientos (ISR-401), cuarto nivel, paralelo B\\
+Docente & Gleiston Cicerón Guerrero Ulloa, PhD\\
+Unidad & Unidad 2: Elicitación y análisis de requisitos\\
+Período & SPA 2026--2027\\
+Dominio & Unidad educativa: matrícula y calificaciones\\
+Cierre & Sábado 28 de noviembre de 2026, 23:59\\
+Repositorio & \url{https://github.com/AllanMendoza09/IR-trabajos-grupales-MRS}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.8em}
+
+\begin{abstract}
+Se establece una estructura reproducible para analizar y negociar la prioridad de requisitos de un sistema de matrícula y calificaciones. Se definen criterios de especificación, el método MoSCoW, un instrumento Kano de ocho características, una votación de cien puntos por participante y procedimientos de comparación de rangos. El análisis empírico se desarrollará con respuestas obtenidas de participantes adultos, identificados mediante códigos, sin publicar datos personales.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Ingeniería de requisitos, MoSCoW, Kano, votación ponderada, Spearman, educación.
+\end{IEEEkeywords}
+
+\noindent\textbf{Propósito:} aplicar técnicas de priorización y negociación entre roles a un conjunto de requisitos de matrícula y calificaciones, documentando criterios y resultados reproducibles.
+
+\IfFileExists{secciones/00_fundamento.tex}{\input{secciones/00_fundamento.tex}}{}
+\IfFileExists{secciones/01_requisitos.tex}{\input{secciones/01_requisitos.tex}}{}
+\IfFileExists{secciones/02_moscow.tex}{\input{secciones/02_moscow.tex}}{}
+\IfFileExists{secciones/03_kano.tex}{\input{secciones/03_kano.tex}}{}
+\IfFileExists{secciones/04_votacion.tex}{\input{secciones/04_votacion.tex}}{}
+\IfFileExists{secciones/05_comparacion.tex}{\input{secciones/05_comparacion.tex}}{}
+\IfFileExists{secciones/06_decision.tex}{\input{secciones/06_decision.tex}}{}
+\IfFileExists{secciones/07_uso_ia.tex}{\input{secciones/07_uso_ia.tex}}{}
+\IfFileExists{secciones/08_consentimiento.tex}{\input{secciones/08_consentimiento.tex}}{}
+
+\nocite{pohl2025,wiegers2013,ireb2026,iso29148,lopdp2021,acm2018}
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+\end{document}
