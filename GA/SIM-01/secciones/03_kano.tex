@@ -1,0 +1,76 @@
+\section{Priorización con el modelo de Kano}
+\label{sec:kano}
+
+El modelo de Kano relaciona el grado de cumplimiento de una característica con la satisfacción de quien la percibe. Su uso en elicitación permite distinguir entre cualidades que se dan por supuestas, cualidades proporcionales al desempeño y cualidades que generan una reacción favorable adicional, sin reducir la prioridad a una sola escala de importancia~\cite{ireb2026,pohl2025}. En esta actividad se aplica a ocho características del dominio ``Unidad educativa: matrícula y calificaciones'', como preparación para la priorización individual de la TA-IND-02~\cite{wiegers2013}.
+
+\subsection{Instrumento y procedimiento de aplicación}
+\label{subsec:instrumento-kano}
+
+El cuestionario se aplica a cinco personas adultas, identificadas en los archivos públicos únicamente como P01, P02, P03, P04 y P05. Para cada característica $C_i$, con $i=1,\ldots,8$, se formulan dos preguntas de estructura paralela:
+
+\begin{itemize}
+    \item \emph{Pregunta funcional:} ``Si $C_i$ estuviera disponible en el sistema, ¿cómo se sentiría?''
+    \item \emph{Pregunta disfuncional:} ``Si $C_i$ no estuviera disponible en el sistema, ¿cómo se sentiría?''
+\end{itemize}
+
+Ambas preguntas se responden con la misma escala de cinco opciones, de modo que la comparación de las dos reacciones determina la categoría de la característica. Se solicita al participante que responda según su reacción personal y no según lo que considere deseable desde el punto de vista del equipo. La redacción definitiva de las ocho características se obtiene de la lista de requisitos seleccionada por el equipo; el instrumento no anticipa su contenido.
+
+Antes de iniciar se presenta el propósito, se obtiene el consentimiento informado descrito en el protocolo de esta actividad y se confirma que cada participante es mayor de edad. La aplicación es individual y cada participante registra una pareja de respuestas por característica.
+
+\subsection{Escala de respuestas}
+\label{subsec:escala-kano}
+
+\begin{table}[htbp]
+\centering
+\caption{Opciones de respuesta del cuestionario Kano.}
+\label{tab:escala-kano}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}cl@{}}
+\toprule
+Código & Opción de respuesta \\
+\midrule
+1 & Me gusta que sea así. \\
+2 & Debe ser así. \\
+3 & Soy neutral; me da igual. \\
+4 & Puedo vivir con ello. \\
+5 & No me gusta que sea así. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La escala no es de tipo Likert: las opciones describen reacciones cualitativas ante la presencia o la ausencia de la característica. En el archivo \texttt{kano\_respuestas.csv} se registran los códigos numéricos 1 a 5 en las columnas \texttt{funcional} y \texttt{disfuncional}; la columna \texttt{categoria} contiene el resultado de la evaluación descrita en el apartado siguiente.
+
+\subsection{Tabla de evaluación}
+\label{subsec:matriz-kano}
+
+La tabla~\ref{tab:matriz-kano} muestra la matriz clásica de evaluación del modelo Kano. La fila corresponde a la respuesta funcional y la columna a la disfuncional; cada celda asigna una de las seis categorías.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Matriz de evaluación de las respuestas funcional y disfuncional.}
+\label{tab:matriz-kano}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth}ccccc@{}}
+\toprule
+Funcional $\downarrow$ / Disfuncional $\rightarrow$ & 1 & 2 & 3 & 4 & 5 \\
+\midrule
+1 (Me gusta) & Q & A & A & A & O \\
+2 (Debe ser) & R & I & I & I & M \\
+3 (Neutral) & R & I & I & I & M \\
+4 (Vivir con) & R & I & I & I & M \\
+5 (No me gusta) & R & R & R & R & Q \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Leyenda.} A: atractiva; O: unidimensional; M: obligatoria o básica; I: indiferente; R: inversa; Q: cuestionable.
+
+\subsection{Tabulación y clasificación}
+\label{subsec:tabulacion-kano}
+
+Para cada característica se aplica la matriz a la pareja de códigos de cada participante y se contabiliza la frecuencia de las seis categorías. La categoría cuestionable (Q) indica una contradicción entre las dos respuestas o una pregunta mal comprendida; por ello se registra por separado y no se considera al determinar la categoría predominante. La categoría de una característica es la de mayor frecuencia entre A, O, M, I y R, calculada sobre el total de respuestas válidas.
+
+Cuando dos o más categorías empatan en la mayor frecuencia, el equipo aplica la siguiente regla operativa, adoptada para esta actividad y no atribuida a una norma ni a los autores citados: se declara el empate, se verifica que no existan respuestas Q ni fallos de redacción y, si el empate persiste, se conserva la categoría cuya ausencia implicaría una consecuencia más desfavorable para el proceso de matrícula, en el orden M, O, A, I. Si la categoría inversa (R) resulta predominante, se revisa la formulación de la pareja de preguntas antes de aceptar la clasificación. Estas decisiones se documentan como parte del análisis y pueden ajustarse al disponer de las respuestas reales.
+
+El registro de respuestas se conserva en \texttt{GA/SIM-01/datos/kano\_respuestas.csv}, cuyos encabezados son, en orden, {\small\texttt{participante,caracteristica,funcional,disfuncional,categoria}}. El procesamiento se realiza sobre ese archivo sin incorporar datos identificativos.
