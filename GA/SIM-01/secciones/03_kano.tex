@@ -1,49 +1,99 @@
 \section{Priorización con el modelo de Kano}
 \label{sec:kano}
 
-El modelo de Kano relaciona el grado de cumplimiento de una característica con la satisfacción de quien la percibe. Su uso en elicitación permite distinguir entre cualidades que se dan por supuestas, cualidades proporcionales al desempeño y cualidades que generan una reacción favorable adicional, sin reducir la prioridad a una sola escala de importancia~\cite{ireb2026,pohl2025}. En esta actividad se aplica a ocho características del dominio ``Unidad educativa: matrícula y calificaciones'', como preparación para la priorización individual de la TA-IND-02~\cite{wiegers2013}.
+El modelo de Kano relaciona el grado de cumplimiento de una característica con la satisfacción de quien la percibe. Su empleo en elicitación permite distinguir entre cualidades que se dan por supuestas, cualidades proporcionales al desempeño y cualidades que generan una reacción favorable adicional, sin reducir la prioridad a una sola escala de importancia~\cite{pohl2025,wiegers2013,ireb2026}. En esta actividad se aplica al dominio ``Unidad educativa: matrícula y calificaciones'' como preparación para la priorización individual de la TA-IND-02. El catálogo de referencia es \path{datos/requisitos.csv}, cuyos textos siguen la estructura de comportamiento, condición y propósito descrita en la norma de especificación de requisitos~\cite{iso29148}.
 
-\subsection{Instrumento y procedimiento de aplicación}
-\label{subsec:instrumento-kano}
+La simulación describe el instrumento y el procedimiento previsto. Los resultados solo se incorporan cuando existan respuestas reales de participantes; no se imputan respuestas ausentes ni se atribuyen entrevistas no realizadas.
 
-El cuestionario se aplica a cinco personas adultas, identificadas en los archivos públicos únicamente como P01, P02, P03, P04 y P05. Para cada característica $C_i$, con $i=1,\ldots,8$, se formulan dos preguntas de estructura paralela:
+\subsection{Selección de ocho características}
+\label{subsec:seleccion-kano}
 
-\begin{itemize}
-    \item \emph{Pregunta funcional:} ``Si $C_i$ estuviera disponible en el sistema, ¿cómo se sentiría?''
-    \item \emph{Pregunta disfuncional:} ``Si $C_i$ no estuviera disponible en el sistema, ¿cómo se sentiría?''
-\end{itemize}
+Se seleccionaron ocho características a partir de los veinte requisitos candidatos. La correspondencia entre el código Kano y el identificador de requisito se conserva en \path{datos/caracteristicas_kano.csv}. Los criterios de selección fueron: relevancia para los procesos de matrícula o calificaciones, posibilidad de formular una pareja de preguntas sobre presencia y ausencia, comprensibilidad para una persona adulta del dominio y ausencia de redundancia entre características.
 
-Ambas preguntas se responden con la misma escala de cinco opciones, de modo que la comparación de las dos reacciones determina la categoría de la característica. Se solicita al participante que responda según su reacción personal y no según lo que considere deseable desde el punto de vista del equipo. La redacción definitiva de las ocho características se obtiene de la lista de requisitos seleccionada por el equipo; el instrumento no anticipa su contenido.
+\begin{longtable}{@{}p{0.09\linewidth}p{0.11\linewidth}p{0.23\linewidth}p{0.49\linewidth}@{}}
+\caption{Características Kano seleccionadas y correspondencia con los requisitos}\label{tab:kano-caracteristicas}\\
+\toprule
+\textbf{Código} & \textbf{Requisito} & \textbf{Característica} & \textbf{Criterio de selección} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\textit{Continuación de la selección de características}}\\
+\toprule
+\textbf{Código} & \textbf{Requisito} & \textbf{Característica} & \textbf{Criterio de selección} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+K01 & RF-04 & Matrícula en línea & Formalización de la inscripción; núcleo del proceso de matrícula. \\
+K02 & RF-06 & Comprobante digital de matrícula & Entregable observable y verificable por el usuario. \\
+K03 & RF-08 & Registro de calificación & Acción central del seguimiento académico. \\
+K04 & RF-10 & Consulta personal de calificaciones & Acceso directo del titular a su información publicada. \\
+K05 & RF-11 & Boletín académico digital & Documento de uso frecuente para secretaría y representantes. \\
+K06 & RNF-01 & Rapidez de matrícula & Atributo de calidad medible en períodos de alta demanda. \\
+K07 & RNF-04 & Facilidad de uso & Atributo de calidad observable sin ayuda previa. \\
+K08 & RNF-05 & Compatibilidad con móvil & Atributo de calidad verificable en pantallas pequeñas. \\
+\end{longtable}
 
-Antes de iniciar se presenta el propósito, se obtiene el consentimiento informado descrito en el protocolo de esta actividad y se confirma que cada participante es mayor de edad. La aplicación es individual y cada participante registra una pareja de respuestas por característica.
+Las características K06, K07 y K08 describen atributos de calidad con umbrales numéricos en el catálogo. Las preguntas comunican el beneficio observable y no reproducen la métrica completa, de modo que una persona sin formación técnica pueda responder. K01 conserva la denominación del archivo de selección; su formulación incorpora la condición de cupo disponible del requisito RF-04. Cada característica evalúa un solo aspecto y no se repite entre las ocho seleccionadas.
 
-\subsection{Escala de respuestas}
+\subsection{Cuestionario definitivo}
+\label{subsec:cuestionario-kano}
+
+El instrumento contiene dieciséis preguntas: una funcional, que explora la reacción ante la presencia de la característica, y una disfuncional, que explora la reacción ante su ausencia. Ambas usan la misma escala y se formulan de manera paralela, sin inducir una respuesta. La redacción definitiva se conserva también en \path{datos/instrumento_kano.csv}.
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.08}
+\begin{longtable}{@{}p{0.08\linewidth}p{0.10\linewidth}p{0.37\linewidth}p{0.37\linewidth}@{}}
+\caption{Parejas de preguntas funcionales y disfuncionales}\label{tab:preguntas-kano}\\
+\toprule
+\textbf{Código} & \textbf{Requisito} & \textbf{Pregunta funcional} & \textbf{Pregunta disfuncional} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\textit{Continuación del cuestionario}}\\
+\toprule
+\textbf{Código} & \textbf{Requisito} & \textbf{Pregunta funcional} & \textbf{Pregunta disfuncional} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+K01 & RF-04 & ¿Cómo se sentiría si pudiera registrar la matrícula en línea en el paralelo seleccionado, siempre que haya cupo? & ¿Cómo se sentiría si la matrícula solo pudiera registrarse de forma presencial? \\
+K02 & RF-06 & ¿Cómo se sentiría si, al confirmar la matrícula, el sistema generara un comprobante digital con código, estudiante, paralelo y período? & ¿Cómo se sentiría si, al confirmar la matrícula, no se entregara ningún comprobante digital? \\
+K03 & RF-08 & ¿Cómo se sentiría si el docente pudiera registrar en el sistema la calificación numérica de cada evaluación? & ¿Cómo se sentiría si las calificaciones de las evaluaciones no pudieran registrarse en el sistema? \\
+K04 & RF-10 & ¿Cómo se sentiría si pudiera consultar en el sistema sus calificaciones publicadas del período seleccionado? & ¿Cómo se sentiría si no pudiera consultar en el sistema sus calificaciones publicadas? \\
+K05 & RF-11 & ¿Cómo se sentiría si secretaría pudiera generar un boletín digital con asignaturas y calificaciones publicadas? & ¿Cómo se sentiría si no se pudiera generar un boletín digital y el expediente solo estuviera en físico? \\
+K06 & RNF-01 & ¿Cómo se sentiría si el registro de matrícula se completara en menos de tres segundos incluso con muchas solicitudes simultáneas? & ¿Cómo se sentiría si el registro de matrícula tardara más de tres segundos cuando hay muchas solicitudes simultáneas? \\
+K07 & RNF-04 & ¿Cómo se sentiría si pudiera completar una matrícula simulada sin ayuda y en cinco minutos o menos, la primera vez que usa el sistema? & ¿Cómo se sentiría si requiriera ayuda o más de cinco minutos para completar una matrícula simulada la primera vez? \\
+K08 & RNF-05 & ¿Cómo se sentiría si pudiera consultar la matrícula y las notas en su teléfono sin desplazamiento horizontal? & ¿Cómo se sentiría si, al consultar la matrícula y las notas en su teléfono, la pantalla se desplazara horizontalmente? \\
+\end{longtable}
+\endgroup
+
+\subsection{Escala de respuesta}
 \label{subsec:escala-kano}
 
 \begin{table}[htbp]
 \centering
-\caption{Opciones de respuesta del cuestionario Kano.}
+\caption{Opciones comunes de respuesta del cuestionario Kano.}
 \label{tab:escala-kano}
 \renewcommand{\arraystretch}{1.15}
 \begin{tabular}{@{}cl@{}}
 \toprule
 Código & Opción de respuesta \\
 \midrule
-1 & Me gusta que sea así. \\
-2 & Debe ser así. \\
-3 & Soy neutral; me da igual. \\
-4 & Puedo vivir con ello. \\
-5 & No me gusta que sea así. \\
+1 & Me gusta. \\
+2 & Es algo que espero. \\
+3 & Me resulta indiferente. \\
+4 & Puedo tolerarlo. \\
+5 & No me gusta. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-La escala no es de tipo Likert: las opciones describen reacciones cualitativas ante la presencia o la ausencia de la característica. En el archivo \texttt{kano\_respuestas.csv} se registran los códigos numéricos 1 a 5 en las columnas \texttt{funcional} y \texttt{disfuncional}; la columna \texttt{categoria} contiene el resultado de la evaluación descrita en el apartado siguiente.
+La escala no es de tipo Likert: describe reacciones cualitativas ante la presencia o la ausencia de una característica. En \path{datos/kano_respuestas.csv} se registran los códigos 1 a 5 en las columnas \texttt{funcional} y \texttt{disfuncional}. La columna \texttt{categoria} contiene el resultado de la evaluación descrita en el apartado siguiente.
 
-\subsection{Tabla de evaluación}
-\label{subsec:matriz-kano}
+\subsection{Tabla de evaluación y procedimiento de clasificación}
+\label{subsec:clasificacion-kano}
 
-La tabla~\ref{tab:matriz-kano} muestra la matriz clásica de evaluación del modelo Kano. La fila corresponde a la respuesta funcional y la columna a la disfuncional; cada celda asigna una de las seis categorías.
+La tabla~\ref{tab:matriz-kano} muestra la matriz clásica de evaluación del modelo Kano, contrastada con la tabla reproducida en literatura metodológica especializada. La fila corresponde a la respuesta funcional y la columna a la disfuncional; cada celda asigna una categoría.
 
 \begin{table}[htbp]
 \centering
@@ -56,9 +106,9 @@ La tabla~\ref{tab:matriz-kano} muestra la matriz clásica de evaluación del mod
 Funcional $\downarrow$ / Disfuncional $\rightarrow$ & 1 & 2 & 3 & 4 & 5 \\
 \midrule
 1 (Me gusta) & Q & A & A & A & O \\
-2 (Debe ser) & R & I & I & I & M \\
-3 (Neutral) & R & I & I & I & M \\
-4 (Vivir con) & R & I & I & I & M \\
+2 (Espero) & R & I & I & I & M \\
+3 (Indiferente) & R & I & I & I & M \\
+4 (Tolero) & R & I & I & I & M \\
 5 (No me gusta) & R & R & R & R & Q \\
 \bottomrule
 \end{tabular}
@@ -66,11 +116,28 @@ Funcional $\downarrow$ / Disfuncional $\rightarrow$ & 1 & 2 & 3 & 4 & 5 \\
 
 \noindent\textbf{Leyenda.} A: atractiva; O: unidimensional; M: obligatoria o básica; I: indiferente; R: inversa; Q: cuestionable.
 
-\subsection{Tabulación y clasificación}
-\label{subsec:tabulacion-kano}
+La clasificación se realiza en dos niveles. Primero, cada pareja de respuestas se convierte en una categoría individual mediante la matriz. Segundo, para cada característica se contabiliza la frecuencia de A, O, M, I, Q y R entre los participantes. La categoría cuestionable indica una contradicción entre las dos respuestas o una pregunta mal comprendida; se registra por separado y no interviene en la categoría predominante. La categoría predominante es la de mayor frecuencia entre A, O, M, I y R, calculada sobre las respuestas válidas.
 
-Para cada característica se aplica la matriz a la pareja de códigos de cada participante y se contabiliza la frecuencia de las seis categorías. La categoría cuestionable (Q) indica una contradicción entre las dos respuestas o una pregunta mal comprendida; por ello se registra por separado y no se considera al determinar la categoría predominante. La categoría de una característica es la de mayor frecuencia entre A, O, M, I y R, calculada sobre el total de respuestas válidas.
+Ante un empate en la máxima frecuencia se aplica una regla operativa del equipo, no atribuida a una norma ni a los autores citados: se verifica primero que no existan respuestas Q ni fallos de redacción; si el empate persiste, se conserva la categoría del orden M, O, A, I, R. Esta decisión coincide con el criterio implementado en \path{scripts/analisis.py}. Si la categoría inversa resulta predominante, se revisa la formulación de la pareja de preguntas antes de aceptar la clasificación.
 
-Cuando dos o más categorías empatan en la mayor frecuencia, el equipo aplica la siguiente regla operativa, adoptada para esta actividad y no atribuida a una norma ni a los autores citados: se declara el empate, se verifica que no existan respuestas Q ni fallos de redacción y, si el empate persiste, se conserva la categoría cuya ausencia implicaría una consecuencia más desfavorable para el proceso de matrícula, en el orden M, O, A, I. Si la categoría inversa (R) resulta predominante, se revisa la formulación de la pareja de preguntas antes de aceptar la clasificación. Estas decisiones se documentan como parte del análisis y pueden ajustarse al disponer de las respuestas reales.
+\subsection{Procedimiento de aplicación}
+\label{sec:protocolo-simulacion}
 
-El registro de respuestas se conserva en \texttt{GA/SIM-01/datos/kano\_respuestas.csv}, cuyos encabezados son, en orden, {\small\texttt{participante,caracteristica,funcional,disfuncional,categoria}}. El procesamiento se realiza sobre ese archivo sin incorporar datos identificativos.
+Se prevé aplicar el instrumento a cinco personas adultas distintas, vinculadas con actividades de matrícula o seguimiento escolar, identificadas mediante los códigos P01 a P05. Los roles pertinentes al dominio incluyen secretaría, docentes, representantes, autoridades y estudiantes adultos. Para cada característica, el participante responderá la versión funcional y la disfuncional de una pregunta. El instrumento incluye dieciséis preguntas y se encuentra en \path{datos/instrumento_kano.csv}.
+
+Las respuestas se registrarán en el archivo CSV de Kano. Cada fila identificará el código del participante, la característica evaluada y sus dos respuestas. La estructura de los campos está descrita en \path{datos/ESQUEMA.md}. Los cinco participantes deben aportar ocho pares válidos cada uno, para un mínimo de cuarenta registros. El análisis posterior utilizará la matriz descrita en la sección~\ref{subsec:clasificacion-kano} y distinguirá las categorías obligatoria, unidimensional, atractiva, indiferente, inversa y cuestionable. No se imputarán respuestas ausentes.
+
+\subsection{Estado del registro de respuestas}
+\label{subsec:estado-respuestas}
+
+El archivo \path{datos/kano_respuestas.csv} conserva únicamente el encabezado, formado por las columnas \texttt{participante}, \texttt{caracteristica}, \texttt{funcional}, \texttt{disfuncional} y \texttt{categoria}. En este avance no se dispone de respuestas reales suficientes; por ello no se presentan frecuencias ni categorías predominantes. La clasificación agregada se incorporará cuando cada una de las cinco personas haya respondido las dieciséis preguntas.
+
+\subsection{Votación ponderada y negociación}
+
+Se prevé una segunda técnica con tres personas adultas diferentes de las participantes en Kano, identificadas como P06, P07 y P08. Cada participante distribuirá exactamente cien puntos entre los veinte requisitos del catálogo; sus votos se registrarán en \path{datos/votos.csv}. La clasificación MoSCoW será discutida por el equipo y documentada en \path{datos/moscow.csv}, incluyendo para cada requisito una prioridad, una estimación positiva de esfuerzo y una justificación. El esfuerzo acumulado del grupo Must no podrá superar el sesenta por ciento del esfuerzo total acordado. La comparación y las decisiones finales no deben atribuirse a participantes sin datos recopilados.
+
+\subsection{Consentimiento, custodia y manifiesto}
+
+La invitación a participar debe explicar el propósito académico, el carácter voluntario del ejercicio, el tratamiento de respuestas anonimizadas y la custodia privada de los respaldos. No se publicarán formularios firmados, audios, videos, nombres, teléfonos, correos personales ni documentos de identificación. El equipo conservará los originales en una carpeta privada accesible a las personas autorizadas y registrará sus metadatos en \path{evidencias/MANIFIESTO.md}, de acuerdo con prácticas prudentes de protección de información personal~\cite{lopdp2021,acm2018}.
+
+Cada fila del manifiesto se incorporará únicamente al disponer del archivo original. Registrará código del participante, rol en el dominio educativo, técnica, fecha de recolección, nombre del archivo privado y huella SHA-256 obtenida de sus bytes. El manifiesto público no contiene entradas de participantes hasta que existan evidencias efectivamente obtenidas.

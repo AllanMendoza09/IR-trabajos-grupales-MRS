@@ -1,67 +1,51 @@
-\section{Dominio y requisitos}
-\label{sec:dominio-requisitos}
+\section{Catálogo de requisitos candidatos}
+\label{sec:catalogo-requisitos}
 
-\subsection{Descripción del dominio}
-\label{subsec:dominio}
+El caso de estudio corresponde a los procesos de matrícula y registro de calificaciones de una unidad educativa. Se contemplan estudiantes, representantes, docentes, personal de secretaría, coordinación académica y autoridades como partes interesadas en los procesos escolares. Los requisitos se especifican como comportamientos y condiciones observables mediante el verbo modal \emph{deberá}, de conformidad con el enfoque de especificación individual \cite{iso29148,wiegers2013}.
 
-El dominio comprende dos procesos de una unidad educativa: la matrícula de estudiantes en un período lectivo y el registro, la modificación y la consulta de calificaciones. El sistema se especifica para una unidad educativa genérica, sin distinguir su tipo de sostenimiento. Los parámetros que varían entre instituciones (documentos exigidos, cupos, escala de calificación, períodos evaluativos y fórmula de promedio) se tratan como configurables. Los umbrales de los requisitos de calidad son criterios de diseño adoptados por el equipo y no constituyen exigencias normativas ni institucionales. La protección de los datos personales de los estudiantes, entre los que se encuentran menores de edad, se considera en el marco de la Ley Orgánica de Protección de Datos Personales~\cite{lopdp2021}.
+Se analizan doce requisitos funcionales (RF) y ocho requisitos de calidad (RNF). Las cifras utilizadas en los RNF son \emph{umbrales propuestos}, no mediciones de una unidad educativa específica. El alcance está limitado a las funciones académicas de matrícula y calificaciones.
 
-\subsection{Partes interesadas}
-\label{subsec:partes-interesadas}
-
-\begin{itemize}
-  \item \textbf{Representante legal:} solicita la matrícula del estudiante y consulta su situación académica.
-  \item \textbf{Estudiante:} recibe el comprobante de matrícula y consulta sus calificaciones.
-  \item \textbf{Secretaría:} verifica documentos, decide sobre las solicitudes y controla los cupos.
-  \item \textbf{Docente:} registra calificaciones, obtiene promedios y solicita correcciones.
-  \item \textbf{Autoridad académica:} cierra períodos de calificación, resuelve correcciones y responde por la integridad de los registros.
-  \item \textbf{Personal de TI:} opera el sistema, garantiza su continuidad y administra los respaldos.
-\end{itemize}
-
-\subsection{Necesidades identificadas}
-\label{subsec:necesidades}
-
-Los representantes legales necesitan registrar la matrícula y dar seguimiento a su resultado. Secretaría necesita verificar documentos y evitar matrículas por encima de la capacidad de cada curso. Los docentes necesitan registrar calificaciones y obtener promedios sin cálculo manual. La autoridad académica necesita controlar el cierre de los períodos y conservar evidencia de toda corrección posterior. Estudiantes y representantes necesitan consultar únicamente la información que les corresponde. El personal de TI necesita operar el sistema con continuidad y capacidad de recuperación ante fallos.
-
-\subsection{Requisitos}
-\label{subsec:requisitos}
-
-Cada requisito expresa una única obligación, admite una sola interpretación y cuenta con un criterio de verificación, conforme a las características de un requisito individual descritas en la norma ISO/IEC/IEEE 29148~\cite{iso29148}. Los requisitos de calidad indican métrica, umbral, condición de medición y método de verificación. La tabla~\ref{tab:requisitos} presenta los veinte requisitos.
-
-{\small
-\setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.06\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
-\caption{Requisitos del sistema de matrícula y calificaciones.}\label{tab:requisitos}\\
-\hline
-\textbf{ID} & \textbf{Tipo} & \textbf{Requisito} & \textbf{Origen} & \textbf{Criterio de verificación}\\
-\hline
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}p{0.12\linewidth}p{0.83\linewidth}@{}}
+\caption{Catálogo de veinte requisitos candidatos para la unidad educativa}\label{tab:catalogo-veinte}\\
+\toprule
+\textbf{ID} & \textbf{Requisito propuesto} \\
+\midrule
 \endfirsthead
-\caption[]{Requisitos del sistema de matrícula y calificaciones (continuación).}\\
-\hline
-\textbf{ID} & \textbf{Tipo} & \textbf{Requisito} & \textbf{Origen} & \textbf{Criterio de verificación}\\
-\hline
+\multicolumn{2}{@{}l}{\textit{Continuación del catálogo de requisitos}}\\
+\toprule
+\textbf{ID} & \textbf{Requisito propuesto} \\
+\midrule
 \endhead
-\hline
-\endfoot
-RF-01 & RF & El sistema deberá permitir al representante legal registrar una solicitud de matrícula para un estudiante nuevo, indicando los datos del estudiante, el nivel solicitado y el período lectivo. & Representante legal & Prueba funcional: con datos válidos, la solicitud queda almacenada con estado \textit{registrada} e identificador único; con un dato obligatorio ausente, el sistema la rechaza e indica el campo omitido.\\
-RF-02 & RF & El sistema deberá permitir al representante legal registrar la renovación de matrícula de un estudiante antiguo precargando sus datos de identificación almacenados. & Representante legal & Prueba funcional: la solicitud de renovación muestra el 100\,\% de los datos de identificación almacenados y queda en estado \textit{registrada} sin reingresarlos.\\
-RF-03 & RF & El sistema deberá permitir al representante legal adjuntar a la solicitud de matrícula los documentos de respaldo definidos por la institución. & Representante legal, Secretaría & Prueba funcional: cada tipo de documento configurado se adjunta y es visible para Secretaría; un archivo de formato no admitido es rechazado con un mensaje.\\
-RF-04 & RF & El sistema deberá permitir a Secretaría registrar la decisión, aprobada o rechazada, sobre una solicitud de matrícula, indicando el motivo cuando sea rechazada. & Secretaría & Prueba funcional: la decisión modifica el estado de la solicitud; una decisión de rechazo sin motivo es denegada.\\
-RF-05 & RF & El sistema deberá impedir confirmar matrículas por encima del cupo definido para cada curso y paralelo. & Autoridad académica, Secretaría & Prueba funcional: con un cupo de $N$ estudiantes, la matrícula número $N+1$ es rechazada con un aviso de cupo agotado.\\
-RF-06 & RF & El sistema deberá emitir un comprobante de matrícula por cada matrícula confirmada, con los datos del estudiante, curso, paralelo, período lectivo y fecha de confirmación. & Representante legal, Estudiante & Inspección: tras confirmar una matrícula, se genera un documento imprimible que contiene los seis datos indicados.\\
-RF-07 & RF & El sistema deberá permitir al docente registrar la calificación de un estudiante en una asignatura y un período evaluativo que tenga asignados, mientras el período esté abierto. & Docente & Prueba funcional: un valor dentro de la escala configurada se almacena; un valor fuera de la escala o una asignatura no asignada son rechazados.\\
-RF-08 & RF & El sistema deberá calcular el promedio de cada estudiante por asignatura aplicando la fórmula de ponderación configurada por la institución. & Docente, Autoridad académica & Prueba con diez casos cuyo resultado esperado se calcula de forma independiente: coincidencia en 10 de 10 casos con el número de decimales configurado.\\
-RF-09 & RF & El sistema deberá permitir a la autoridad académica cerrar el período de registro de calificaciones de un período evaluativo. & Autoridad académica & Prueba funcional: tras el cierre, todo intento de registrar una calificación en ese período es rechazado con un aviso de período cerrado.\\
-RF-10 & RF & El sistema deberá permitir al docente solicitar la modificación de una calificación de un período cerrado, indicando el motivo. & Docente & Prueba funcional: la solicitud queda en estado \textit{pendiente} sin alterar la calificación vigente; una solicitud sin motivo es rechazada.\\
-RF-11 & RF & El sistema deberá permitir a la autoridad académica aprobar o rechazar una solicitud de modificación de calificación. & Autoridad académica & Prueba funcional: al aprobar, la calificación vigente adopta el valor solicitado; al rechazar, permanece sin cambios.\\
-RF-12 & RF & El sistema deberá permitir al estudiante y a su representante legal consultar únicamente las calificaciones y los promedios del estudiante vinculado. & Estudiante, Representante legal & Prueba funcional: cada usuario visualiza las calificaciones del estudiante vinculado; el intento de consultar las de otro estudiante es denegado.\\
-RNF-01 & RNF & Durante la consulta de calificaciones con 200 usuarios concurrentes, el sistema deberá responder en un tiempo igual o inferior a 3\,s en el percentil 95 de las solicitudes. & Estudiante, Representante legal, Personal de TI & Prueba de carga de 10 minutos con 200 usuarios simulados; se calcula el percentil 95 de los tiempos de respuesta.\\
-RNF-02 & RNF & El sistema deberá mantener una disponibilidad igual o superior al 99,0\,\% por mes calendario durante los períodos de matrícula y de cierre de calificaciones, excluido el mantenimiento programado comunicado con 48\,h de antelación. & Autoridad académica, Personal de TI & Análisis de registros de monitoreo: disponibilidad igual al tiempo operativo dividido entre el tiempo total medido del período.\\
-RNF-03 & RNF & El sistema deberá denegar el 100\,\% de las operaciones sobre matrículas y calificaciones solicitadas por un usuario cuyo rol no las autoriza. & Autoridad académica, Personal de TI & Batería de pruebas con un caso por cada combinación rol--operación de la matriz de permisos; criterio de aceptación: 0 operaciones no autorizadas ejecutadas.\\
-RNF-04 & RNF & El sistema deberá registrar, en el 100\,\% de las modificaciones de calificaciones, el usuario, la fecha y hora, el valor anterior, el valor nuevo y el motivo. & Autoridad académica & Prueba con 30 modificaciones; inspección del registro: 30 de 30 con los cinco datos completos.\\
-RNF-05 & RNF & El sistema deberá cifrar el 100\,\% de las comunicaciones entre los dispositivos de los usuarios y el sistema. & Representante legal, Estudiante & Prueba de conexión desde un cliente de prueba a cada punto de acceso: 0 conexiones sin cifrado aceptadas.\\
-RNF-06 & RNF & El sistema deberá permitir que, al menos 4 de 5 docentes sin capacitación previa en el sistema, registren las calificaciones de un curso de 30 estudiantes en una asignatura en un tiempo igual o inferior a 10\,min. & Docente & Prueba de usabilidad cronometrada con 5 docentes y una tarea guiada; se cuentan los participantes que completan la tarea en 10\,min o menos.\\
-RNF-07 & RNF & El sistema deberá permitir que al menos el 90\,\% de los representantes legales complete sin asistencia una solicitud de matrícula de estudiante nuevo en un tiempo igual o inferior a 15\,min. & Representante legal & Prueba de usabilidad con al menos 10 representantes; se calcula la proporción que completa la solicitud sin asistencia en 15\,min o menos.\\
-RNF-08 & RNF & Ante una falla del sistema, el sistema deberá poder restaurar sus datos con una pérdida acumulada no superior a 24\,h de operación. & Personal de TI, Autoridad académica & Simulacro de restauración: se compara la fecha de los datos restaurados con la del fallo simulado; diferencia menor o igual a 24\,h.\\
+\bottomrule
+\endlastfoot
+\textbf{RF-01} & El sistema deberá registrar un estudiante con identificador institucional único cuando la secretaría confirme los datos de matrícula y la identificación no exista, con el fin de crear su expediente académico. \\
+\textbf{RF-02} & El sistema deberá autenticar a un usuario mediante credenciales institucionales cuando solicite ingresar a la plataforma, con el fin de habilitar las funciones correspondientes a su perfil. \\
+\textbf{RF-03} & El sistema deberá mostrar los paralelos ofertados en el período lectivo seleccionado cuando un usuario autorizado consulte la oferta académica, con el fin de identificar opciones de matrícula. \\
+\textbf{RF-04} & El sistema deberá registrar la matrícula de un estudiante en el paralelo seleccionado cuando exista un cupo disponible y el estudiante cumpla las condiciones académicas definidas, con el fin de formalizar su inscripción. \\
+\textbf{RF-05} & El sistema deberá rechazar una solicitud de matrícula en un paralelo cuando el número de matriculados alcance su capacidad definida, con el fin de evitar sobreasignación de cupos. \\
+\textbf{RF-06} & El sistema deberá generar un comprobante con código, estudiante, paralelo y período lectivo cuando la matrícula quede registrada, con el fin de acreditar la inscripción. \\
+\textbf{RF-07} & El sistema deberá asociar un docente autorizado a una asignatura de un paralelo cuando la coordinación confirme su distribución académica, con el fin de habilitar el registro de notas. \\
+\textbf{RF-08} & El sistema deberá registrar la calificación numérica de una evaluación para un estudiante matriculado cuando el docente asignado confirme el valor dentro de la escala institucional configurada, con el fin de mantener el registro académico. \\
+\textbf{RF-09} & El sistema deberá registrar una nueva versión de una calificación con la justificación de modificación cuando el responsable autorizado apruebe su corrección, con el fin de conservar el historial de cambios. \\
+\textbf{RF-10} & El sistema deberá mostrar al estudiante autenticado sus calificaciones publicadas del período seleccionado cuando consulte su historial, con el fin de conocer su desempeño académico. \\
+\textbf{RF-11} & El sistema deberá generar el boletín de un estudiante con asignaturas y calificaciones publicadas cuando secretaría solicite el documento para un período lectivo, con el fin de respaldar su trayectoria académica. \\
+\textbf{RF-12} & El sistema deberá generar un reporte de matriculados por paralelo y período cuando la dirección académica seleccione un período lectivo, con el fin de supervisar la ocupación de cupos. \\
+\textbf{RNF-01} & El sistema deberá completar al menos el 95 \% de los registros de matrícula en un máximo de 3 segundos cuando existan 100 solicitudes simultáneas sobre una base de 3000 estudiantes, con el fin de mantener tiempos controlados en el inicio de período. \\
+\textbf{RNF-02} & El sistema deberá mantener una disponibilidad mensual mínima del 99,5 \% del portal cuando se evalúe un mes calendario de operación, incluyendo mantenimientos, con el fin de asegurar acceso regular a servicios académicos. \\
+\textbf{RNF-03} & El sistema deberá impedir el acceso a calificaciones individuales de un estudiante desde cuentas no autorizadas en el 100 \% de los casos cuando se ejecute una batería de 50 solicitudes negativas con perfiles de estudiante, docente y secretaría, con el fin de proteger información académica personal. \\
+\textbf{RNF-04} & El sistema deberá permitir que al menos el 90 \% de una muestra de 20 usuarios adultos complete una matrícula simulada en no más de 5 minutos cuando utilicen por primera vez la interfaz sin ayuda, con el fin de favorecer la autogestión. \\
+\textbf{RNF-05} & El sistema deberá mostrar sin desplazamiento horizontal las pantallas de consulta de matrícula y notas en al menos cinco resoluciones de pantalla entre 360 y 768 píxeles cuando se pruebe en navegadores modernos, con el fin de facilitar su uso en teléfonos. \\
+\textbf{RNF-06} & El sistema deberá generar al menos una copia íntegra de las bases de matrícula y calificaciones cada 24 horas cuando se encuentre en operación, con el fin de limitar la pérdida de datos ante fallos. \\
+\textbf{RNF-07} & El sistema deberá restaurar el servicio de consulta de calificaciones en un máximo de 60 minutos cuando se simule una caída completa del servidor en un ambiente de recuperación, con el fin de reducir la interrupción académica. \\
+\textbf{RNF-08} & El sistema deberá registrar el 100 \% de las modificaciones de calificaciones con identificador de actor, momento, valor anterior y valor nuevo cuando se ejecuten 50 cambios autorizados de prueba, con el fin de permitir auditorías internas. \\
 \end{longtable}
-}
+\endgroup
+
+\subsection{Criterios de revisión de los requisitos}
+
+La revisión de cada requisito considera el comportamiento solicitado, su condición de activación, el propósito, la autorización del actor y la posibilidad de comprobarlo mediante pruebas. En los requisitos de calidad se debe verificar explícitamente la métrica, el umbral, la unidad y el escenario de medición. El archivo \texttt{datos/requisitos.csv} contiene el código, tipo, nombre, redacción y forma propuesta de verificación, lo cual permite cotejar este catálogo con los datos empleados en las técnicas de priorización.
+
+Las políticas de matrícula, promoción, escalas de calificaciones, cupos y roles de acceso deberán contrastarse con la normativa y la organización de la unidad educativa donde se aplique el ejercicio. Esta necesidad de validación no implica que se hayan efectuado consultas institucionales.

@@ -81,3 +81,9 @@ pdflatex main.tex
 ```
 
 El repositorio remoto no se ha modificado desde esta preparación. El historial y los cambios Git deben comprobarse localmente antes de registrar el commit. El comando sugerido se encuentra en `scripts/git_commit_1.sh` y no incluye `git push`.
+
+## Segundo avance: catálogo y protocolo para el dominio escolar
+
+Se incorporaron `secciones/01_requisitos.tex` (20 requisitos para matrícula y calificaciones) y `secciones/03_kano.tex` (protocolo de Kano, votación, consentimiento y evidencia). La correspondencia de ocho características se vincula a `datos/caracteristicas_kano.csv`. No se han añadido resultados de participantes a `respuestas_kano.csv`, `votos.csv` ni al manifiesto. El catálogo es una propuesta revisable y no demuestra validación con una unidad educativa real.
+
+Este proyecto se limita exclusivamente al dominio **unidad educativa: matrícula y calificaciones**; no se ha incorporado información de otros sistemas.
