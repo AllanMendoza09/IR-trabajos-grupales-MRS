@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'datos'
 OUTPUT = DATA / 'calculos'
-OPTIONS = ('Me gusta', 'Lo espero', 'Indiferente', 'Lo tolero', 'No me gusta')
+OPTIONS = ('Me gusta', 'Es algo que espero', 'Me resulta indiferente', 'Puedo tolerarlo', 'No me gusta')
 GROUP_ORDER = {'Must': 0, 'Should': 1, 'Could': 2, 'Wont': 3}
 KANO_TABLE = (
     ('Q','A','A','A','O'),

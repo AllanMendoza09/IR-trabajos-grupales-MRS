@@ -1,17 +1,17 @@
 caracteristica_id,tipo_pregunta,pregunta,opciones
-K01,funcional,¿Cómo se sentiría si el sistema ofreciera matrícula en línea?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K01,disfuncional,¿Cómo se sentiría si el sistema no ofreciera matrícula en línea?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K02,funcional,¿Cómo se sentiría si el sistema ofreciera comprobante digital de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K02,disfuncional,¿Cómo se sentiría si el sistema no ofreciera comprobante digital de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K03,funcional,¿Cómo se sentiría si el sistema ofreciera registro de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K03,disfuncional,¿Cómo se sentiría si el sistema no ofreciera registro de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K04,funcional,¿Cómo se sentiría si el sistema ofreciera consulta personal de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K04,disfuncional,¿Cómo se sentiría si el sistema no ofreciera consulta personal de calificaciones?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K05,funcional,¿Cómo se sentiría si el sistema ofreciera boletín académico digital?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K05,disfuncional,¿Cómo se sentiría si el sistema no ofreciera boletín académico digital?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K06,funcional,¿Cómo se sentiría si el sistema ofreciera rapidez de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K06,disfuncional,¿Cómo se sentiría si el sistema no ofreciera rapidez de matrícula?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K07,funcional,¿Cómo se sentiría si el sistema ofreciera facilidad de uso?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K07,disfuncional,¿Cómo se sentiría si el sistema no ofreciera facilidad de uso?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K08,funcional,¿Cómo se sentiría si el sistema ofreciera compatibilidad con móvil?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
-K08,disfuncional,¿Cómo se sentiría si el sistema no ofreciera compatibilidad con móvil?,Me gusta | Lo espero | Indiferente | Lo tolero | No me gusta
+K01,funcional,"¿Cómo se sentiría si pudiera registrar la matrícula en línea en el paralelo seleccionado, siempre que haya cupo?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K01,disfuncional,"¿Cómo se sentiría si la matrícula solo pudiera registrarse de forma presencial?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K02,funcional,"¿Cómo se sentiría si, al confirmar la matrícula, el sistema generara un comprobante digital con código, estudiante, paralelo y período?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K02,disfuncional,"¿Cómo se sentiría si, al confirmar la matrícula, no se entregara ningún comprobante digital?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K03,funcional,"¿Cómo se sentiría si el docente pudiera registrar en el sistema la calificación numérica de cada evaluación?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K03,disfuncional,"¿Cómo se sentiría si las calificaciones de las evaluaciones no pudieran registrarse en el sistema?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K04,funcional,"¿Cómo se sentiría si pudiera consultar en el sistema sus calificaciones publicadas del período seleccionado?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K04,disfuncional,"¿Cómo se sentiría si no pudiera consultar en el sistema sus calificaciones publicadas?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K05,funcional,"¿Cómo se sentiría si secretaría pudiera generar un boletín digital con asignaturas y calificaciones publicadas?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K05,disfuncional,"¿Cómo se sentiría si no se pudiera generar un boletín digital y el expediente solo estuviera en físico?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K06,funcional,"¿Cómo se sentiría si el registro de matrícula se completara en menos de tres segundos incluso con muchas solicitudes simultáneas?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K06,disfuncional,"¿Cómo se sentiría si el registro de matrícula tardara más de tres segundos cuando hay muchas solicitudes simultáneas?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K07,funcional,"¿Cómo se sentiría si pudiera completar una matrícula simulada sin ayuda y en cinco minutos o menos, la primera vez que usa el sistema?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K07,disfuncional,"¿Cómo se sentiría si requiriera ayuda o más de cinco minutos para completar una matrícula simulada la primera vez?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K08,funcional,"¿Cómo se sentiría si pudiera consultar la matrícula y las notas en su teléfono sin desplazamiento horizontal?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
+K08,disfuncional,"¿Cómo se sentiría si, al consultar la matrícula y las notas en su teléfono, la pantalla se desplazara horizontalmente?","Me gusta | Es algo que espero | Me resulta indiferente | Puedo tolerarlo | No me gusta"
