@@ -4,3 +4,5 @@ Las evidencias originales de participación se custodian fuera del repositorio p
 
 | Código | Rol en el dominio | Técnica | Fecha | Archivo de evidencia en carpeta privada | SHA-256 |
 |---|---|---|---|---|---|
+
+**Estado de registro:** sin evidencias de participantes incorporadas en esta versión. Las filas se completarán únicamente con resultados y archivos originales verificados.
