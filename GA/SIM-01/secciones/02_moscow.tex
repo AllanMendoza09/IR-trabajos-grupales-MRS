@@ -1,0 +1,80 @@
+\section{Priorización con MoSCoW}
+\label{sec:moscow}
+
+\subsection{Método}
+\label{subsec:moscow-metodo}
+
+La técnica MoSCoW asigna a cada requisito una de cuatro categorías que expresan un acuerdo de prioridad y de alcance. Las categorías no constituyen una medición matemática de la importancia de un requisito. Se definen así:
+
+\begin{itemize}
+  \item \textbf{Must:} requisito indispensable para que la solución cumpla su propósito mínimo acordado.
+  \item \textbf{Should:} requisito de alta importancia que puede aplazarse sin impedir el funcionamiento mínimo acordado.
+  \item \textbf{Could:} requisito deseable que aporta valor, pero tiene menor prioridad relativa.
+  \item \textbf{Won't:} requisito que se excluye del alcance de la entrega actual, aunque puede reconsiderarse posteriormente.
+\end{itemize}
+
+Para asignar la categoría se consideraron la necesidad que atiende el requisito, su contribución al propósito mínimo del sistema, sus dependencias con otros requisitos y las consecuencias de no implementarlo. Cada categoría cuenta con una justificación de una línea.
+
+\subsection{Estimación del esfuerzo}
+\label{subsec:moscow-esfuerzo}
+
+El esfuerzo se expresa en puntos relativos de esfuerzo, con la escala 1, 2, 3, 5, 8 y 13. Cada requisito se compara con los demás y recibe un valor que representa su esfuerzo previsto en relación con el resto. Los valores son estimaciones del equipo y no corresponden a mediciones históricas ni a duraciones oficiales. La misma unidad se usa en los veinte requisitos y en todos los cálculos.
+
+\subsection{Tabla de priorización}
+\label{subsec:moscow-tabla}
+
+La tabla~\ref{tab:moscow} presenta la categoría, el esfuerzo y la justificación de cada requisito.
+
+{\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
+\caption{Priorización MoSCoW de los requisitos.}\label{tab:moscow}\\
+\hline
+\textbf{ID} & \textbf{Categoría} & \textbf{Esfuerzo (puntos)} & \textbf{Justificación}\\
+\hline
+\endfirsthead
+\caption[]{Priorización MoSCoW de los requisitos (continuación).}\\
+\hline
+\textbf{ID} & \textbf{Categoría} & \textbf{Esfuerzo (puntos)} & \textbf{Justificación}\\
+\hline
+\endhead
+\hline
+\endfoot
+RF-01 & Must & 5 & Sin el expediente del estudiante no existe base para matricular ni calificar\\
+RF-02 & Must & 5 & Sin autenticación no se pueden habilitar perfiles ni proteger los datos\\
+RF-03 & Must & 3 & El estudiante necesita ver los paralelos ofertados para poder matricularse\\
+RF-04 & Must & 8 & Es la función central del proceso de matrícula\\
+RF-05 & Must & 5 & Evita matrículas por encima de la capacidad del paralelo\\
+RF-06 & Should & 3 & La inscripción puede acreditarse de otra forma mientras se implementa el comprobante\\
+RF-07 & Must & 5 & Sin docente asignado a la asignatura no se pueden registrar notas\\
+RF-08 & Must & 5 & Es el núcleo del registro académico de calificaciones\\
+RF-09 & Should & 5 & Las correcciones pueden gestionarse fuera del sistema sin impedir el registro básico\\
+RF-10 & Must & 3 & Es el servicio central de consulta para el estudiante y depende de RF-08\\
+RF-11 & Should & 5 & El boletín puede elaborarse manualmente sin impedir el funcionamiento mínimo\\
+RF-12 & Could & 3 & Aporta supervisión de cupos, pero no condiciona la matrícula ni las notas\\
+RNF-01 & Should & 5 & Mejora el inicio de período; el mínimo funciona con tiempos menos estrictos\\
+RNF-02 & Should & 8 & Valioso, pero de alto costo y no define el mínimo viable\\
+RNF-03 & Must & 5 & Protege la información académica personal frente a accesos no autorizados\\
+RNF-04 & Could & 3 & Deseable; su ausencia no bloquea el servicio\\
+RNF-05 & Could & 5 & Deseable; el acceso desde computador cubre el mínimo viable\\
+RNF-06 & Should & 3 & Limita la pérdida de datos; no define el mínimo viable\\
+RNF-07 & Could & 5 & Reduce la interrupción tras una caída; puede abordarse en una etapa posterior\\
+RNF-08 & Should & 3 & Respalda las correcciones (RF-09), que también son Should\\
+\end{longtable}
+}
+
+\subsection{Verificación del límite de esfuerzo del grupo Must}
+\label{subsec:moscow-limite}
+
+El esfuerzo estimado del grupo Must no debe superar el 60\,\% del esfuerzo estimado total. Se verifica con las expresiones
+
+\begin{equation}
+E_{\mathrm{total}}=\sum_{i=1}^{20}E_i,\qquad
+E_{\mathrm{Must}}=\sum_{i\in\mathrm{Must}}E_i,\qquad
+P_{\mathrm{Must}}=\frac{E_{\mathrm{Must}}}{E_{\mathrm{total}}}\times 100,
+\label{eq:moscow-limite}
+\end{equation}
+
+donde $E_i$ es el esfuerzo estimado del requisito $i$, $E_{\mathrm{total}}$ la suma del esfuerzo de los veinte requisitos, $E_{\mathrm{Must}}$ la suma del esfuerzo de los requisitos Must y $P_{\mathrm{Must}}$ el porcentaje del esfuerzo que corresponde a Must. El límite se cumple cuando $P_{\mathrm{Must}}\leq 60\,\%$.
+
+Con los valores de la tabla~\ref{tab:moscow}, $E_{\mathrm{total}}=92$ puntos y $E_{\mathrm{Must}}=44$ puntos, de modo que $P_{\mathrm{Must}}=44/92\times 100\approx 47,83\,\%$. El valor es inferior al 60\,\% y el límite se cumple. El esfuerzo de Should suma 32 puntos, el de Could 16 puntos y el de Won't 0 puntos.

@@ -1,1 +1,21 @@
-requisito_id,prioridad,esfuerzo,justificacion
+id,categoria,esfuerzo,justificacion
+RF-01,Must,5,Sin el expediente del estudiante no existe base para matricular ni calificar
+RF-02,Must,5,Sin autenticación no se pueden habilitar perfiles ni proteger los datos
+RF-03,Must,3,El estudiante necesita ver los paralelos ofertados para poder matricularse
+RF-04,Must,8,Es la función central del proceso de matrícula
+RF-05,Must,5,Evita matrículas por encima de la capacidad del paralelo
+RF-06,Should,3,La inscripción puede acreditarse de otra forma mientras se implementa el comprobante
+RF-07,Must,5,Sin docente asignado a la asignatura no se pueden registrar notas
+RF-08,Must,5,Es el núcleo del registro académico de calificaciones
+RF-09,Should,5,Las correcciones pueden gestionarse fuera del sistema sin impedir el registro básico
+RF-10,Must,3,Es el servicio central de consulta para el estudiante y depende de RF-08
+RF-11,Should,5,El boletín puede elaborarse manualmente sin impedir el funcionamiento mínimo
+RF-12,Could,3,"Aporta supervisión de cupos, pero no condiciona la matrícula ni las notas"
+RNF-01,Should,5,Mejora el inicio de período; el mínimo funciona con tiempos menos estrictos
+RNF-02,Should,8,"Valioso, pero de alto costo y no define el mínimo viable"
+RNF-03,Must,5,Protege la información académica personal frente a accesos no autorizados
+RNF-04,Could,3,Deseable; su ausencia no bloquea el servicio
+RNF-05,Could,5,Deseable; el acceso desde computador cubre el mínimo viable
+RNF-06,Should,3,Limita la pérdida de datos; no define el mínimo viable
+RNF-07,Could,5,Reduce la interrupción tras una caída; puede abordarse en una etapa posterior
+RNF-08,Should,3,"Respalda las correcciones (RF-09), que también son Should"
