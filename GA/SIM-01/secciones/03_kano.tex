@@ -120,17 +120,50 @@ La clasificación se realiza en dos niveles. Primero, cada pareja de respuestas 
 
 Ante un empate en la máxima frecuencia se aplica una regla operativa del equipo, no atribuida a una norma ni a los autores citados: se verifica primero que no existan respuestas Q ni fallos de redacción; si el empate persiste, se conserva la categoría del orden M, O, A, I, R. Esta decisión coincide con el criterio implementado en \path{scripts/analisis.py}. Si la categoría inversa resulta predominante, se revisa la formulación de la pareja de preguntas antes de aceptar la clasificación.
 
-\subsection{Procedimiento de aplicación}
+\subsection{Registro real de aplicación}
 \label{sec:protocolo-simulacion}
 
-Se prevé aplicar el instrumento a cinco personas adultas distintas, vinculadas con actividades de matrícula o seguimiento escolar, identificadas mediante los códigos P01 a P05. Los roles pertinentes al dominio incluyen secretaría, docentes, representantes, autoridades y estudiantes adultos. Para cada característica, el participante responderá la versión funcional y la disfuncional de una pregunta. El instrumento incluye dieciséis preguntas y se encuentra en \path{datos/instrumento_kano.csv}.
+El cuestionario definitivo se aplicó el 27 de noviembre de 2026. El archivo exportado contiene cinco formularios con dieciséis respuestas completas cada uno. Los códigos presentes, en orden de envío, son P01, P04, P04, P02 y P05. No existe un formulario con código P03. El segundo formulario con código P04 se conserva como una respuesta real independiente: no se reasigna a P03 ni se descarta. En consecuencia se dispone de cinco formularios y cuatro códigos distintos; no se afirma que existan cinco personas distintas.
 
-Las respuestas se registrarán en el archivo CSV de Kano. Cada fila identificará el código del participante, la característica evaluada y sus dos respuestas. La estructura de los campos está descrita en \path{datos/ESQUEMA.md}. Los cinco participantes deben aportar ocho pares válidos cada uno, para un mínimo de cuarenta registros. El análisis posterior utilizará la matriz descrita en la sección~\ref{subsec:clasificacion-kano} y distinguirá las categorías obligatoria, unidimensional, atractiva, indiferente, inversa y cuestionable. No se imputarán respuestas ausentes.
+Las opciones textuales del instrumento se transcribieron a los códigos 1 a 5 definidos en la sección~\ref{subsec:escala-kano}, sin modificar las respuestas. Cada pareja se clasificó con la matriz de la sección~\ref{subsec:clasificacion-kano}. El resultado se conserva en \path{datos/kano_respuestas.csv}, con las columnas \texttt{participante}, \texttt{caracteristica}, \texttt{funcional}, \texttt{disfuncional} y \texttt{categoria}; el archivo \path{datos/respuestas_kano.csv} mantiene la misma tabulación sin la columna calculada. La versión para la comparación entre técnicas está en \path{datos/kano_clasificacion.csv}.
 
-\subsection{Estado del registro de respuestas}
-\label{subsec:estado-respuestas}
+Rochina comunicó que las personas participantes aceptaron el protocolo de consentimiento. No se dispone en el repositorio de copias de los originales ni de datos que permitan confirmar la modalidad de la aceptación, la duración efectiva, los roles por código o los nombres de archivo privados; por ello esos campos no se inventan ni se incorporan al manifiesto público.
 
-El archivo \path{datos/kano_respuestas.csv} conserva únicamente el encabezado, formado por las columnas \texttt{participante}, \texttt{caracteristica}, \texttt{funcional}, \texttt{disfuncional} y \texttt{categoria}. En este avance no se dispone de respuestas reales suficientes; por ello no se presentan frecuencias ni categorías predominantes. La clasificación agregada se incorporará cuando cada una de las cinco personas haya respondido las dieciséis preguntas.
+\subsection{Resultados por característica}
+\label{subsec:resultados-kano}
+
+La tabla~\ref{tab:resultados-kano} muestra las frecuencias de las seis categorías y la categoría predominante de cada característica. La columna Q se contabiliza por separado y no interviene en la elección de la categoría predominante.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Frecuencias y categoría predominante por característica.}
+\label{tab:resultados-kano}
+\begin{tabular}{@{}llrrrrrrl@{}}
+\toprule
+Cód. & Req. & A & O & M & I & R & Q & Categoría \\
+\midrule
+K01 & RF-04  & 1 & 0 & 1 & 3 & 0 & 0 & I \\
+K02 & RF-06  & 0 & 3 & 0 & 2 & 0 & 0 & O \\
+K03 & RF-08  & 1 & 2 & 1 & 1 & 0 & 0 & O \\
+K04 & RF-10  & 0 & 3 & 1 & 1 & 0 & 0 & O \\
+K05 & RF-11  & 1 & 2 & 1 & 1 & 0 & 0 & O \\
+K06 & RNF-01 & 3 & 1 & 0 & 1 & 0 & 0 & A \\
+K07 & RNF-04 & 2 & 0 & 1 & 1 & 0 & 1 & A \\
+K08 & RNF-05 & 1 & 0 & 1 & 2 & 1 & 0 & I \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+K03 y K05 presentan un empate en la máxima frecuencia, con dos respuestas cada una en A, O, M e I. Al persistir el empate tras la verificación de redacción, se aplicó la convención operativa del equipo descrita en la sección~\ref{subsec:clasificacion-kano}; por ello la categoría informada es O en ambos casos. K07 contiene una respuesta Q, que se conserva en el registro y se excluye del cálculo de la categoría predominante. Las restantes características no requirieron desempate.
+
+\subsection{Interpretación y limitaciones}
+\label{subsec:interpretacion-kano}
+
+Para los cinco formularios obtenidos, K02, K03, K04 y K05 se clasifican como unidimensionales; K06 y K07 como atractivas; y K01 y K08 como indiferentes. Ninguna característica tiene una categoría M predominante, aunque aparecen respuestas individuales M, y tampoco aparece una categoría R predominante. Estos resultados son descriptivos de la muestra obtenida y no constituyen una medición definitiva de prioridad.
+
+La interpretación está limitada por el tamaño de la muestra, su carácter no probabilístico, la ausencia de P03, la duplicidad del código P04 y la falta de roles verificados por código. En consecuencia, las categorías no se generalizan a toda la comunidad educativa ni se presentan como sustituto de la negociación del equipo. Constituyen un insumo para contrastar el orden Kano con los resultados de MoSCoW y de la votación ponderada cuando esta última disponga de datos reales.
 
 \subsection{Votación ponderada y negociación}
 
@@ -140,4 +173,4 @@ Se prevé una segunda técnica con tres personas adultas diferentes de las parti
 
 La invitación a participar debe explicar el propósito académico, el carácter voluntario del ejercicio, el tratamiento de respuestas anonimizadas y la custodia privada de los respaldos. No se publicarán formularios firmados, audios, videos, nombres, teléfonos, correos personales ni documentos de identificación. El equipo conservará los originales en una carpeta privada accesible a las personas autorizadas y registrará sus metadatos en \path{evidencias/MANIFIESTO.md}, de acuerdo con prácticas prudentes de protección de información personal~\cite{lopdp2021,acm2018}.
 
-Cada fila del manifiesto se incorporará únicamente al disponer del archivo original. Registrará código del participante, rol en el dominio educativo, técnica, fecha de recolección, nombre del archivo privado y huella SHA-256 obtenida de sus bytes. El manifiesto público no contiene entradas de participantes hasta que existan evidencias efectivamente obtenidas.
+Cada fila del manifiesto se incorporará únicamente al disponer del archivo original y de la huella calculada sobre sus bytes. Registrará código del participante, rol en el dominio educativo, técnica, fecha de recolección, nombre del archivo privado y huella SHA-256 obtenida de sus bytes. En esta versión no se han proporcionado originales ni huellas verificables, por lo que \path{evidencias/MANIFIESTO.md} permanece sin filas de participantes. En \path{evidencias/FILAS_MANIFIESTO.md} se prepararon las filas correspondientes a los cinco formularios con los campos verificables y los campos no disponibles señalados explícitamente.

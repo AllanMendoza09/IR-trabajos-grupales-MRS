@@ -1,6 +1,6 @@
 # Diccionario de datos y reglas de consistencia
 
-Las plantillas de respuestas y decisiones contienen solo encabezados hasta contar con registros reales. Los veinte requisitos del catálogo inicial son propuestas para examen y validación por el equipo, no observaciones de campo.
+Las plantillas de respuestas y decisiones se crearon con solo encabezados. En este avance, las tabulaciones de Kano contienen respuestas reales exportadas del formulario; la votación y las decisiones continúan pendientes de datos reales. Los veinte requisitos del catálogo son propuestas para examen y validación por el equipo, no observaciones de campo.
 
 ## Archivos
 
@@ -8,7 +8,9 @@ Las plantillas de respuestas y decisiones contienen solo encabezados hasta conta
 - `moscow.csv`: `requisito_id` (clave foránea), `prioridad` (Must/Should/Could/Wont), `esfuerzo` (número positivo en unidad acordada por el equipo), `justificacion` (texto no vacío). Exactamente veinte filas al consolidarse.
 - `caracteristicas_kano.csv`: `caracteristica_id` K01…K08, `requisito_id` asociado al catálogo, `caracteristica`. Cada requisito relacionado aparece una sola vez.
 - `instrumento_kano.csv`: `caracteristica_id`, `tipo_pregunta` (funcional/disfuncional), `pregunta`, `opciones` (cinco opciones comunes). Dieciséis filas de instrumento.
-- `respuestas_kano.csv`: `participante_id` P01…P05, `caracteristica_id`, `funcional`, `disfuncional`. Se exige un par por característica y participante, es decir, al menos 40 registros de cinco personas distintas.
+- `respuestas_kano.csv`: `participante_id` P01…P05, `caracteristica_id`, `funcional`, `disfuncional`. En el avance real hay 40 registros, cinco formularios y cuatro códigos distintos: P01, P02, P04 dos veces y P05; no hay P03. La duplicidad se conserva y se declara, no se reasigna.
+- `kano_respuestas.csv`: `participante`, `caracteristica`, `funcional`, `disfuncional`, `categoria`. Es el archivo principal de tabulación; contiene las mismas 40 parejas que `respuestas_kano.csv` con la categoría individual ya calculada.
+- `kano_clasificacion.csv`: `caracteristica`, `id_requisito`, `A`, `O`, `M`, `I`, `R`, `Q`, `categoria`. Contiene ocho filas, una por característica K01–K08, con frecuencias y categoría predominante.
 - `votos.csv`: `participante_id` P06…P08, `requisito_id`, `puntos` (entero >=0). Exactamente veinte registros por votante, con suma de cien puntos. No se permite repetir claves compuestas.
 - `decision.csv`: `requisito_id`, `decision` (Incluir/Descartar), `orden_final` (entero consecutivo para los incluidos), `justificacion` (no vacía). Se completa mediante deliberación real de los miembros.
 
