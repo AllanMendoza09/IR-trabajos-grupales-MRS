@@ -1,0 +1,34 @@
+\section{Propuesta de alcance y criterios de exclusión}
+\label{sec:decision}
+
+La propuesta de primera versión aplica una regla explícita de corte: incorporar los nueve requisitos clasificados como Must en el archivo MoSCoW del equipo, y ordenar su atención interna según los puntos obtenidos en la votación. El esfuerzo estimado de este conjunto es de 44 puntos sobre 92 (47,83\,\%), por debajo del máximo de 60\,\%. La propuesta recoge los datos disponibles y requiere la ratificación del equipo antes de registrarse como decisión definitiva.
+
+\subsection{Requisitos propuestos para la primera versión}
+
+\begingroup\small
+\begin{longtable}{@{}p{0.10\linewidth}p{0.16\linewidth}p{0.52\linewidth}r@{}}
+\caption{Orden propuesto de requisitos Must para la primera versión}\label{tab:propuesta-primera-version}\\
+\toprule
+\textbf{Orden} & \textbf{ID} & \textbf{Requisito} & \textbf{Votos}\\
+\midrule\endfirsthead
+\toprule\textbf{Orden}&\textbf{ID}&\textbf{Requisito}&\textbf{Votos}\\\midrule\endhead
+\bottomrule\endlastfoot
+1 & RF-04 & Matrícula & 31\\
+2 & RF-08 & Registro de calificaciones & 25\\
+3 & RF-05 & Control de cupos & 24\\
+4 & RF-01 & Registro de estudiante & 21\\
+5 & RF-10 & Consulta de notas & 19\\
+6 & RF-07 & Asignación docente & 18\\
+7 & RF-02 & Autenticación & 16\\
+8 & RNF-03 & Privacidad de calificaciones & 15\\
+9 & RF-03 & Oferta de cursos & 11\\
+\end{longtable}
+\endgroup
+
+El orden de lectura no es necesariamente el orden técnico de implementación. Autenticación (RF-02) y registro de estudiantes (RF-01), por ejemplo, constituyen condiciones de operación de otros requisitos y deben coordinarse como dependencias antes de programar entregas.
+
+\subsection{Requisitos fuera del alcance propuesto de la primera versión}
+
+Los siete Should se aplazan bajo la regla de corte por no ser indispensables en la versión mínima acordada en MoSCoW: RF-06, RF-09, RF-11, RNF-01, RNF-02, RNF-06 y RNF-08. Suman 32 puntos de esfuerzo. Los cuatro Could quedan fuera de esta versión por su menor prioridad relativa: RF-12, RNF-04, RNF-05 y RNF-07, con 16 puntos de esfuerzo. Esta diferenciación mantiene los veinte requisitos rastreables y no equivale a descartar definitivamente once requisitos.
+
+No se registró ningún Won't. Por tanto, no existen requisitos formalmente descartados mediante esa categoría en la clasificación disponible. Una decisión posterior de exclusión o incorporación deberá quedar justificada por ID, prioridad, esfuerzo y aprobación del equipo. La diferencia entre RF-12 (Could con 18 votos) y RF-03 (Must con 11 votos) merece discusión explícita en esa negociación.

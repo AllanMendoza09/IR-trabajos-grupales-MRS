@@ -1,0 +1,20 @@
+{
+  "participantes_votacion": {
+    "P06": 100,
+    "P07": 100,
+    "P08": 100
+  },
+  "puntos_totales": 300,
+  "n_requisitos": 20,
+  "n_caracteristicas_kano": 8,
+  "esfuerzo_must": 44.0,
+  "esfuerzo_total": 92.0,
+  "porcentaje_must": 47.82608695652174,
+  "categorias_moscow": {
+    "Must": 9,
+    "Should": 7,
+    "Could": 4,
+    "Wont": 0
+  },
+  "spearman": 0.6604999407769796
+}

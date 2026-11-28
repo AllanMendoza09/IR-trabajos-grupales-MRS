@@ -1,0 +1,14 @@
+\section{Votación ponderada: registro y resultados}
+\label{sec:votacion}
+
+\subsection{Datos y control de calidad}
+
+El 27 de noviembre de 2026 se registraron tres formularios identificados como P06, P07 y P08, distintos de los cinco códigos de Kano. Cada formulario contiene una asignación de puntos enteros no negativos para los veinte requisitos (RF-01 a RF-12 y RNF-01 a RNF-08). Las tres sumas individuales son exactamente cien puntos, por lo que el conjunto agregado totaliza trescientos puntos.
+
+Para obtener el puntaje total de un requisito se suman sus tres asignaciones. El rango 1 corresponde al mayor total. Los empates reciben el rango medio de las posiciones que ocupan; así, dos requisitos empatados en las posiciones 6 y 7 tienen rango 6,5. Se conservan los valores individuales en \path{datos/votos.csv} y el cálculo verificable en \path{datos/calculos/orden_votacion.csv}.
+
+\subsection{Orden obtenido}
+
+\input{tablas/tabla_votacion.tex}
+
+RF-04 (matrícula) obtuvo 31 puntos; RF-08 (registro de calificaciones), 25; y RF-05 (control de cupos), 24. El primer requisito de calidad en la ordenación fue RNF-03 (privacidad de calificaciones), con 15 puntos. La posición relativa deriva únicamente de estas tres papeletas, no de una valoración de toda la comunidad educativa.
